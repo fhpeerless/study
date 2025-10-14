@@ -40,7 +40,14 @@
 <h3 align="center" color="yellow"> 更多问题点击--><a href="http://baidu.com">baidu</a> <---查找答案</h3>
  <script src="monthly-countdown.js"></script>
  <!-- 使用组件 -->
- <!-- 本月结束倒计时 (自动计算当前月份最后一天) -->
+ <!-- 今天结束倒计时 (自动计算当前天结束时间) -->
+  <monthly-countdown 
+    end-time="day"
+    width="350px"
+    height="140px">
+  </monthly-countdown>
+
+  <!-- 本月结束倒计时 (自动计算当前月份最后一天) -->
   <monthly-countdown 
     end-time="mouth"
     width="350px"
@@ -60,6 +67,7 @@
     width="350px"
     height="140px">
   </monthly-countdown>
+
 
 
 
@@ -119,6 +127,7 @@ html是一个超链接的网页语言，h5是第五代，大多数网页都是�
 
 </body>
 </html>
+
 
 
 
