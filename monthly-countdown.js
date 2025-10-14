@@ -5,9 +5,18 @@ class MonthlyCountdown extends HTMLElement {
     this.attachShadow({ mode: 'open' });
     
     // 从属性获取配置
-    this.endTime = this.getAttribute('end-time') || this.calculateCurrentMonthEnd();
+    const endTimeAttr = this.getAttribute('end-time') || 'mouth';
     this.width = this.getAttribute('width') || '300px';
     this.height = this.getAttribute('height') || '120px';
+    
+    // 根据end-time属性决定计算方式
+    if (endTimeAttr === 'mouth') {
+      this.endTime = this.calculateCurrentMonthEnd();
+    } else if (endTimeAttr === 'year') {
+      this.endTime = this.calculateCurrentYearEnd();
+    } else {
+      this.endTime = endTimeAttr;
+    }
     
     this.render();
     this.startCountdown();
@@ -16,6 +25,13 @@ class MonthlyCountdown extends HTMLElement {
   calculateCurrentMonthEnd() {
     const now = new Date();
     const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+    lastDay.setHours(23, 59, 59, 999);
+    return lastDay.toISOString();
+  }
+
+  calculateCurrentYearEnd() {
+    const now = new Date();
+    const lastDay = new Date(now.getFullYear(), 11, 31);
     lastDay.setHours(23, 59, 59, 999);
     return lastDay.toISOString();
   }
@@ -35,7 +51,7 @@ class MonthlyCountdown extends HTMLElement {
     container.innerHTML = `
       <div class="countdown-title">本月还剩</div>
       <div class="countdown-value" id="countdown">00天:00小时:00分;00秒</div>
-      
+      <div class="countdown-footer">点击刷新页面更新时间</div>
     `;
     
     this.shadowRoot.appendChild(style);
@@ -77,4 +93,3 @@ class MonthlyCountdown extends HTMLElement {
 }
 
 customElements.define('monthly-countdown', MonthlyCountdown);
-
