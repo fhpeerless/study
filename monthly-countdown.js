@@ -9,13 +9,16 @@ class MonthlyCountdown extends HTMLElement {
     this.width = this.getAttribute('width') || '300px';
     this.height = this.getAttribute('height') || '120px';
     
-    // 根据end-time属性决定计算方式
+    // 根据end-time属性决定计算方式和标题
     if (endTimeAttr === 'mouth') {
       this.endTime = this.calculateCurrentMonthEnd();
+      this.titleText = '本月还剩';
     } else if (endTimeAttr === 'year') {
       this.endTime = this.calculateCurrentYearEnd();
+      this.titleText = '本年还剩';
     } else {
       this.endTime = endTimeAttr;
+      this.titleText = '本月还剩'; // 默认标题
     }
     
     this.render();
@@ -49,9 +52,9 @@ class MonthlyCountdown extends HTMLElement {
     container.className = 'countdown-container';
     
     container.innerHTML = `
-      <div class="countdown-title">本月还剩</div>
+      <div class="countdown-title">${this.titleText}</div>
       <div class="countdown-value" id="countdown">00天:00小时:00分;00秒</div>
-
+      <div class="countdown-footer">点击刷新页面更新时间</div>
     `;
     
     this.shadowRoot.appendChild(style);
@@ -93,4 +96,3 @@ class MonthlyCountdown extends HTMLElement {
 }
 
 customElements.define('monthly-countdown', MonthlyCountdown);
-
