@@ -57,6 +57,7 @@
     color: #ff9e00;
 }
 
-.running {
-    color: #00c9ff;
+.ended {
+    color: #888;
+    font-style: italic;
 }
