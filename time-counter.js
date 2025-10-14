@@ -14,29 +14,11 @@ class TimeCounter extends HTMLElement {
     createShadowRoot() {
         const shadow = this.attachShadow({ mode: 'open' });
         
-        // 创建计时器结构
+        // 创建计时器结构：只有一行文字
         const template = document.createElement('template');
         template.innerHTML = `
             <div class="container">
-                <div class="timer">
-                    <span class="time-unit">
-                        <span class="time-value" id="days">00</span>
-                        <span class="time-label">天</span>
-                    </span>
-                    <span class="time-unit">
-                        <span class="time-value" id="hours">00</span>
-                        <span class="time-label">时</span>
-                    </span>
-                    <span class="time-unit">
-                        <span class="time-value" id="minutes">00</span>
-                        <span class="time-label">分</span>
-                    </span>
-                    <span class="time-unit">
-                        <span class="time-value" id="seconds">00</span>
-                        <span class="time-label">秒</span>
-                    </span>
-                </div>
-                <div class="status" id="status">本月结束还有：0天 0时 0分 0秒</div>
+                <div class="status" id="status">本月还有0天0时0分0秒结束</div>
             </div>
         `;
         shadow.appendChild(template.content.cloneNode(true));
@@ -50,7 +32,7 @@ class TimeCounter extends HTMLElement {
         if (!container) return;
         
         const width = this.getAttribute('width') || '400px';
-        const height = this.getAttribute('height') || '150px';
+        const height = this.getAttribute('height') || '100px';
         
         container.style.width = width;
         container.style.height = height;
@@ -72,10 +54,6 @@ class TimeCounter extends HTMLElement {
         
         if (diff <= 0) {
             // 本月已结束
-            this.updateTimeElement('days', 0);
-            this.updateTimeElement('hours', 0);
-            this.updateTimeElement('minutes', 0);
-            this.updateTimeElement('seconds', 0);
             this.status.textContent = `本月已结束`;
             this.status.className = 'status ended';
         } else {
@@ -84,20 +62,9 @@ class TimeCounter extends HTMLElement {
             const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((diff % (1000 * 60)) / 1000);
             
-            this.updateTimeElement('days', days);
-            this.updateTimeElement('hours', hours);
-            this.updateTimeElement('minutes', minutes);
-            this.updateTimeElement('seconds', seconds);
-            
-            this.status.textContent = `本月结束还有：${days}天 ${hours}时 ${minutes}分 ${seconds}秒`;
-            this.status.className = 'status countdown';
-        }
-    }
-
-    updateTimeElement(id, value) {
-        const element = this.shadowRoot.getElementById(id);
-        if (element) {
-            element.textContent = value.toString().padStart(2, '0');
+            // 格式化：确保两位数，但这里我们不需要单独显示，所以直接组合
+            this.status.textContent = `本月还有${days}天${hours}时${minutes}分${seconds}秒结束`;
+            this.status.className = 'status';
         }
     }
 }
