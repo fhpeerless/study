@@ -5,7 +5,7 @@ class MonthlyCountdown extends HTMLElement {
     this.attachShadow({ mode: 'open' });
     
     // 从属性获取配置
-    this.endTime = this.getAttribute('end-time') || this.calculateNextMonthEnd();
+    this.endTime = this.getAttribute('end-time') || this.calculateCurrentMonthEnd();
     this.width = this.getAttribute('width') || '300px';
     this.height = this.getAttribute('height') || '120px';
     
@@ -13,11 +13,11 @@ class MonthlyCountdown extends HTMLElement {
     this.startCountdown();
   }
 
-  calculateNextMonthEnd() {
+  calculateCurrentMonthEnd() {
     const now = new Date();
-    const nextMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
-    nextMonth.setHours(23, 59, 59, 999);
-    return nextMonth.toISOString();
+    const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+    lastDay.setHours(23, 59, 59, 999);
+    return lastDay.toISOString();
   }
 
   render() {
@@ -33,9 +33,8 @@ class MonthlyCountdown extends HTMLElement {
     container.className = 'countdown-container';
     
     container.innerHTML = `
-      <div class="countdown-title">下个月结束倒计时</div>
-      <div class="countdown-value" id="countdown">00:00:00:00</div>
-      <div class="countdown-label">天:小时:分钟:秒</div>
+      <div class="countdown-title">本月还剩</div>
+      <div class="countdown-value" id="countdown">00天:00小时:00分;00秒</div>
       <div class="countdown-footer">点击刷新页面更新时间</div>
     `;
     
@@ -56,7 +55,7 @@ class MonthlyCountdown extends HTMLElement {
     
     if (distance < 0) {
       clearInterval(this.interval);
-      this.shadowRoot.getElementById('countdown').textContent = '00:00:00:00';
+      this.shadowRoot.getElementById('countdown').textContent = '00天:00小时:00分;00秒';
       return;
     }
     
@@ -69,7 +68,7 @@ class MonthlyCountdown extends HTMLElement {
     const formatTime = (time) => time < 10 ? `0${time}` : time;
     
     this.shadowRoot.getElementById('countdown').textContent = 
-      `${formatTime(days)}:${formatTime(hours)}:${formatTime(minutes)}:${formatTime(seconds)}`;
+      `${formatTime(days)}天:${formatTime(hours)}小时:${formatTime(minutes)}分;${formatTime(seconds)}秒`;
   }
 
   disconnectedCallback() {
