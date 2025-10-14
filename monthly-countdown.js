@@ -35,7 +35,7 @@ class MonthlyCountdown extends HTMLElement {
     container.innerHTML = `
       <div class="countdown-title">本月还剩</div>
       <div class="countdown-value" id="countdown">00天:00小时:00分;00秒</div>
-      <div class="countdown-footer">点击刷新页面更新时间</div>
+      
     `;
     
     this.shadowRoot.appendChild(style);
@@ -77,3 +77,4 @@ class MonthlyCountdown extends HTMLElement {
 }
 
 customElements.define('monthly-countdown', MonthlyCountdown);
+
