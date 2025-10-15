@@ -21,7 +21,7 @@ class MonthlyCountdown extends HTMLElement {
       this.titleText = '本年还剩';
     } else {
       this.endTime = endTimeAttr;
-      this.titleText = '指定时间还剩';
+      this.titleText = '春节还剩';
     }
     
     this.render();
@@ -105,4 +105,5 @@ class MonthlyCountdown extends HTMLElement {
 }
 
 customElements.define('monthly-countdown', MonthlyCountdown);
+
 
