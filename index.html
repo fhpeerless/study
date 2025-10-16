@@ -47,7 +47,7 @@
         </div>
         
         <footer>
-            <p>课堂笔记系统 &copy; 2023 | 请通过左侧分类按钮查看对应学科笔记</p>
+            <p>课堂笔记系统 &copy; 2025 | 请通过左侧分类按钮查看对应学科笔记</p>
         </footer>
     </div>
 
@@ -134,11 +134,33 @@
                 const card = document.createElement('div');
                 card.className = 'note-card';
                 
-                card.innerHTML = `
-                    <div class="note-title">${note.title}</div>
+                // 构建笔记卡片HTML
+                let cardHTML = `
+                    <div class="note-header">
+                        <div class="note-title">${note.title}</div>
+                        <div class="note-timestamp">${note.timestamp}</div>
+                    </div>
                     <div class="note-content">${note.content}</div>
                 `;
                 
+                // 创建媒体容器用于放置图片和嵌入代码
+                if ((note.image && note.image.trim() !== '') || (note.embed && note.embed.trim() !== '')) {
+                    cardHTML += `<div class="note-media">`;
+                    
+                    // 先显示图片（如果存在）
+                    if (note.image && note.image.trim() !== '') {
+                        cardHTML += `<img src="${note.image}" alt="笔记图片" class="note-image">`;
+                    }
+                    
+                    // 再显示嵌入代码（如果存在）
+                    if (note.embed && note.embed.trim() !== '') {
+                        cardHTML += `<div class="note-embed">${note.embed}</div>`;
+                    }
+                    
+                    cardHTML += `</div>`;
+                }
+                
+                card.innerHTML = cardHTML;
                 return card;
             }
         });
