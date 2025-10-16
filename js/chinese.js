@@ -32,7 +32,7 @@ const chineseNotes = [
              "</code></pre>",
 
     timestamp: "2025-10-16 14:20",
-    embed: '<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=959449046&bvid=BV1ep4y1M7WX&cid=1293401873&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>'
+    embed: '<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=2147533175&auto=1&height=66"></iframe>'
   },
 
   
@@ -44,5 +44,6 @@ const chineseNotes = [
     embed: '<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=959449046&bvid=BV1ep4y1M7WX&cid=1293401873&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>'
   }
 ];
+
 
 
