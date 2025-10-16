@@ -9,7 +9,7 @@ const chineseNotes = [
   {
     title: "html 的基本结构",
     content: "html是一个超链接的网页语言，h5是第五代，大多数网页都是基于h5等各种语言编写的！<br><br>" +
-             "<div class=\"code-block\">" +
+            
              "<pre><code>" +
              "&lt;!DOCTYPE html&gt;<br>" +
              "    告诉游览器用html5的方式解析此网页的html代码<br>" +
@@ -29,8 +29,8 @@ const chineseNotes = [
              "    &lt;p&gt;这是代码示例内容&lt;/p&gt;<br>" +
              "&lt;/body&gt;<br>" +
              "&lt;/html&gt;  至此代码结束" +
-             "</code></pre>" +
-             "</div>",
+             "</code></pre>",
+
     timestamp: "2025-10-16 14:20",
     embed: '<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=115270177791971&bvid=BV1BBngzfEws&cid=32649840988&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>'
   },
@@ -42,3 +42,4 @@ const chineseNotes = [
     embed: '<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=115270177791971&bvid=BV1BBngzfEws&cid=32649840988&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>'
   }
 ];
+
