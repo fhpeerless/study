@@ -1,8 +1,10 @@
 // 语文笔记数据
 const chineseNotes = [
   {
-    title: "古诗词赏析",
-    content: "《静夜思》是唐代诗人李白的代表作，通过'床前明月光'的意象，表达了游子对故乡的深切思念。诗中'疑是地上霜'的比喻，将月光与霜雪巧妙结合，营造出清冷的意境。",
+    title: "初识html可视化编程！",
+    content: "<br>html可视化编程可以下载<a href="https://www.jetbrains.com/webstorm/">webstorm</a> 
+    <br>或者更简单的方式实现可视化，
+    <br>新建一个txt文本把h5代码复制进去，<br>然后格式改成html即可！",
     timestamp: "2025-10-17 08:30",
     image: "https://example.com/images/poetry.jpg" // 示例图片URL
   },
@@ -20,3 +22,4 @@ const chineseNotes = [
     embed: '<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=115270177791971&bvid=BV1BBngzfEws&cid=32649840988&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>'
   }
 ];
+
