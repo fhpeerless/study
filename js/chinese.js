@@ -32,14 +32,17 @@ const chineseNotes = [
              "</code></pre>",
 
     timestamp: "2025-10-16 14:20",
-    embed: '<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=115270177791971&bvid=BV1BBngzfEws&cid=32649840988&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>'
+    embed: '<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=959449046&bvid=BV1ep4y1M7WX&cid=1293401873&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>'
   },
+
+  
   {
     title: "诗词与视频结合",
     content: "这首诗描绘了诗人夜晚思乡的情景，配合视频可以更好地理解诗歌意境。",
     timestamp: "2025-10-15 10:00",
     image: "https://example.com/images/poetry-combined.jpg",
-    embed: '<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=115270177791971&bvid=BV1BBngzfEws&cid=32649840988&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>'
+    embed: '<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=959449046&bvid=BV1ep4y1M7WX&cid=1293401873&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>'
   }
 ];
+
 
