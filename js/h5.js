@@ -35,7 +35,7 @@ const chineseNotes = [
              "</code></pre>",
 
     timestamp: "2025-10-11 14:20",
-    image: "https://picsum.photos/seed/love1/400/300",
+    image: "",
     embed: '<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=1251098300&bvid=BV1iJ4m1e7SA&cid=1454387685&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>'
   },
   {
@@ -44,8 +44,9 @@ const chineseNotes = [
              " &lt;u&gt; <u>下划线标签内容放在标签里面</u>  &lt;u&gt;。<br>" +
              "&lt;strike&gt;   <strike>删除线标签放在标签里面</strike>  &lt;/strike&gt; ",
     timestamp: "2025-10-12 10:00",
-    image: "https://picsum.photos/seed/love1/400/300",
+    image: "",
     embed: '<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=1251098300&bvid=BV1iJ4m1e7SA&cid=1454387685&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>'
   }
 ];
+
 
