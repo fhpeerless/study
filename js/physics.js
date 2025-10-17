@@ -36,7 +36,7 @@ const chineseNotes = [
              "</code></pre>" +
              "</div>",
     timestamp: "2025-10-11 14:20",
-    embed: '<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=2147533175&auto=1&height=66"></iframe>'
+    embed: '<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=113054209607533&bvid=BV1ojn9eWEcr&cid=25666915411&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>'
   },
   {
     title: "html 的字体标签",
@@ -46,9 +46,10 @@ const chineseNotes = [
       " <u> &lt;u&gt; 下划线标签放在标签里面&lt;/u&gt; 下划线标签 </u>>  <br>",
     timestamp: "2025-10-12 10:00",
     image: "https://picsum.photos/seed/love1/400/300",
-    embed: '<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=2147533175&auto=1&height=66"></iframe>'
+    embed: '<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=113054209607533&bvid=BV1ojn9eWEcr&cid=25666915411&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>'
   }
 ];
+
 
 
 
