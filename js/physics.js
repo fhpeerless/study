@@ -1,22 +1,56 @@
-// 物理笔记数据
-const physicsNotes = [
+// 语文笔记数据
+const chineseNotes = [
   {
-    title: "牛顿运动定律",
-    content: "第一定律：惯性定律，物体在不受外力作用时保持静止或匀速直线运动。第二定律：F=ma，力等于质量乘以加速度。第三定律：作用力与反作用力大小相等、方向相反。",
-    timestamp: "2025-10-17 11:00",
-    embed: '<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=115270177791971&bvid=BV1BBngzfEws&cid=32649840988&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>'
+    title: "初识html可视化编程！",
+    content: "html可视化编程可以下载<a href=\"https://www.jetbrains.com/webstorm/\">WebStorm</a>，或者更简单的方式实现可视化：新建一个txt文本把h5代码复制进去，用浏览器打开即可！",
+    timestamp: "2025-10-10 08:30",
+    image: "https://picsum.photos/seed/love1/400/300"
   },
   {
-    title: "电路分析基础",
-    content: "串联电路：电流处处相等，总电阻等于各电阻之和。并联电路：电压处处相等，总电流等于各支路电流之和。欧姆定律：V=IR，电压等于电流乘以电阻。",
-    timestamp: "2025-10-16 16:10",
-    image: "https://example.com/images/circuit.jpg" // 示例图片URL
+    title: "html 的基本结构",
+    content: "html是一个超链接的网页语言，h5是第五代，大多数网页都是基于h5等各种语言编写的！<br><br>" +
+             "<div class=\"code-block\">" +
+             "<pre><code>" +
+             "&lt;!DOCTYPE html&gt;<br>" +
+             "    告诉游览器用html5的方式解析此网页的html代码<br>" +
+             "&lt;html lang=\"en\"&gt;<br>" +
+             "    告诉浏览器该网页是英文编写的，也可用中文编写<br>" +
+             "    浏览器和辅助设备会根据这个辅助处理排版<br>" +
+             "&lt;head&gt;<br>" +
+             "    head--相当于开始内容，head标签里面包含的是网页目录索引<br>" +
+             "    相当于书的封皮，head /head为称之为双标签<br>" +
+             "    成对出现不可单独使用<br>" +
+             "    &lt;br&gt;--表示换行，单独出现，单标签<br>" +
+             "    &lt;meta charset=\"UTF-8\"&gt;<br>" +
+             "    &lt;meta&gt;：--是HTML中的元数据标签，用于提供关于网页的额外信息<br>" +
+             "    charset=\"UTF-8\"：--指定网页使用的字符编码方式为UTF-8<br>" +
+             "    为什么需要这个标签？--如果网页里有中文，但没有这句代码，将会导致中文乱码。<br>" +
+             "    UTF-8 --是目前最常用的字符集编码方式<br>" +
+             "    它包含全世界所有国家需要用到的字符（包括中文、英文、数字、符号等）。<br>" +
+             "    &lt;title&gt;标题标签&lt;/title&gt;<br>" +
+             "&lt;/head&gt;<br>" +
+             "&lt;body&gt;  body包含的是网页的内容部分<br>" +
+             "    &lt;p&gt;这是代码示例内容&lt;/p&gt;<br>" +
+             "&lt;/body&gt;<br>" +
+             "&lt;/html&gt;  至此代码结束" +
+             "</code></pre>" +
+             "</div>",
+    timestamp: "2025-10-11 14:20",
+    embed: '<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=2147533175&auto=1&height=66"></iframe>'
   },
   {
-    title: "力学实验与讲解",
-    content: "这个实验展示了牛顿第二定律的实际应用，配合视频可以更清楚地观察实验过程。",
-    timestamp: "2025-10-12 15:45",
-    image: "https://example.com/images/physics-experiment.jpg",
-    embed: '<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=115270177791971&bvid=BV1BBngzfEws&cid=32649840988&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>'
+    title: "html 的字体标签",
+    content: 
+      " <em> &lt;em&gt; 斜体的内容放在两个标签里面 &lt;/em&gt;斜体标签 </em>  <br>" +
+      " <strike>  &lt; strike &gt;删除线标签内容放在标签里面&lt;/strike&gt; 删除线标签</strike>。<br>" +
+      " <u> &lt;u&gt; 下划线标签放在标签里面&lt;/u&gt; 下划线标签 </u>>  <br>",
+    timestamp: "2025-10-12 10:00",
+    image: "https://picsum.photos/seed/love1/400/300",
+    embed: '<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=2147533175&auto=1&height=66"></iframe>'
   }
 ];
+
+
+
+
+
