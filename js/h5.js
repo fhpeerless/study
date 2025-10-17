@@ -48,6 +48,7 @@ const chineseNotes = [
              "&lt;strike&gt;   <strike>删除线标签放在标签里面</strike>  &lt;/strike&gt; ",
     timestamp: "2025-10-12 10:00",
     images: [],  // 修正：统一使用images属性
-    embed: '<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=1251098300&bvid=BV1iJ4m1e7SA&cid=1454387685&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>'
+    embed: ''
   }
 ];
+
