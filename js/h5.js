@@ -1,10 +1,10 @@
-// 语文笔记数据
+// 语文笔记数据 - 已修正属性名和结构
 const chineseNotes = [
   {
     title: "初识html可视化编程！",
     content: "html可视化编程可以下载<a href=\"https://www.jetbrains.com/webstorm/\">WebStorm</a>，或者更简单的方式实现可视化：新建一个txt文本把h5代码复制进去，用浏览器打开即可！",
     timestamp: "2025-10-10 08:30",
- images: [
+    images: [  // 正确属性名：images（复数）
       "https://picsum.photos/seed/love1/400/300",
       "https://picsum.photos/seed/love2/400/300",
       "https://picsum.photos/seed/love3/400/300"
@@ -37,9 +37,8 @@ const chineseNotes = [
              "&lt;/body&gt;<br>" +
              "&lt;/html&gt;  至此代码结束" +
              "</code></pre>",
-
     timestamp: "2025-10-11 14:20",
-    image: "",
+    images: [],  // 修正：统一使用images属性，空数组表示无图片
     embed: '<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=1251098300&bvid=BV1iJ4m1e7SA&cid=1454387685&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>'
   },
   {
@@ -48,12 +47,7 @@ const chineseNotes = [
              " &lt;u&gt; <u>下划线标签内容放在标签里面</u>  &lt;u&gt;。<br>" +
              "&lt;strike&gt;   <strike>删除线标签放在标签里面</strike>  &lt;/strike&gt; ",
     timestamp: "2025-10-12 10:00",
-    image: "",
+    images: [],  // 修正：统一使用images属性
     embed: '<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=1251098300&bvid=BV1iJ4m1e7SA&cid=1454387685&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>'
   }
 ];
-
-
-
-
-
