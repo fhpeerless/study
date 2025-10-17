@@ -41,14 +41,15 @@ const chineseNotes = [
   {
     title: "html 的字体标签",
     content: 
-      " <em> &lt;em&gt;&lt;/em&gt;斜体标签 </em>  <br>" +
-      " <strike>  &lt;strike&gt;  &lt;/strike&gt; 删除线标签</strike>。<br>" +
-      " <u> &lt;u&gt; &lt;/u&gt; 下划线标签 </u>>  <br>",
+      " <em> &lt;em&gt; 斜体的内容放在两个标签里面 &lt;/em&gt;斜体标签 </em>  <br>" +
+      " <strike>  &lt; strike &gt;删除线标签内容放在标签里面&lt;/strike&gt; 删除线标签</strike>。<br>" +
+      " <u> &lt;u&gt; 下划线标签放在标签里面&lt;/u&gt; 下划线标签 </u>>  <br>",
     timestamp: "2025-10-12 10:00",
     image: "https://example.com/images/poetry-combined.jpg",
     embed: '<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=2147533175&auto=1&height=66"></iframe>'
   }
 ];
+
 
 
 
