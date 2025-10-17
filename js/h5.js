@@ -6,7 +6,6 @@ const chineseNotes = [
     timestamp: "2025-10-10 08:30",
     images: [  // 正确属性名：images（复数）
       "https://picsum.photos/seed/love1/400/300",
-      "https://picsum.photos/seed/love2/400/300",
       "https://picsum.photos/seed/love3/400/300"
     ]
   },
@@ -51,4 +50,5 @@ const chineseNotes = [
     embed: ''
   }
 ];
+
 
