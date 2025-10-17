@@ -36,19 +36,20 @@ const chineseNotes = [
              "</code></pre>" +
              "</div>",
     timestamp: "2025-10-11 14:20",
-    embed: '<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=115270177791971&bvid=BV1BBngzfEws&cid=32649840988&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>'
+    embed: '<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=2147533175&auto=1&height=66"></iframe>'
   },
   {
     title: "html 的字体标签",
     content: 
       " <em> &lt;em&gt;&lt;/em&gt;斜体标签 </em>  <br>" +
-      " <strike>  &lt;strike&gt;  &lt;/strike&gt; 删除线标签</strike>。" +
+      " <strike>  &lt;strike&gt;  &lt;/strike&gt; 删除线标签</strike>。<br>" +
       " <u> &lt;u&gt; &lt;/u&gt; 下划线标签 </u>>  <br>",
     timestamp: "2025-10-12 10:00",
     image: "https://example.com/images/poetry-combined.jpg",
-    embed: '<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=115270177791971&bvid=BV1BBngzfEws&cid=32649840988&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>'
+    embed: '<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=2147533175&auto=1&height=66"></iframe>'
   }
 ];
+
 
 
 
