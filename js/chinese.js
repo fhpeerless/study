@@ -6,6 +6,8 @@ const chineseNotes = [
     timestamp: "2025-10-10 08:30",
     image: "https://picsum.photos/seed/love1/400/300"
   },
+
+  
   {
     title: "html 的基本结构",
     content: "html是一个超链接的网页语言，h5是第五代，大多数网页都是基于h5等各种语言编写的！<br><br>" +
@@ -38,6 +40,8 @@ const chineseNotes = [
     timestamp: "2025-10-11 14:20",
     embed: '<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=2147533175&auto=1&height=66"></iframe>'
   },
+
+  
   {
     title: "html 的字体标签",
     content: 
@@ -49,6 +53,7 @@ const chineseNotes = [
     embed: '<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=2147533175&auto=1&height=66"></iframe>'
   }
 ];
+
 
 
 
