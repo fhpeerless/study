@@ -11,13 +11,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>keep__studing......</title>
     <link rel="stylesheet" href="./css/style.css">
-    
+
+
+      <link rel="stylesheet" href="monthly-countdown.css">
 </head>
 <body>
+ <script src="monthly-countdown.js"></script>
+    
     <div class="container">
         <header>
             <h1>和我一起学习吧！</h1>
             <p class="subtitle">网页记录各个科目零基础笔记内容，可供任何人随时查看学习</p>
+            <!-- 今天结束倒计时 (自动计算当前天结束时间) -->
+  <monthly-countdown 
+    end-time="day"
+    width="350px"
+    height="140px">
+  </monthly-countdown>
+
+  <!-- 本月结束倒计时 (自动计算当前月份最后一天) -->
+  <monthly-countdown 
+    end-time="mouth"
+    width="350px"
+    height="140px">
+  </monthly-countdown>
+
+  <!-- 本年结束倒计时 (自动计算当前年份最后一天) -->
+  <monthly-countdown 
+    end-time="year"
+    width="350px"
+    height="140px">
+  </monthly-countdown>
+
+  <!-- 指定时间倒计时 (2025年最后一天) -->
+  <monthly-countdown 
+    end-time="2026-01-18T23:59:59"
+    width="350px"
+    height="140px">
+  </monthly-countdown>
         </header>
         
         <div class="categories">
@@ -175,6 +206,7 @@ function createNoteCard(note) {
     
 </body>
 </html>
+
 
 
 
