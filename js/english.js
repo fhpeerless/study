@@ -1,7 +1,7 @@
 // 语文笔记数据
 const englishNotes = [
   {
-    title: "初识html可视化编程！",
+    title: "初识——-疑问句的构成！",
     content: "html可视化编程可以下载<a href=\"https://www.jetbrains.com/webstorm/\">WebStorm</a>，或者更简单的方式实现可视化：新建一个txt文本把h5代码复制进去，用浏览器打开即可！",
     timestamp: "2025-10-10 08:30",
     image: "https://picsum.photos/seed/love1/400/300"
@@ -37,15 +37,7 @@ const englishNotes = [
     timestamp: "2025-10-11 14:20",
     image: "https://picsum.photos/seed/love1/400/300",
     embed: '<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=1251098300&bvid=BV1iJ4m1e7SA&cid=1454387685&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>'
-  },
-  {
-    title: "html 的字体标签",
-    content: "&lt;em&gt; <em>斜体的内容放在两个标签里面 </em>&lt;/em&gt;斜体标签<br>" +
-             " &lt;u&gt; <u>下划线标签内容放在标签里面</u>  &lt;u&gt;。<br>" +
-             "&lt;strike&gt;   <strike>删除线标签放在标签里面</strike>  &lt;/strike&gt; ",
-    timestamp: "2025-10-12 10:00",
-    image: "https://picsum.photos/seed/love1/400/300",
-    embed: '<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=1251098300&bvid=BV1iJ4m1e7SA&cid=1454387685&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>'
   }
 ];
+
 
