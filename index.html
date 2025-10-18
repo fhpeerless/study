@@ -24,7 +24,7 @@
             <button class="category-btn" data-category="h5">从0开始的h5,js,css</button>
             <button class="category-btn" data-category="python">python笔记</button>
             <button class="category-btn" data-category="english">英语笔记</button>
-            <button class="category-btn" data-category="physics">101政治笔记</button>
+            <button class="category-btn" data-category="politics">101政治笔记</button>
         </div>
         
         <div class="notes-container">
@@ -47,7 +47,7 @@
             </div>
             
             <!-- 物理笔记区域 -->
-            <div class="notes-section" id="physics-notes">
+            <div class="notes-section" id="politics-notes">
                 <h2>待添加笔记</h2>
                 <!-- 笔记将由JS动态加载 -->
             </div>
@@ -61,7 +61,7 @@
     <script src="./js/h5.js?v=20251018"></script>
     <script src="./js/english.js?v=20251018"></script>
     <script src="./js/python.js?v=20251018"></script>
-    <script src="./js/physics.js?v=20251018"></script>
+    <script src="./js/politics.js?v=20251018"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // 初始化所有笔记区域
@@ -128,11 +128,11 @@
                 }
                 
                 // 物理笔记
-                const physicsNotesContainer = document.getElementById('physics-notes');
-                if (physicsNotes && physicsNotes.length > 0) {
-                    physicsNotes.forEach(note => {
+                const politicsNotesContainer = document.getElementById('politics-notes');
+                if (politicsNotes && politicsNotes.length > 0) {
+                    politicsNotes.forEach(note => {
                         const noteCard = createNoteCard(note);
-                        physicsNotesContainer.appendChild(noteCard);
+                        politicsNotesContainer.appendChild(noteCard);
                     });
                 }
             }
@@ -175,6 +175,7 @@ function createNoteCard(note) {
     
 </body>
 </html>
+
 
 
 
