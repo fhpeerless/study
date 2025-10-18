@@ -21,7 +21,7 @@
         </header>
         
         <div class="categories">
-            <button class="category-btn" data-category="chinese">从0开始的h5,js,css</button>
+            <button class="category-btn" data-category="h5">从0开始的h5,js,css</button>
             <button class="category-btn" data-category="python">python笔记</button>
             <button class="category-btn" data-category="english">英语笔记</button>
             <button class="category-btn" data-category="physics">101政治笔记</button>
@@ -29,7 +29,7 @@
         
         <div class="notes-container">
             <!-- 语文笔记区域 -->
-            <div class="notes-section" id="chinese-notes">
+            <div class="notes-section" id="h5-notes">
                 <h2>h5笔记</h2>
                 <!-- 笔记将由JS动态加载 -->
             </div>
@@ -101,11 +101,11 @@
             
             function initializeNotes() {
                 // 语文笔记
-                const chineseNotesContainer = document.getElementById('chinese-notes');
-                if (chineseNotes && chineseNotes.length > 0) {
-                    chineseNotes.forEach(note => {
+                const h5NotesContainer = document.getElementById('h5-notes');
+                if (h5Notes && h5Notes.length > 0) {
+                    h5Notes.forEach(note => {
                         const noteCard = createNoteCard(note);
-                        chineseNotesContainer.appendChild(noteCard);
+                        h5NotesContainer.appendChild(noteCard);
                     });
                 }
                 
@@ -175,6 +175,7 @@ function createNoteCard(note) {
     
 </body>
 </html>
+
 
 
 
