@@ -1,5 +1,5 @@
 // 语文笔记数据 - 已修正属性名和结构
-const chineseNotes = [
+const h5Notes = [
   {
     title: "初识html可视化编程！",
     content: "html可视化编程可以下载<a href=\"https://www.jetbrains.com/webstorm/\">WebStorm</a>，或者更简单的方式实现可视化：新建一个txt文本把h5代码复制进去，用浏览器打开即可！",
@@ -50,5 +50,6 @@ const chineseNotes = [
     embed: ''
   }
 ];
+
 
 
