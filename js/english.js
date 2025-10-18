@@ -3,7 +3,7 @@ const englishNotes = [
   {
     title: "初识——-疑问句的构成！",
     content: "在英语中任何一句都有时态----<br> ！" + 
-         "在英语中任何一句都有时态----<br> ！"
+              "一半现在时，一般过去时,一般将来时，  <br>现在完成时， 过去完成时，将来完成时，<br>现在进行时，过去进行时，将来进行时 <br>现在完成进行时，过去完成进行时，将来完成进行时"
     timestamp: "2025-10-10 08:30",
     image: "https://picsum.photos/seed/love1/400/300"
   },
@@ -40,6 +40,7 @@ const englishNotes = [
     embed: '<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=1251098300&bvid=BV1iJ4m1e7SA&cid=1454387685&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>'
   }
 ];
+
 
 
 
