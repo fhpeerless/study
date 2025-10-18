@@ -2,7 +2,8 @@
 const englishNotes = [
   {
     title: "初识——-疑问句的构成！",
-    content: "html可视化编程可以下载<a href=\"https://www.jetbrains.com/webstorm/\">WebStorm</a>，或者更简单的方式实现可视化：新建一个txt文本把h5代码复制进去，用浏览器打开即可！",
+    content: "在英语中任何一句都有时态----<br> ！" + 
+         "在英语中任何一句都有时态----<br> ！"
     timestamp: "2025-10-10 08:30",
     image: "https://picsum.photos/seed/love1/400/300"
   },
@@ -39,5 +40,6 @@ const englishNotes = [
     embed: '<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=1251098300&bvid=BV1iJ4m1e7SA&cid=1454387685&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>'
   }
 ];
+
 
 
