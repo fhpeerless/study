@@ -16,7 +16,7 @@
         
         <div class="categories">
             <button class="category-btn" data-category="chinese">h5,js,css零基础</button>
-            <button class="category-btn" data-category="math">零基础英语</button>
+            <button class="category-btn" data-category="python">零基础英语</button>
             <button class="category-btn" data-category="english">python待添加</button>
             <button class="category-btn" data-category="physics">待添加</button>
         </div>
@@ -29,14 +29,14 @@
             </div>
             
             <!-- 数学笔记区域 -->
-            <div class="notes-section" id="math-notes">
-                <h2>零基础英语笔记</h2>
+            <div class="notes-section" id="python-notes">
+                <h2>零基础Python笔记</h2>
                 <!-- 笔记将由JS动态加载 -->
             </div>
             
             <!-- 英语笔记区域 -->
             <div class="notes-section" id="english-notes">
-                <h2>python笔记</h2>
+                <h2>零基础英语笔记</h2>
                 <!-- 笔记将由JS动态加载 -->
             </div>
             
@@ -104,11 +104,11 @@
                 }
                 
                 // 数学笔记
-                const mathNotesContainer = document.getElementById('math-notes');
-                if (mathNotes && mathNotes.length > 0) {
-                    mathNotes.forEach(note => {
+                const pythonNotesContainer = document.getElementById('python-notes');
+                if (pythonNotes && pythonNotes.length > 0) {
+                    pythonNotes.forEach(note => {
                         const noteCard = createNoteCard(note);
-                        mathNotesContainer.appendChild(noteCard);
+                        pythonNotesContainer.appendChild(noteCard);
                     });
                 }
                 
@@ -169,6 +169,7 @@ function createNoteCard(note) {
     
 </body>
 </html>
+
 
 
 
