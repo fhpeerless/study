@@ -8,11 +8,12 @@ const englishNotes = [
             "一般时态表示叙述，例如：我吃汉堡，我8点上学。<br>完成时:表示已经做过这件事，例如我吃过汉堡了，已经告诉他了。<br> ！" + 
             "一般现在时：do/does<br> 一般过去时：did <br>一般将来时：be going to do <br> 现在进行时:be doing<br>" + 
             "英语疑问句的构成；疑问词+时态（时表词）+主语+句剩+动词，" + 
-            "疑问词有：who 谁 what什么 whose谁的 which哪个  when什么时候 where哪里 why为什么 how怎么，"
+            "疑问词有：who 谁 what什么 whose谁的 which哪个  when什么时候 where哪里 why为什么 how怎么，",
     timestamp: "2025-10-10 08:30",
     image: "https://picsum.photos/seed/love1/400/300"
   }
 ];
+
 
 
 
