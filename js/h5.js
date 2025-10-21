@@ -51,12 +51,13 @@ const h5Notes = [
   },
     {
     title: "文字的上标和下标标签！",
-    content: "x<sup>2</sup> 写法为：x&lt;sup&gt;2&lt;/sup&gt;",
+    content: "x<sup>2</sup> 写法为：x&lt;sup&gt;2&lt;/sup&gt;   <br>  x<sub>2</sub> 写法为：x&lt;sub&gt;2&lt;/sub&gt;",
     timestamp: "2025-10-12 08:30",
     images: [  
     ]
   }
 ];
+
 
 
 
