@@ -46,16 +46,17 @@ const h5Notes = [
     timestamp: "2025-10-12 10:00",
     images: [],  // 修正：统一使用images属性
     embed: ''
-  },{
+  },
+  {
     title: "文字的上标和下标标签！",
     content: "x<sup>2</sup> 写法为：x&lt;sup&gt;2&lt;/sup&gt;   <br>  x<sub>2</sub> 写法为：x&lt;sub&gt;2&lt;/sub&gt;",
     timestamp: "2025-10-13 08:30",
     images: [  // 正确属性名：images（复数） 
       "https://picsum.photos/seed/love1/400/300",
       "https://picsum.photos/seed/love3/400/300"
- ]
+      ]
   },
-    {
+  {
     title: "特殊的标记",
     content: "标记标签单独用，写在网页代码里面，即可完全展示在网页中！",
     timestamp: "2025-10-14 08:30",
@@ -65,6 +66,7 @@ const h5Notes = [
 
   
 ];
+
 
 
 
