@@ -4,9 +4,7 @@ const h5Notes = [
     title: "初识html可视化编程！",
     content: "html可视化编程可以下载<a href=\"https://www.jetbrains.com/webstorm/\">WebStorm</a>，或者更简单的方式实现可视化：新建一个txt文本把h5代码复制进去，用浏览器打开即可！",
     timestamp: "2025-10-10 08:30",
-    images: [  // 正确属性名：images（复数）
-      "https://picsum.photos/seed/love1/400/300",
-      "https://picsum.photos/seed/love3/400/300"
+    images: [  
     ]
   },
   {
@@ -53,10 +51,13 @@ const h5Notes = [
     title: "文字的上标和下标标签！",
     content: "x<sup>2</sup> 写法为：x&lt;sup&gt;2&lt;/sup&gt;   <br>  x<sub>2</sub> 写法为：x&lt;sub&gt;2&lt;/sub&gt;",
     timestamp: "2025-10-12 08:30",
-    images: [  
+    images: [  // 正确属性名：images（复数）
+      "https://picsum.photos/seed/love1/400/300",
+      "https://picsum.photos/seed/love3/400/300"
     ]
   }
 ];
+
 
 
 
