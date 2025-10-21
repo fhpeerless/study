@@ -5,7 +5,8 @@ const h5Notes = [
     content: "html可视化编程可以下载<a href=\"https://www.jetbrains.com/webstorm/\">WebStorm</a>，或者更简单的方式实现可视化：新建一个txt文本把h5代码复制进去，用浏览器打开即可！",
     timestamp: "2025-10-10 08:30",
     images: [  
-    ]
+    ],
+    embed: '<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=115412666747576&bvid=BV1EkWdzvEBx&cid=33283444528&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>'
   },
   {
     title: "html 的基本结构",
@@ -35,8 +36,8 @@ const h5Notes = [
              "&lt;/html&gt;  至此代码结束" +
              "</code></pre>",
     timestamp: "2025-10-11 14:20",
-    images: [],  // 修正：统一使用images属性，空数组表示无图片
-    embed: '<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=1251098300&bvid=BV1iJ4m1e7SA&cid=1454387685&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>'
+    images: []  // 修正：统一使用images属性，空数组表示无图片
+  
   },
   {
     title: "html 的字体标签",
@@ -66,6 +67,7 @@ const h5Notes = [
 
   
 ];
+
 
 
 
