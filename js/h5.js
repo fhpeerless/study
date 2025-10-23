@@ -21,7 +21,7 @@ const h5Notes = [
              "    head--相当于开始内容，head标签里面包含的是网页目录索引<br>" +
              "    相当于书的封皮，head 和 /head 为称之为双标签<br>" +
              "    成对出现不可单独使用<br>" +
-             "    &lt;br&gt;--表示换行，单独出现，单标签<br>" +
+             "    &lt;br&gt;--表示换行，单独出现，且只有开始标签没有结束标签，称之为空标签<br>" +
              "    &lt;meta charset=\"UTF-8\"&gt;<br>" +
              "    &lt;meta&gt;：--是HTML中的元数据标签，用于提供关于网页的额外信息<br>" +
              "    charset=\"UTF-8\"：--指定网页使用的字符编码方式为UTF-8<br>" +
@@ -74,6 +74,7 @@ const h5Notes = [
 
   
 ];
+
 
 
 
