@@ -66,14 +66,14 @@ const h5Notes = [
   },
   {
     title: "段落标签",
-    content: "段落标签是实现一行字符，加一个换行的效果，写法为&lt;p&gt; &lt;/p&gt;",
-    timestamp: "2025-10-15 08:30",
-    
+    content: "段落标签是实现一行字符，加一个换行的效果，写法为&lt;p&gt; &lt;/p&gt;---换行可用标签&lt;br&gt;换行，空标签单独用即可",
+    timestamp: "2025-10-15 08:30",  
     embed: ''
   }
 
   
 ];
+
 
 
 
