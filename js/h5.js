@@ -42,7 +42,7 @@ const h5Notes = [
   {
     title: "html 的字体标签",
     content: "&lt;em&gt; <em>斜体的内容放在两个标签里面 </em>&lt;/em&gt;斜体标签<br>" +
-             " &lt;u&gt; <u>下划线标签内容放在标签里面</u>  &lt;u&gt;。<br>" +
+             " &lt;u&gt; <u>下划线标签内容放在标签里面</u>  &lt;/u&gt;。<br>" +
              "&lt;strike&gt;   <strike>删除线标签放在标签里面</strike>  &lt;/strike&gt; ",
     timestamp: "2025-10-12 10:00",
     images: [],  // 修正：统一使用images属性
@@ -79,6 +79,7 @@ const h5Notes = [
 
   
 ];
+
 
 
 
