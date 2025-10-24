@@ -84,6 +84,7 @@ const h5Notes = [
     title: "水平线标签",
     content: [  
     "水平线标签为&lt;hr/&gt;---水平线标签的属性为宽度，长度，粗细，颜色，直接写水平线标签，不加属性则为默认样式。展示如下：<hr/>" ,
+    "给hr添加宽度属性<pre>  <hr width="80%"> </pre>" ,
     ],
     timestamp: "2025-10-17 08:30",  
     embed: ''
@@ -91,6 +92,7 @@ const h5Notes = [
 
   
 ];
+
 
 
 
