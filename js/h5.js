@@ -77,12 +77,21 @@ const h5Notes = [
     "<pre>  轻   羽    清    风</pre>" 
     
     ],
-    timestamp: "2025-10-15 08:30",  
+    timestamp: "2025-10-16 08:30",  
+    embed: ''
+  },
+  {
+    title: "水平线标签",
+    content: [  
+    "水平线标签为&lt;hr/&gt;---水平线标签的属性为宽度，长度，粗细，颜色，展示如下：<hr/>" ,
+    ],
+    timestamp: "2025-10-17 08:30",  
     embed: ''
   }
 
   
 ];
+
 
 
 
