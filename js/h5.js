@@ -99,14 +99,15 @@ const h5Notes = [
       "<br><hr width=30%>标签的大小边框<a href=\"https://www.w3school.com.cn/tags/tag_img.asp\">img标签属性代码官方表示</a> <br>" ,
       "<br>&lt;img src=\"dancer.png\" alt=\"舞者\" width=\"100%\" height=\"100%\" border=\"2\"/&gt; border属性是加边框，数值代表边框的粗细！ " ,
       "<br><img src=\"http://note.youdao.com/yws/api/personal/file/WEBfb44c5c02a6f6a01e4ac80ab8ba84a2a?method=download&inline=true&shareKey=15e31b87597de6ecbe5bebf48ecc5664\" alt=\"图片代替字符\" width=\"100%\" height=\"100%\" border=\"10\"/> " ,
-      "<br><hr/> 图像的间距vspace和hspace<br>&lt;img src=\"dancer.png\" alt=\"代替字符\" width=\"100%\" height=\"100%\" hspace=\"2\" vspace=\"2\"/&gt " ,
-      "<br><hr/> <img src=\"http://note.youdao.com/yws/api/personal/file/WEBfb44c5c02a6f6a01e4ac80ab8ba84a2a?method=download&inline=true&shareKey=15e31b87597de6ecbe5bebf48ecc5664\" alt=\"图片代替字符\" hspace=\"300\" vspace=\"300\"/>"
+      "<br><hr/> 图像的间距vspace(是图像对于上下方的文字间距)和(是图像对于文字左右方向的间距)hspace<br>&lt;img src=\"dancer.png\" alt=\"代替字符\" width=\"10%\" height=\"10%\" hspace=\"30\" vspace=\"30\"/&gt " ,
+      "<br><hr/> <img src=\"http://note.youdao.com/yws/api/personal/file/WEBfb44c5c02a6f6a01e4ac80ab8ba84a2a?method=download&inline=true&shareKey=15e31b87597de6ecbe5bebf48ecc5664\" alt=\"图片代替字符\" width=\"10%\" height=\"10%\" hspace=\"30\" vspace=\"30\"/>"
     ],
     timestamp: "2025-10-18 08:30",  
     images: [],  // 确保有images属性
     embed: ""
   }
 ];
+
 
 
 
