@@ -6,7 +6,7 @@ const h5Notes = [
     timestamp: "2025-10-10 08:30",
     images: [  
     ],
-    embed: '<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=115412666747576&bvid=BV1EkWdzvEBx&cid=33343736793&p=2" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>'
+    embed: "<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=115412666747576&bvid=BV1EkWdzvEBx&cid=33343736793&p=2" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>"
   },
   {
     title: "html 的基本结构",
@@ -46,7 +46,7 @@ const h5Notes = [
              "&lt;strike&gt;   <strike>删除线标签放在标签里面</strike>  &lt;/strike&gt; ",
     timestamp: "2025-10-12 10:00",
     images: [],  // 修正：统一使用images属性
-    embed: ''
+    embed: ""
   },
   {
     title: "文字的上标和下标标签！",
@@ -62,13 +62,13 @@ const h5Notes = [
     content: "标记标签单独用，写在网页代码里面，即可展示在网页中，&quot; <br> &lt;&gt;  <br>&times; <br>&copy; <br>&sect; ",
     timestamp: "2025-10-14 08:30",
     images: ["http://note.youdao.com/yws/api/personal/file/WEBfb44c5c02a6f6a01e4ac80ab8ba84a2a?method=download&inline=true&shareKey=15e31b87597de6ecbe5bebf48ecc5664"],
-    embed: ''
+    embed: "\"
   },
   {
     title: "段落标签",
     content: "段落标签是实现一行字符，加一个换行的效果，写法为&lt;p&gt; &lt;/p&gt;---<br>换行可用标签&lt;br&gt;换行，空标签单独用即可",
     timestamp: "2025-10-15 08:30",  
-    embed: ''
+    embed: "\"
   },
   {
     title: "段落原格式标签",
@@ -78,60 +78,31 @@ const h5Notes = [
     
     ],
     timestamp: "2025-10-16 08:30",  
-    embed: ''
+    embed: "\"
   },
   {
     title: "水平线标签",
     content: [  
     "水平线标签为&lt;hr/&gt;---水平线标签的属性为宽度，长度，粗细，颜色，直接写水平线标签，不加属性则为默认样式。展示如下：<hr/> <br>" ,
     "&lt;hr width=80%&gt; <br>给hr添加宽度属性展示如下 <hr width=80%>  <br> ",
-    "&lt;hr  width=10% align='center' &gt; <br>给hr添加对齐属性,展示如下 <hr width=10% align='center'>  <br>"
+    "&lt;hr  width=10% align=\"center\" &gt; <br>给hr添加对齐属性,展示如下 <hr width=10% align=\"center\">  <br>"
     ],
     timestamp: "2025-10-17 08:30",  
-    embed: ''
+    embed: "\"
   },
   {
     title: "图像标签",
     content: [  /* 在JSON中，字符串内部的双引号必须用反斜杠转义，即\"。修正后的JSON：*/
     "网页多用gif，jpeg，png JPG (JPEG)三种格式图片 ,区别，<hr/>JPG <br>压缩方式：: 有损压缩，会牺牲部分画质以减小文件大小。 <br>适用场景：: 数码照片、色彩丰富的图像，非常适合保存大量图片，因为文件较小。<br> 缺点：: 画质损失，不适合对颜色和细节要求极高的场景，不支持透明背景。<br> <hr/>PNG 压缩方式：: 无损压缩，保留所有图像细节，画质好。 <br>适用场景：: 网页设计中的图标、Logo、需要透明背景的图片，以及需要二次编辑的源文件。 <br>缺点：: 文件大小通常比JPG 大。 优点：: 支持透明背景（包括Alpha 通道，可调节透明度），画质比JPG 更好。<br><hr/>GIF 压缩方式：: 无损压缩，但颜色数量限制在256 色。 <br>适用场景：: 简单的动画效果、小图标。 <br>缺点：: 颜色数量少，不适合展示色彩丰富的图像，动画效果简单。 优点：: 支持简单的动画，支持透明背景。 PNG-8 是GIF 的改进版本，在透明度和色彩方面通常优于GIF，且不支持动画<br>" ,
-    "<br><hr width=30%>添加图像的标签为：&lt;img src='填入相对图片地址或绝对地址' &gt; 相对地址是对于html文件来说的，绝对地址也就是图片的完整路径  <br> " ,
+    "<br><hr width=30%>添加图像的标签为：&lt;img src=\"填入相对图片地址或绝对地址\" &gt; 相对地址是对于html文件来说的，绝对地址也就是图片的完整路径  <br> " ,
     "<br><hr width=30%>标签的大小边框<a href=\"https://www.w3school.com.cn/tags/tag_img.asp\">img标签属性代码官方表示</a> <br>" ,
-    "<br>&lt;img src='dancer.png' alt='舞者' width='500' height='749'&gt; " ,
+    "<br>&lt;img src=\"dancer.png\" alt=\"舞者\" width=\"500\" height=\"749\"&gt; " ,
     "<br><img src=\"http://note.youdao.com/yws/api/personal/file/WEBfb44c5c02a6f6a01e4ac80ab8ba84a2a?method=download&inline=true&shareKey=15e31b87597de6ecbe5bebf48ecc5664\" alt=\"舞者\" width=\"500\" height=\"749\" border=\"2\"/> "
     ],
     timestamp: "2025-10-18 08:30",  
-    embed: ''
+    embed: "\"
   }
 ];
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
