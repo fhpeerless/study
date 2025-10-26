@@ -97,12 +97,13 @@ const h5Notes = [
     "<br><hr width=30%>添加图像的标签为：&lt;img src='填入相对图片地址或绝对地址' &gt; 相对地址是对于html文件来说的，绝对地址也就是图片的完整路径  <br> " ,
     "<br><hr width=30%>标签的大小边框<a href=\"https://www.w3school.com.cn/tags/tag_img.asp\">img标签属性代码官方表示</a> <br>" ,
     "<br>&lt;img src='dancer.png' alt='舞者' width='500' height='749'&gt; " ,
-    "<br><img src="http://note.youdao.com/yws/api/personal/file/WEBfb44c5c02a6f6a01e4ac80ab8ba84a2a?method=download&inline=true&shareKey=15e31b87597de6ecbe5bebf48ecc5664" alt="舞者" width="500" height="749" border="2px" /> " ,
+    "<br><img src=\"http://note.youdao.com/yws/api/personal/file/WEBfb44c5c02a6f6a01e4ac80ab8ba84a2a?method=download&inline=true&shareKey=15e31b87597de6ecbe5bebf48ecc5664\" alt="舞者" width="500" height="749" border="2px" /> " ,
     ],
     timestamp: "2025-10-18 08:30",  
     embed: ''
   }
 ];
+
 
 
 
