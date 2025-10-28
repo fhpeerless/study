@@ -108,13 +108,15 @@ const h5Notes = [
   },
   {
     title: "文本超链接",
-    content: [" 标签内容写法：<hr width=\"30%\"/>  <br> " ,
+    content: [" 标签内容写法：<hr width=\"30%\"/> 文本超链接标签&lt;a href=\"https://www.baidu.com/index.htm\"&gt;百度&lt;/a&gt;  <br> " ,
+              " 标签内容写法：<hr width=\"30%\"/> 文本超链接标签<a href=\"https://www.baidu.com/index.htm\">百度</a>  <br> "
     ],
-    timestamp: "2025-10-18 08:30",  
+    timestamp: "2025-10-19 08:30",  
     images: [],  // 确保有images属性
     embed: ""
   }
 ];
+
 
 
 
