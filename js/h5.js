@@ -127,8 +127,17 @@ const h5Notes = [
     timestamp: "2025-10-19 08:30",  
     images: [],  // 确保有images属性
     embed: ""
+  },
+  {
+    title: "图像热区超链接",
+    content: [" 图像的热区链接是:当点击图片上的特定坐标位置的时候，可以链接到其他页面！，<hr width=\"30%\"> "
+    ],
+    timestamp: "2025-10-19 08:30",  
+    images: [],  // 确保有images属性
+    embed: ""
   }
 ];
+
 
 
 
