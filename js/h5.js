@@ -130,13 +130,19 @@ const h5Notes = [
   },
   {
     title: "图像热区超链接",
-    content: [" 图像的热区链接是:当点击图片上的特定坐标位置的时候，可以链接到其他页面！，<hr width=\"30%\"> "
+    content: [" 热区链接实现的功能说明:当点击图片上的特定坐标位置的时候，可以链接到其他页面！，<hr width=\"80%\"> " +
+              " 热区链接的写法:&lt;img src=\"life.png\" alt=\"Life\" usemap=\"#lifemap\" width=\"650\" height=\"451\" &gt;" +
+              " &lt;map name=\"lifemap\" 或者用id=\"lifemap\"&gt; &lt;area shape=\"rect\" coords=\"10,208,155,338\" alt=\"AirPods\" href=\"airpods.html\"&gt; &lt;/map&gt;" +
+              
+              " 热区链接的,map的表示<a href=\"https://www.w3school.com.cn/tags/tag_map.asp\">w3c_map</a><hr width=\"80%\"> " +
+              " 热区链接的<a href=\"https://www.w3school.com.cn/tags/tag_map.asp\">w3c_map</a><hr width=\"80%\"> " +
     ],
     timestamp: "2025-10-19 08:30",  
     images: [],  // 确保有images属性
     embed: ""
   }
 ];
+
 
 
 
