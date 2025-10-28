@@ -110,7 +110,7 @@ const h5Notes = [
     title: "文本超链接",
     content: [" 标签内容写法：<hr width=\"30%\"/> <br>文本超链接标签&lt;a href=\"https://www.baidu.com/index.htm\"&gt;百度&lt;/a&gt;  <br> " ,
               " <a href=\"https://www.baidu.com/index.htm\">百度</a>  <br> " ,
-              " <hr width=\"30%\"/>添加target属性标签，target为超链接的打开方式--&lt;a href=\"https://www.w3school.com.cn\" target=\"_blank\"&gt;访问 W3School&lt;/a&gt;  <br> ",
+              " <hr width=\"30%\"/>添加target属性标签，target为超链接的打开方式<br>&lt;a href=\"https://www.w3school.com.cn\" target=\"_blank\"&gt;访问 W3School&lt;/a&gt;  <br> ",
               " <a href=\"https://www.w3school.com.cn\" target=\"_blank\">访问w3c官方介绍target的介绍</a>  <br> "
     ],
     timestamp: "2025-10-19 08:30",  
@@ -118,6 +118,7 @@ const h5Notes = [
     embed: ""
   }
 ];
+
 
 
 
