@@ -105,8 +105,17 @@ const h5Notes = [
     timestamp: "2025-10-18 08:30",  
     images: [],  // 确保有images属性
     embed: ""
+  },
+  {
+    title: "文本超链接",
+    content: ["<hr width=\"30%\"/> 标签内容写法：  <br> " ,
+    ],
+    timestamp: "2025-10-18 08:30",  
+    images: [],  // 确保有images属性
+    embed: ""
   }
 ];
+
 
 
 
