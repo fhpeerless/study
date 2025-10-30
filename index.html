@@ -1,263 +1,66 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <!-- 禁止网页html缓存 -->
-        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
-
-     <link rel="stylesheet" href="./css/monthly-countdown.css">    
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>keep__studing......</title>
-    <link rel="stylesheet" href="./css/style.css">
+    <!-- 移动端配置：禁止缩放+适配屏幕 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>智能笔记系统</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- 图标库 -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
- <script src="./js/monthly-countdown.js"></script>
-    
-    <div class="container">
-        <header>
-            <h1>一起学习吧！</h1>
-            <h2 class="subtitle" align="center">网页记录各个科目零基础笔记内容，可供任何人随时查看学习!<br>各位学子，请随我一同前行，助其在凡尘中，乘风而起!</h2>
-      
-           
-      <p>      <!-- 今天结束倒计时 (自动计算当前天结束时间) -->
-  <monthly-countdown 
-    end-time="day"
-    width="350px"
-    height="140px">
-  </monthly-countdown>
-
-  <!-- 本月结束倒计时 (自动计算当前月份最后一天) -->
-  <monthly-countdown 
-    end-time="mouth"
-    width="350px"
-    height="140px">
-  </monthly-countdown>
-
-  <!-- 本年结束倒计时 (自动计算当前年份最后一天) -->
-  <monthly-countdown 
-    end-time="year"
-    width="350px"
-    height="140px">
-  </monthly-countdown>
-
-  <!-- 指定时间倒计时 (2025年最后一天) -->
-  <monthly-countdown 
-    end-time="2026-01-18T23:59:59"
-    width="350px"
-    height="140px">
-  </monthly-countdown>
-          </p>
-        </header>
-        
-        <div class="categories">
-            <button class="category-btn" data-category="h5">从0开始的h5,js,css</button>
-            <button class="category-btn" data-category="python">python笔记</button>
-            <button class="category-btn" data-category="english">英语笔记</button>
-            <button class="category-btn" data-category="politics">101政治笔记</button>
+<div class="note-container">
+    <!-- 顶部导航栏 -->
+    <header class="note-header">
+        <h1><i class="fa fa-book"></i> 智能笔记系统</h1>
+        <div class="theme-toggle">
+            <button id="themeBtn"><i class="fa fa-moon-o"></i></button>
         </div>
-        
-        <div class="notes-container">
-            <!-- 语文笔记区域 -->
-            <div class="notes-section" id="h5-notes">
-                <h2>h5笔记</h2>
-                <!-- 笔记将由JS动态加载 -->
-            </div>
-            
-            <!-- 数学笔记区域 -->
-            <div class="notes-section" id="python-notes">
-                <h2>零基础Python笔记</h2>
-                <!-- 笔记将由JS动态加载 -->
-            </div>
-            
-            <!-- 英语笔记区域 -->
-            <div class="notes-section" id="english-notes">
-                <h2>零基础英语笔记</h2>
-                <!-- 笔记将由JS动态加载 -->
-            </div>
-            
-            <!-- 物理笔记区域 -->
-            <div class="notes-section" id="politics-notes">
-                <h2>思想与政治笔记</h2>
-                <!-- 笔记将由JS动态加载 -->
-            </div>
-        </div>
-        
-        <footer>
-            <p>课堂笔记系统 &BY 风之轻鸿; 2025 | 请通过上方分类按钮查看对应学科笔记|<br>学习讨论组点击进入————><a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=qdNV46NI3-Taw8YizWBEqwet50aww0TN&jump_from=webapi&authKey=oI7wtVxHqayL2l+5S3LBcJVnNo5uUHklP/DFMjP59jlUSX0EauGGsDcFok2ifGuZ"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="杨柳疯长学习群" title="杨柳疯长学习群"></a></p>
-        </footer>
-    </div>
+        <h2 class="subtitle" align="center"><br>各位学子，请随我一同前行，助其在凡尘中，乘风而起!<br>网页记录各个科目零基础笔记内容，可供任何人随时查看学习!</h2>
+        <div class="countdown-container" id="countdownContainer"></div>
 
-    <script src="./js/h5.js?v=20251030"></script>
-    <script src="./js/english.js?v=20251018"></script>
-    <script src="./js/python.js?v=20251018"></script>
-    <script src="./js/politics.js?v=20251020"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // 初始化所有笔记区域
-            initializeNotes();
-            
-            // 获取所有分类按钮
-            const categoryButtons = document.querySelectorAll('.category-btn');
-            
-            // 为每个分类按钮添加点击事件
-            categoryButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    // 移除所有按钮的active类
-                    categoryButtons.forEach(btn => btn.classList.remove('active'));
-                    
-                    // 添加当前点击按钮的active类
-                    this.classList.add('active');
-                    
-                    // 获取当前点击的分类
-                    const category = this.getAttribute('data-category');
-                    
-                    // 隐藏所有笔记区域
-                    const notesSections = document.querySelectorAll('.notes-section');
-                    notesSections.forEach(section => {
-                        section.style.display = 'none';
-                    });
-                    
-                    // 显示对应分类的笔记
-                    document.getElementById(`${category}-notes`).style.display = 'block';
-                    
-                    // 显示笔记容器
-                    document.querySelector('.notes-container').style.display = 'block';
-                });
-            });
-            
-            // 初始状态：不显示任何笔记
-            document.querySelector('.notes-container').style.display = 'none';
-            
-            function initializeNotes() {
-                // 语文笔记
-                const h5NotesContainer = document.getElementById('h5-notes');
-                if (h5Notes && h5Notes.length > 0) {
-                    h5Notes.forEach(note => {
-                        const noteCard = createNoteCard(note);
-                        h5NotesContainer.appendChild(noteCard);
-                    });
-                }
-                
-                // 数学笔记
-                const pythonNotesContainer = document.getElementById('python-notes');
-                if (pythonNotes && pythonNotes.length > 0) {
-                    pythonNotes.forEach(note => {
-                        const noteCard = createNoteCard(note);
-                        pythonNotesContainer.appendChild(noteCard);
-                    });
-                }
-                
-                // 英语笔记
-                const englishNotesContainer = document.getElementById('english-notes');
-                if (englishNotes && englishNotes.length > 0) {
-                    englishNotes.forEach(note => {
-                        const noteCard = createNoteCard(note);
-                        englishNotesContainer.appendChild(noteCard);
-                    });
-                }
-                
-                // 物理笔记
-                const politicsNotesContainer = document.getElementById('politics-notes');
-                if (politicsNotes && politicsNotes.length > 0) {
-                    politicsNotes.forEach(note => {
-                        const noteCard = createNoteCard(note);
-                        politicsNotesContainer.appendChild(noteCard);
-                    });
-                }
-            }
-            
-function createNoteCard(note) {
-  const card = document.createElement('div');
-  card.className = 'note-card';
-  
-  let cardHTML = `
-    <div class="note-header">
-      <div class="note-title">${note.title}</div>
-      <div class="note-timestamp">${note.timestamp}</div>
-    </div>
-    <div class="note-content">${note.content}</div>
-  `;
-  
-  if ((note.images && note.images.length > 0) || (note.embed && note.embed.trim() !== '')) {
-    cardHTML += `<div class="note-media">`;
-    
-    if (note.images && note.images.length > 0) {
-      note.images.forEach(imgUrl => {
-        cardHTML += `<img src="${imgUrl}" alt="笔记图片" class="note-image">`;
-      });
-    }
-    
-    if (note.embed && note.embed.trim() !== '') {
-      cardHTML += `<div class="note-embed">${note.embed}</div>`;
-    }
-    
-    cardHTML += `</div>`;
-  }
-  
-  card.innerHTML = cardHTML;
-  return card;
-}
-        });
-    </script>
-<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
-<script>LA.init({id:"3Nl3aeKIo4l68lkl",ck:"3Nl3aeKIo4l68lkl"})</script>
-    
+
+    </header>
+
+    <!-- 主体内容区 -->
+    <main class="note-content">
+        <!-- 左侧学科选择区（仅保留动态按钮容器） -->
+        <section class="subject-section">
+            <h2>选择学科</h2>
+            <!-- 动态生成的学科按钮容器（删除手动按钮，避免重复） -->
+            <div class="subject-buttons" id="dynamicSubjectButtons"></div>
+        </section>
+
+        <!-- 中间章节列表区 -->
+        <section class="chapter-section">
+            <h2>选择章节</h2>
+            <div class="chapter-list" id="chapterList">
+                <!-- 章节列表由JS动态生成 -->
+            </div>
+        </section>
+
+        <!-- 右侧笔记内容区（支持横向滚动） -->
+        <section class="note-display-wrapper">
+            <div class="note-display">
+                <div class="note-placeholder" id="notePlaceholder">
+                    <i class="fa fa-file-text-o"></i>
+                    <p>请选择一个章节查看笔记内容</p>
+                </div>
+                <div class="note-content-area" id="noteContentArea">
+                    <!-- 笔记内容由JS动态生成 -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 底部信息 -->
+    <footer class="note-footer">
+        <p>课堂笔记系统3.0 &BY 风之轻鸿; 2025 | 请通过上方分类按钮查看对应学科笔记|<br>学习讨论组点击进入————><a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=qdNV46NI3-Taw8YizWBEqwet50aww0TN&jump_from=webapi&authKey=oI7wtVxHqayL2l+5S3LBcJVnNo5uUHklP/DFMjP59jlUSX0EauGGsDcFok2ifGuZ"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="杨柳疯长学习群" title="杨柳疯长学习群"></a></p>
+    </footer>
+</div>
+
+<script src="js/app.js"></script>
+<script src="js/countdown.js"></script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
