@@ -381,7 +381,7 @@ body.dark-mode .note-body code {
 }
 .note-embed iframe {
     width: 100%;
-    height: 220px;
+    height: 350px;
     border: none;
 }
 
@@ -527,3 +527,4 @@ body.dark-mode .note-footer {
         margin-bottom: 20px;
     }
 }
+
