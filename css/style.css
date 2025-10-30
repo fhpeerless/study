@@ -95,10 +95,12 @@ body.dark-mode .subject-section h2 {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    max-height: 500px; /* 限制按钮区域高度，避免溢出 */
-    overflow-y: auto; /* 按钮过多时可滚动 */
+    max-height: 500px;
+    overflow-y: auto;
+    /* 新增：防止按钮挤压（为小屏横向滚动做准备） */
+    align-items: flex-start;
 }
-/* 学科按钮样式 */
+/* 学科按钮样式 - 优化横向占用空间 */
 .subject-btn {
     padding: 12px 15px;
     border: none;
@@ -110,8 +112,13 @@ body.dark-mode .subject-section h2 {
     transition: all 0.3s;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     text-align: left;
-    white-space: nowrap; /* 防止按钮文字换行 */
+    white-space: nowrap; /* 保持文字不换行 */
+    /* 新增：小屏横向滚动时，按钮不压缩 */
+    flex-shrink: 0;
 }
+
+
+
 body.dark-mode .subject-btn {
     background-color: #2d2d44;
     color: #e0e0e0;
@@ -140,12 +147,14 @@ body.dark-mode .chapter-section h2 {
     color: #ffffff;
 }
 .chapter-list {
-    display: flex;
+        display: flex;
     flex-direction: column;
     gap: 8px;
     max-height: 600px;
     overflow-y: auto;
     padding-right: 10px;
+    /* 新增：小屏横向滚动准备 */
+    width: 100%;
 }
 /* 滚动条样式优化 */
 .chapter-list::-webkit-scrollbar,
@@ -394,20 +403,32 @@ body.dark-mode .note-footer {
     /* 学科按钮横向滚动 */
     .subject-buttons {
         flex-direction: row;
-        overflow-x: auto;
-        padding-bottom: 10px;
+        overflow-x: auto; /* 关键：横向滚动生效 */
+        padding-bottom: 15px; /* 底部留白，避免滚动条遮挡 */
         max-height: none;
+        /* 新增：横向滚动时不挤压按钮 */
+        gap: 8px;
+    }
+        /* 小屏按钮：减少内边距，缩小横向占用 */
+    .subject-btn {
+        padding: 10px 12px;
+        font-size: 13px;
     }
     /* 章节列表横向排列 */
     .chapter-list {
-        max-height: 200px;
+        max-height: 220px;
         flex-direction: row;
-        flex-wrap: wrap;
+        flex-wrap: nowrap; /* 关键：禁止换行，启用横向滚动 */
+        overflow-x: auto; /* 横向滚动生效 */
+        padding-right: 0;
+        padding-bottom: 10px; /* 避免滚动条遮挡 */
+        gap: 8px;
     }
     .chapter-item {
-        flex: 1 0 calc(33.333% - 8px);
-        white-space: normal;
+        flex: 1 0 calc(33.333% - 8px); /* 3列布局 */
+        white-space: normal; /* 允许文字换行，减少横向占用 */
         text-align: center;
+        min-height: 80px; /* 固定最小高度，避免内容换行后高度不一 */
     }
 }
 
@@ -424,7 +445,9 @@ body.dark-mode .note-footer {
         min-width: 320px; /* 防止超小屏幕内容挤压 */
     }
     .chapter-item {
-        flex: 1 0 calc(50% - 8px);
+        flex: 1 0 calc(50% - 8px); /* 2列布局，减少横向占用 */
+        font-size: 12px;
+        padding: 8px 10px;
     }
     .note-embed iframe {
         height: 300px;
@@ -436,13 +459,36 @@ body.dark-mode .note-footer {
 
 /* 小屏手机（576px以下） */
 @media (max-width: 576px) {
+    .subject-buttons {
+        padding-bottom: 12px;
+        gap: 6px;
+    }
+    .subject-btn {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+    .note-container {
+        padding: 10px 8px; /* 减少左右padding，增加可用宽度 */
+    }
+    .note-content {
+        gap: 15px; /* 减少列间距，避免挤压 */
+    }
+    
     .note-header {
         flex-direction: column;
         align-items: flex-start;
         gap: 10px;
     }
+    .chapter-list {
+        flex-direction: column; /* 1列布局，无横向溢出 */
+        max-height: 250px;
+        overflow-y: auto; /* 纵向滚动，而非横向 */
+    }
     .chapter-item {
-        flex: 1 0 100%; /* 章节项独占一行 */
+                flex: 1 0 100%; /* 独占一行 */
+        white-space: nowrap; /* 恢复不换行+省略号，避免高度过高 */
+        min-height: auto;
+        text-align: left;
     }
     .note-title {
         font-size: 20px;
@@ -456,4 +502,5 @@ body.dark-mode .note-footer {
     .note-body {
         min-width: 400px; /* 代码块最小宽度 */
     }
+
 }
