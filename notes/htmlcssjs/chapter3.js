@@ -29,13 +29,13 @@ title: "图像热区超链接",
         "当点击图片上的特定坐标位置的时候，可以链接到其他页面！，图像热区区域可以通过ps来获取坐标，ps中的点击窗口，信息即可显示坐标，坐标要以像素来编写，",
         " <h3> 热区链接的写法: </h3>",
         " &lt;img src=\"life.png\" alt=\"图片未成功加载的显示或用于网页阅读器时所需要\" usemap=\"#映射图像的名称\" width=\"650\" height=\"451\" &gt;",
-        " &lt;map name=\"所要关联的映射图像的名称\" 或者用id=\"所要关联的映射图像的名称\"&gt; <br> &lt;area shape=\"rect（矩形）\" coords=\"（左上角角标）10,208,（右下角角标）155,338\" alt=\"AirPods\" href=\"热区索要连接的地址\"&gt; <br> &lt;/map&gt;",
-        " &lt;map name=\"所要关联的映射图像的名称\" 或者用id=\"所要关联的映射图像的名称\"&gt; <br> &lt;area shape=\"rect（矩形）\" coords=\"（左上角角标）10,208,（右下角角标）155,338\" alt=\"AirPods\" href=\"热区索要连接的地址\"&gt; <br> &lt;/map&gt;",
+        " &lt;map name=\"所要关联的映射图像的名称\" 或id=\"关联的映射图像的名称\"&gt; <br> &lt;area shape=\"rect（矩形）\" coords=\"（左上角角标）10,208,（右下角角标）155,338\" alt=\"zhaojinmai\" href=\"热区索要连接的地址\"&gt; <br> &lt;/map&gt;",
+        " &lt;map id=\"所要关联的映射图像的名称\" 或id=\"关联的映射图像的名称\"&gt; <br> &lt;area shape=\"rect（矩形）\" coords=\"（左上角角标）10,208,（右下角角标）155,338\" alt=\"shenyue\" href=\"热区索要连接的地址\"&gt; <br> &lt;/map&gt;",
         " 同一张图片上可以同时写多个area热区域标签，",
 
         " <img src=\"http://note.youdao.com/yws/api/personal/file/WEB38a745e95ce0aeaaf2e31ad88028ebe3?method=download&inline=true&shareKey=8450d4869d425ff8beb7e5334ce1c3a5\" alt=\"shenyue_zhao\" useMap=\"#lifemap\" width=\"50%\" height=\"50%\"/> ",
 
-        " <map name=\"lifemap\">  <area shape=\"rect\" coords=\"0,50,313,527\" alt=\"zhao\" href=\"https://baike.baidu.com/item/%E8%B5%B5%E4%BB%8A%E9%BA%A6?fromModule=lemma_search-box\"/>  <area shape=\"rect\" coords=\"315,105,641,527\" alt=\"shenyue\" href=\"https://baike.baidu.com/item/%E6%B2%88%E6%9C%88/22068465\"/> </map> ",
+        " <map id=\"lifemap\">  <area shape=\"rect\" coords=\"0,50,313,527\" alt=\"zhao\" href=\"https://baike.baidu.com/item/%E8%B5%B5%E4%BB%8A%E9%BA%A6?fromModule=lemma_search-box\"/>  <area shape=\"rect\" coords=\"315,105,641,527\" alt=\"shenyue\" href=\"https://baike.baidu.com/item/%E6%B2%88%E6%9C%88/22068465\"/> </map> ",
 
     ],
     timestamp: "2025-10-20 08:30",
@@ -47,6 +47,7 @@ title: "图像热区超链接",
 // 统一导出笔记数组（关键：让JS加载时能获取所有笔记）, note2, note3, note4, note5, note6, note7, note8, note9
 
 export default [note1, note2];
+
 
 
 
