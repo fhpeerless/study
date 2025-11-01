@@ -35,7 +35,7 @@ title: "图像热区超链接",
 
         " <img src=\"http://note.youdao.com/yws/api/personal/file/WEB38a745e95ce0aeaaf2e31ad88028ebe3?method=download&inline=true&shareKey=8450d4869d425ff8beb7e5334ce1c3a5\" alt=\"shenyue_zhao\" useMap=\"#lifemap\" width=\"50%\" height=\"50%\"/> ",
 
-        " <map id=\"lifemap\">  <area shape=\"rect\" coords=\"0,50,313,527\" alt=\"zhao\" href=\"https://baike.baidu.com/item/%E8%B5%B5%E4%BB%8A%E9%BA%A6?fromModule=lemma_search-box\"/>  <area shape=\"rect\" coords=\"315,105,641,527\" alt=\"shenyue\" href=\"https://baike.baidu.com/item/%E6%B2%88%E6%9C%88/22068465\"/> </map> ",
+        " <map name=\"lifemap\">  <area shape=\"rect\" coords=\"0,50,313,527\" alt=\"zhao\" href=\"https://baike.baidu.com/item/%E8%B5%B5%E4%BB%8A%E9%BA%A6?fromModule=lemma_search-box\" target=\"_blank\"/>  <area shape=\"rect\" coords=\"315,105,641,527\" alt=\"shenyue\" href=\"https://baike.baidu.com/item/%E6%B2%88%E6%9C%88/22068465\"  target=\"_blank\"/> </map> ",
 
     ],
     timestamp: "2025-10-20 08:30",
@@ -47,6 +47,7 @@ title: "图像热区超链接",
 // 统一导出笔记数组（关键：让JS加载时能获取所有笔记）, note2, note3, note4, note5, note6, note7, note8, note9
 
 export default [note1, note2];
+
 
 
 
