@@ -1,10 +1,16 @@
 // 学科章节映射
+// 学科章节映射
 const subjectChapters = {
-    htmlcssjs: 7,  // HTML有12章
-    python: 1,    // CSS有1章
-    english: 1,  // JavaScript有1章
-    政治101: 1   // Python有1章
+    htmlcssjs: 12,  
+    css: 1,    
+    javascript: 1,  
+    python: 1   
 };
+// 新增：笔记文件缓存版本号（更新笔记后，修改此版本号即可触发全量刷新）
+const NOTE_CACHE_VERSION = "v20251031"; // 格式：v+日期/迭代号，如 v20251031、v3
+
+
+
 // DOM 元素
 const chapterList = document.getElementById('chapterList');
 const notePlaceholder = document.getElementById('notePlaceholder');
@@ -303,4 +309,5 @@ style.textContent = `
 document.head.appendChild(style);
 
 // 页面加载完成后初始化
+
 document.addEventListener('DOMContentLoaded', init);
