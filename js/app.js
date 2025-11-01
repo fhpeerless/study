@@ -95,7 +95,7 @@ function loadChapters(subject) {
 // 预加载章节标题（更新章节列表显示）
 // 预加载章节标题（更新：显示笔记数量）
 function fetchChapterTitle(subject, chapter, element) {
-    import(`../notes/${subject}/chapter${chapter}.js`)
+    import(`../notes/${subject}/chapter${chapter}.js?v=${NOTE_CACHE_VERSION}`)
         .then(module => {
             const notes = module.default; // 现在获取的是笔记数组
             // 显示「第X章（N篇笔记）」，若有第一篇笔记则拼接标题
@@ -311,4 +311,5 @@ document.head.appendChild(style);
 // 页面加载完成后初始化
 
 document.addEventListener('DOMContentLoaded', init);
+
 
