@@ -117,7 +117,7 @@ function loadAndShowNote(subject, chapter) {
     noteContentArea.style.display = 'block';
     noteContentArea.innerHTML = '<div class="loading"><i class="fa fa-spinner fa-spin"></i> 加载中...</div>';
 
-    import(`../notes/${subject}/chapter${chapter}.js`)
+    import(`../notes/${subject}/chapter${chapter}.js?v=${NOTE_CACHE_VERSION}`)
         .then(module => {
             const notes = module.default; // 笔记数组
             if (!Array.isArray(notes) || notes.length === 0) {
@@ -311,3 +311,4 @@ document.head.appendChild(style);
 // 页面加载完成后初始化
 
 document.addEventListener('DOMContentLoaded', init);
+
