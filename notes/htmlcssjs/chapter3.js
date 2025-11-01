@@ -31,6 +31,7 @@ title: "图像热区超链接",
         " &lt;img src=\"life.png\" alt=\"图片未成功加载的显示或用于网页阅读器时所需要\" usemap=\"#映射图像的名称\" width=\"650\" height=\"451\" &gt;",
         " &lt;map name=\"所要关联的映射图像的名称\" 或id=\"关联的映射图像的名称\"&gt; <br> &lt;area shape=\"rect（矩形）\" coords=\"（左上角角标）10,208,（右下角角标）155,338\" alt=\"zhaojinmai\" href=\"热区索要连接的地址\"&gt; <br> &lt;/map&gt;",
         " &lt;map id=\"所要关联的映射图像的名称\" 或id=\"关联的映射图像的名称\"&gt; <br> &lt;area shape=\"rect（矩形）\" coords=\"（左上角角标）10,208,（右下角角标）155,338\" alt=\"shenyue\" href=\"热区索要连接的地址\"&gt; <br> &lt;/map&gt;",
+         
          " <h4>同一张图片上可以同时写多个area热区域标签，</h4>",
 
         " &lt;img src=\"123.jpg\" alt=\"shenyue_zhao\" useMap=\"#lifemap\" width=\"50%\" height=\"50%\"/&gt; ",
@@ -52,6 +53,7 @@ title: "图像热区超链接",
 // 统一导出笔记数组（关键：让JS加载时能获取所有笔记）, note2, note3, note4, note5, note6, note7, note8, note9
 
 export default [note1, note2];
+
 
 
 
