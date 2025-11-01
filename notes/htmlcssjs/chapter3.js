@@ -33,14 +33,10 @@ title: "图像热区超链接",
         " &lt;map id=\"所要关联的映射图像的名称\" 或id=\"关联的映射图像的名称\"&gt; <br> &lt;area shape=\"rect（矩形）\" coords=\"（左上角角标）10,208,（右下角角标）155,338\" alt=\"shenyue\" href=\"热区索要连接的地址\"&gt; <br> &lt;/map&gt;",
          
          " <h4>同一张图片上可以同时写多个area热区域标签，</h4>",
-
         " &lt;img src=\"123.jpg\" alt=\"shenyue_zhao\" useMap=\"#lifemap\" width=\"50%\" height=\"50%\"/&gt; ",
-
         " &lt;map name=\"lifemap\"&gt; <br>   &lt;area shape=\"rect\" coords=\"0,50,313,527\" alt=\"zhao\" href=\"https://baike.baidu.com/item/%E8%B5%B5%E4%BB%8A%E9%BA%A6?fromModule=lemma_search-box\" target=\"_blank\"/&gt; <br>   &lt;area shape=\"rect\" coords=\"315,105,641,527\" alt=\"shenyue\" href=\"https://baike.baidu.com/item/%E6%B2%88%E6%9C%88/22068465\"  target=\"_blank\"/&gt; <br> &lt;/map&gt; ",
 
-
         " <img src=\"http://note.youdao.com/yws/api/personal/file/WEB38a745e95ce0aeaaf2e31ad88028ebe3?method=download&inline=true&shareKey=8450d4869d425ff8beb7e5334ce1c3a5\" alt=\"shenyue_zhao\" useMap=\"#lifemap\" width=\"50%\" height=\"50%\"/> ",
-
         " <map name=\"lifemap\"> <br> <area shape=\"rect\" coords=\"0,50,313,527\" alt=\"zhao\" href=\"https://baike.baidu.com/item/%E8%B5%B5%E4%BB%8A%E9%BA%A6?fromModule=lemma_search-box\" target=\"_blank\"/>   <area shape=\"rect\" coords=\"315,105,641,527\" alt=\"shenyue\" href=\"https://baike.baidu.com/item/%E6%B2%88%E6%9C%88/22068465\"  target=\"_blank\"/> </map> ",
 
     ],
@@ -53,6 +49,7 @@ title: "图像热区超链接",
 // 统一导出笔记数组（关键：让JS加载时能获取所有笔记）, note2, note3, note4, note5, note6, note7, note8, note9
 
 export default [note1, note2];
+
 
 
 
