@@ -25,7 +25,7 @@ export const note2 = {
 title: "图像热区超链接",
     content: [" <h3>热区链接的代码官方表示：</h3> ",
         "<a href=\"https://www.w3school.com.cn/tags/tag_map.asp\">w3c_map</a><hr width=\"80%\"> ",
-        " <h3>热区链接实现的功能说明:</h3> ",
+        " <h3>热区链接实现的功能说明:</h3> 多个热区跳转链接可共用一张图片",
         "当点击图片上的特定坐标位置的时候，可以链接到其他页面！，图像热区区域可以通过ps来获取坐标，ps中的点击窗口，信息即可显示坐标，坐标要以像素来编写，",
         " <h3> 热区链接的写法: </h3>",
         " &lt;img src=\"life.png\" alt=\"图片未成功加载的显示或用于网页阅读器时所需要\" usemap=\"#映射图像的名称\" width=\"650\" height=\"451\" &gt;",
@@ -47,6 +47,7 @@ title: "图像热区超链接",
 // 统一导出笔记数组（关键：让JS加载时能获取所有笔记）, note2, note3, note4, note5, note6, note7, note8, note9
 
 export default [note1, note2];
+
 
 
 
