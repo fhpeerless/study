@@ -41,7 +41,7 @@ export const note4 = {
 export const note5 = {
     title: "段落原格式标签",
     content: [
-        "段落标签是根据标签内的自有格式来显示在网页中对于空格和换行有效，写法为&lt;pre&gt; &lt;/pre&gt;---解释不太清楚--自己使用一下就明了了" ,
+        "段落标签是根据标签内的自有格式来显示在网页中对于空格和换行有效，写法为&lt;pre&gt;    轻   羽    清    风  &lt;/pre&gt;---解释不太清楚--自己使用一下就明了了" ,
         "<pre>  轻   羽    清    风</pre>"
     ],
     timestamp: "2025-10-16 08:30",
@@ -92,4 +92,5 @@ export const note8 = {
 // 统一导出笔记数组（关键：让JS加载时能获取所有笔记）
 
 export default [note1, note2, note3, note4, note5, note6, note7, note8];
+
 
