@@ -91,4 +91,5 @@ export const note8 = {
 
 // 统一导出笔记数组（关键：让JS加载时能获取所有笔记）
 
-export default [note1, note2, note3, note4, note5, note6, note7, note8, note9];
+export default [note1, note2, note3, note4, note5, note6, note7, note8];
+
