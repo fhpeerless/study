@@ -22,22 +22,23 @@ export const note1 = {
 };
 
 export const note2 = {
-title: "图像热区超链接",
+    title: "图像热区超链接",
     content: [" <h3>热区链接的代码官方表示：</h3> ",
         "<a href=\"https://www.w3school.com.cn/tags/tag_map.asp\">w3c_map</a><hr width=\"80%\"> ",
-        " <h3>热区链接实现的功能说明:</h3> 多个热区跳转链接可共用一张图片",
+        " <h3>热区链接实现的功能说明:</h3> ",
         "当点击图片上的特定坐标位置的时候，可以链接到其他页面！，图像热区区域可以通过ps来获取坐标，ps中的点击窗口，信息即可显示坐标，坐标要以像素来编写，",
         " <h3> 热区链接的写法: </h3>",
         " &lt;img src=\"life.png\" alt=\"图片未成功加载的显示或用于网页阅读器时所需要\" usemap=\"#映射图像的名称\" width=\"650\" height=\"451\" &gt;",
-        " &lt;map name=\"所要关联的映射图像的名称\" 或id=\"关联的映射图像的名称\"&gt; <br> &lt;area shape=\"rect（矩形）\" coords=\"（左上角角标）10,208,（右下角角标）155,338\" alt=\"zhaojinmai\" href=\"热区索要连接的地址\"&gt; <br> &lt;/map&gt;",
-        " &lt;map id=\"所要关联的映射图像的名称\" 或id=\"关联的映射图像的名称\"&gt; <br> &lt;area shape=\"rect（矩形）\" coords=\"（左上角角标）10,208,（右下角角标）155,338\" alt=\"shenyue\" href=\"热区索要连接的地址\"&gt; <br> &lt;/map&gt;",
-         
-         " <h4>同一张图片上可以同时写多个area热区域标签，</h4>",
-        " &lt;img src=\"123.jpg\" alt=\"shenyue_zhao\" useMap=\"#lifemap\" width=\"50%\" height=\"50%\"/&gt; ",
-        " &lt;map name=\"lifemap\"&gt; <br>   &lt;area shape=\"rect\" coords=\"0,108,625,1049\" alt=\"zhao\" href=\"https://baike.baidu.com/item/%E8%B5%B5%E4%BB%8A%E9%BA%A6?fromModule=lemma_search-box\" target=\"_blank\"/&gt; <br>   &lt;area shape=\"rect\" coords=\"315,105,641,527\" alt=\"shenyue\" href=\"https://baike.baidu.com/item/%E6%B2%88%E6%9C%88/22068465\"  target=\"_blank\"/&gt; <br> &lt;/map&gt; ",
+        " &lt;map name=\"所要关联的映射图像的名称\" 或者用id=\"所要关联的映射图像的名称\"&gt; <br> &lt;area shape=\"rect（矩形）\" coords=\"（左上角角标）10,208,（右下角角标）155,338\" alt=\"AirPods\" href=\"热区索要连接的地址\"&gt; <br> &lt;/map&gt;",
+        " &lt;map name=\"所要关联的映射图像的名称\" 或者用id=\"所要关联的映射图像的名称\"&gt; <br> &lt;area shape=\"rect（矩形）\" coords=\"（左上角角标）10,208,（右下角角标）155,338\" alt=\"AirPods\" href=\"热区索要连接的地址\"&gt; <br> &lt;/map&gt;",
+        " <h4>同一张图片上可以同时写多个area热区域标签，</h4>",
 
-        " <img src=\"http://note.youdao.com/yws/api/personal/file/WEB394a8751d960b9357073a7b487b0be75?method=download&inline=true&shareKey=2db1f60696f2c1755197670991d1be1b\" alt=\"shenyue_zhao\" useMap=\"#lifemap\" width=\"100%\" height=\"100%\"/> ",
-        " <map name=\"lifemap\"> <br> <area shape=\"rect\" coords=\"0,115,629,1048\" alt=\"zhao\" href=\"https://baike.baidu.com/item/%E8%B5%B5%E4%BB%8A%E9%BA%A6?fromModule=lemma_search-box\" target=\"_blank\"/>   <area shape=\"rect\" coords=\"620,210,1281,1054\" alt=\"shenyue\" href=\"https://baike.baidu.com/item/%E6%B2%88%E6%9C%88/22068465\"  target=\"_blank\"/> </map> ",
+        " &lt;img src=\"123.jpg\" alt=\"shenyue_zhao\" useMap=\"#lifemap\" width=\"50%\" height=\"50%\"/&gt; ",
+
+        " &lt;map name=\"lifemap\"&gt; <br>   &lt;area shape=\"rect\" coords=\"0,50,313,527\" alt=\"zhao\" href=\"https://baike.baidu.com/item/%E8%B5%B5%E4%BB%8A%E9%BA%A6?fromModule=lemma_search-box\" target=\"_blank\"/&gt; <br>   &lt;area shape=\"rect\" coords=\"315,105,641,527\" alt=\"shenyue\" href=\"https://baike.baidu.com/item/%E6%B2%88%E6%9C%88/22068465\"  target=\"_blank\"/&gt; <br> &lt;/map&gt; ",
+
+        " <img src=\"http://note.youdao.com/yws/api/personal/file/WEB394a8751d960b9357073a7b487b0be75?method=download&inline=true&shareKey=2db1f60696f2c1755197670991d1be1b\" useMap=\"#123map\" alt=\"shenyue_zhao\" style=\"width: 100%; height: 100%^;\"/> ",
+        " <map name=\"123map\"> <br> <area shape=\"rect\" coords=\"0,110,655,1055\" alt=\"zhao\" href=\"https://baike.baidu.com/item/%E8%B5%B5%E4%BB%8A%E9%BA%A6?fromModule=lemma_search-box\" target=\"_blank\"/>   <area shape=\"rect\" coords=\"655,226,1281,1055\" alt=\"shenyue\" href=\"https://baike.baidu.com/item/%E6%B2%88%E6%9C%88/22068465\"  target=\"_blank\"/> </map> "
 
     ],
     timestamp: "2025-10-20 08:30",
@@ -49,6 +50,13 @@ title: "图像热区超链接",
 // 统一导出笔记数组（关键：让JS加载时能获取所有笔记）, note2, note3, note4, note5, note6, note7, note8, note9
 
 export default [note1, note2];
+
+
+
+// 统一导出笔记数组（关键：让JS加载时能获取所有笔记）, note2, note3, note4, note5, note6, note7, note8, note9
+
+export default [note1, note2];
+
 
 
 
