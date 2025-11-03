@@ -37,7 +37,7 @@ export const note2 = {
 
         " &lt;map name=\"lifemap\"&gt; <br>   &lt;area shape=\"rect\" coords=\"0,50,313,527\" alt=\"zhao\" href=\"https://baike.baidu.com/item/%E8%B5%B5%E4%BB%8A%E9%BA%A6?fromModule=lemma_search-box\" target=\"_blank\"/&gt; <br>   &lt;area shape=\"rect\" coords=\"315,105,641,527\" alt=\"shenyue\" href=\"https://baike.baidu.com/item/%E6%B2%88%E6%9C%88/22068465\"  target=\"_blank\"/&gt; <br> &lt;/map&gt; ",
 
-        " <img src=\"http://note.youdao.com/yws/api/personal/file/WEB394a8751d960b9357073a7b487b0be75?method=download&inline=true&shareKey=2db1f60696f2c1755197670991d1be1b\" useMap=\"#123map\" alt=\"shenyue_zhao\" style=\"width: 100%; height: 100%^;\"/> ",
+        " <svg><img src=\"http://note.youdao.com/yws/api/personal/file/WEB394a8751d960b9357073a7b487b0be75?method=download&inline=true&shareKey=2db1f60696f2c1755197670991d1be1b\" useMap=\"#123map\" alt=\"shenyue_zhao\" style=\"width: 100%; height: 100%^;\"/> </svg> ",
         " <map name=\"123map\"> <br> <area shape=\"rect\" coords=\"0,110,655,1055\" alt=\"zhao\" href=\"https://baike.baidu.com/item/%E8%B5%B5%E4%BB%8A%E9%BA%A6?fromModule=lemma_search-box\" target=\"_blank\"/>   <area shape=\"rect\" coords=\"655,226,1281,1055\" alt=\"shenyue\" href=\"https://baike.baidu.com/item/%E6%B2%88%E6%9C%88/22068465\"  target=\"_blank\"/> </map> "
 
     ],
@@ -50,6 +50,7 @@ export const note2 = {
 // 统一导出笔记数组（关键：让JS加载时能获取所有笔记）, note2, note3, note4, note5, note6, note7, note8, note9
 
 export default [note1, note2];
+
 
 
 
