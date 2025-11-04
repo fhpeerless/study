@@ -2,7 +2,7 @@
 // 第一篇笔记
 export const note1 = {
     title: "可视化与基本结构！",
-    content: "html可视化编程可以下载<a href=\"https://www.jetbrains.com/webstorm/\">WebStorm</a>，或者更简单的方式实现可视化：新建一个txt文本把h5代码复制进去，用浏览器打开即可！<br>更多代码查询请点击--><a href=\"https://www.w3school.com.cn/\">W3c</a>",
+    content: "html可视化编程可以下载<a href=\"https://www.jetbrains.com/webstorm/\">WebStorm</a>，或者更简单的方式实现可视化：新建一个txt文本把h5代码复制进去，用浏览器打开即可！<br>或用在线代码编辑器--><a href=\"https://codepen.io/pen/\">进入编辑器c</a> <br>更多代码查询请点击--><a href=\"https://www.w3school.com.cn/\">W3c</a>",
     timestamp: "2025-10-10 08:30",
     images: [],
     embed: "<iframe src=\"//player.bilibili.com/player.html?isOutside=true&aid=115412666747576&bvid=BV1EkWdzvEBx&cid=33343736793&p=2\" scrolling=\"no\" border=\"0\" frameborder=\"no\" framespacing=\"0\" allowfullscreen=\"true\"></iframe>"
@@ -41,4 +41,5 @@ export const note2 = {
 };
 
 // 统一导出笔记数组（关键：让JS加载时能获取所有笔记）
+
 export default [note1, note2];
