@@ -18,7 +18,7 @@ export const note2 = {
     content: [   /* 123123*/
         "<h3>css标签参考手册</h3>--><a href=\"https://www.w3school.com.cn/cssref/index.asp\">css的参考手册</a><-- " ,
         "<h3>css属性基本使用展示</h3><img src=\"http://note.youdao.com/yws/api/personal/file/WEBd1314486bd7a0dee19b3070650ef4b21?method=download&inline=true&shareKey=3f504772f84aa261fee6b5568109a48b\" border=\"4\" style=\"max-width: 100%; height: auto;\">",
-        "<h3>css的代码位置</h3> <br>css代码可打包成单独的文件后引入，或者直接写在head标签内">"
+        "<h3>css的代码位置</h3> <br>css代码可打包成单独的文件后引入，或者直接写在head标签内"
         
     ],
     timestamp: "2025-10-18 08:30",
@@ -32,6 +32,7 @@ export const note2 = {
 // 统一导出笔记数组（关键：让JS加载时能获取所有笔记）, note2, note3, note4, note5, note6, note7, note8, note9
 
 export default [note1,note2,note3];
+
 
 
 
