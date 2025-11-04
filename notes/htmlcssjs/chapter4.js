@@ -17,7 +17,7 @@ export const note2 = {
     title: "css的基本结构和重点属性",
     content: [   /* 123123*/
         "<h3>css标签参考手册</h3>--><a href=\"https://www.w3school.com.cn/cssref/index.asp\">css的参考手册</a><-- " ,
-        "<h3>css属性基本使用展示</h3><img src=\"https://share.note.youdao.com/ynoteshare/index.html?id=3f504772f84aa261fee6b5568109a48b&type=note&_time=1762251599653\" border=\"4\" style=\"width: auto; height: auto;\">",
+        "<h3>css属性基本使用展示</h3><img src=\"http://note.youdao.com/yws/api/personal/file/WEBd1314486bd7a0dee19b3070650ef4b21?method=download&inline=true&shareKey=3f504772f84aa261fee6b5568109a48b\" border=\"4\" style=\"width: auto; height: auto;\">",
 
         "点击了解--><a href=\"https://blog.csdn.net/m0_67840539/article/details/130824794\">css的发展史</a><-- " ,
         "点击了解，不同时期的css代码进化后而随之改变的网页样式--><a href=\"https://www.webdesignmuseum.org/all-websites\">css发展之网页的变迁</a><-- "
@@ -30,6 +30,7 @@ export const note2 = {
 // 统一导出笔记数组（关键：让JS加载时能获取所有笔记）, note2, note3, note4, note5, note6, note7, note8, note9
 
 export default [note1,note2];
+
 
 
 
