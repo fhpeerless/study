@@ -26,12 +26,26 @@ export const note2 = {
     embed: ""
 };
 
+// 第一篇笔记
+export const note3 = {
+    title: "css的属性选择器",
+    content: [   /* 123123*/
+        "<h3>css选择器介绍：先从最简单的四种开始学习</h3>--><a href=\"https://www.w3school.com.cn/cssref/css_selectors.asp\">css的选择器参考手册</a><-- " ,
+        "<h3>css属性基本使用展示</h3><a href=\"https://www.w3school.com.cn/tiy/t.asp?f=selector_attribute\" alt=\"属性在线编辑器\">点击进入属性选择器代码展示</a>",
+        "<h3>css的代码位置</h3> <br>css代码可打包成单独的文件后引入，或者直接写在head标签内"
+        
+    ],
+    timestamp: "2025-10-18 08:30",
+    images: [],  // 确保有images属性
+    embed: ""
+};
 
 
 
 // 统一导出笔记数组（关键：让JS加载时能获取所有笔记）, note2, note3, note4, note5, note6, note7, note8, note9
 
-export default [note1,note2];
+export default [note1,note2,note3];
+
 
 
 
