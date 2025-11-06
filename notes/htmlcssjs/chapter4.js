@@ -30,8 +30,7 @@ export const note3 = {
     title: "属性选择器",
     content: [   /* 123123*/
         "<h3>属性选择器是选择带有指定属性的元素，官方介绍</h3>--><a href=\"https://www.w3school.com.cn/cssref/selector_attribute.asp\" target=\"_blank\">css的属性选择器</a><-- <br>" ,
-        "<h3>css属性基本使用展示</h3>  <a href=\"https://www.w3school.com.cn/tiy/t.asp?f=selector_attribute\" title=\"属性在线编辑器\">点击进入属性选择器代码展示</a>",
-        "<h3>css的代码位置</h3> <br>css代码可打包成单独的文件后引入，或者直接写在head标签内",
+        "<h3>属性选择器的在线代码演示</h3>  <a href=\"https://www.w3school.com.cn/tiy/t.asp?f=selector_attribute\" title=\"属性在线编辑器\">点击进入属性选择器代码展示</a>"
 
     ],
     timestamp: "2025-10-18 08:30",
