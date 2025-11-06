@@ -164,6 +164,8 @@ body.dark-mode .chapter-list::-webkit-scrollbar-thumb,
 body.dark-mode .subject-buttons::-webkit-scrollbar-thumb {
     background-color: #4a4a6a;
 }
+
+
 /* 章节项样式 */
 .chapter-item {
     padding: 10px 12px;
@@ -198,6 +200,97 @@ body.dark-mode .chapter-item.active {
     background-color: #343458;
     border-left-color: #4dabf5;
 }
+
+/* 目录容器样式 */
+.notes-toc {
+    margin: 0 0 25px 0;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+}
+body.dark-mode .notes-toc {
+    background-color: #2d2d44;
+    border-color: #444;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+
+/* 目录标题 */
+.toc-title {
+    margin: 0 0 18px 0;
+    font-size: 18px; /* 增大标题字体 */
+    color: #2c3e50;
+    font-weight: 600;
+    padding-bottom: 10px;
+    /* 移除下边框（原下划线由边框实现） */
+    border-bottom: none; /* 将原有的 border-bottom: 2px solid #f0f0f0; 改为 none */
+    display: flex;
+    align-items: center;
+}
+
+.toc-title::before {
+    content: "📚";
+    margin-right: 8px;
+}
+
+/* 目录列表：清除默认样式，优化间距 */
+.toc-item {
+    margin: 8px 0; /* 项间距适中，避免拥挤 */
+    line-height: 1.5; /* 与笔记内容行高一致 */
+}
+.toc-item:hover {
+    transform: translateX(4px);
+}
+/* 目录项 */
+.toc-item {
+    margin: 6px 0;
+    line-height: 1.6;
+    transition: transform 0.2s ease;
+}
+
+/* 目录链接：无下划线，颜色贴近笔记文本 */
+.toc-link {
+    color: #34495e;
+    text-decoration: none !important; /* 强制去除下划线 */
+    font-size: 15px;
+    padding: 4px 6px;
+    border-radius: 4px;
+    display: inline-block;
+    transition: all 0.2s ease;
+}
+
+/* 链接hover状态：用颜色变化代替下划线 */
+.toc-link:hover {
+    color: #2980b9;
+    background-color: #f5f7fa;
+}
+/* 平滑滚动（让跳转更友好） */
+html {
+    scroll-behavior: smooth;
+}
+/* 目录列表 */
+.toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+
+
+
+
+
+
+/* 笔记分隔线（可选优化） */
+.note-separator {
+    height: 1px;
+    background-color: #eee;
+    margin: 20px 0;
+}
+
 
 /* 笔记内容区 - 基础自适应优化 */
 .note-display-wrapper {
@@ -254,9 +347,10 @@ body.dark-mode .note-placeholder {
     padding-bottom: 15px;
     border-bottom: 1px solid #e0e0e0;
 }
-body.dark-mode .note-title {
-    color: #ffffff;
-    border-bottom-color: #333;
+/* 同时修改暗黑模式下的样式 */
+body.dark-mode .toc-title {
+    color: #ecf0f1;
+    border-bottom: none; /* 移除暗黑模式下的下边框 */
 }
 .note-meta {
     display: flex;
@@ -316,13 +410,14 @@ body.dark-mode .note-body pre {
     word-break: break-all;
 }
 
+/* 笔记容器样式（参考，确保目录与其协调） */
 .single-note {
-    padding: 20px;
-    border-radius: 8px;
-    background-color: #fff;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
     margin-bottom: 25px;
-    box-sizing: border-box; /* 新增：确保padding不增加宽度 */
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    background-color: #fff;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
 }
 body.dark-mode .single-note {
     background-color: #2d2d44;
@@ -395,6 +490,25 @@ body.dark-mode .note-body code {
 body.dark-mode .note-footer {
     border-top-color: #333;
 }
+
+body.dark-mode .toc-link {
+    color: #bdc3c7;
+}
+body.dark-mode .toc-link:hover {
+    color: #3498db;
+    background-color: #3a3a56;
+}
+/* 当前激活的目录项（可选） */
+.toc-link.active {
+    color: #2980b9;
+    font-weight: 500;
+    background-color: #eef5fb;
+}
+body.dark-mode .toc-link.active {
+    color: #3498db;
+    background-color: #343458;
+}
+
 
 /* 响应式设计 - 大屏适配 */
 @media (max-width: 1200px) {
