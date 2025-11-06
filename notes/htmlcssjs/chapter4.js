@@ -29,6 +29,8 @@ export const note2 = {
 export const note3 = {
     title: "属性选择器",
     content: [   /* 123123*/
+        "<h3>css选择器的几大类</h3>--><a href=\"https://www.w3school.com.cn/css/css_selectors.asp\" target=\"_blank\">css的几类选择器</a><-- <br>" ,
+      
         "<h3>属性选择器是选择带有指定属性的元素，官方介绍</h3>--><a href=\"https://www.w3school.com.cn/cssref/selector_attribute.asp\" target=\"_blank\">css的属性选择器</a><-- <br>" ,
         "<h3>属性选择器的在线代码演示</h3>  <a href=\"https://www.w3school.com.cn/tiy/t.asp?f=selector_attribute\" title=\"属性在线编辑器\">点击进入属性选择器代码展示</a>"
 
@@ -98,6 +100,7 @@ export const note5 = {
 // 统一导出笔记数组（关键：让JS加载时能获取所有笔记）, note2, note3, note4, note5, note6, note7, note8, note9
 
 export default [note1,note2,note3,note4,note5];
+
 
 
 
