@@ -1,13 +1,13 @@
 // 学科章节映射
 // 学科章节映射
 const subjectChapters = {
-    htmlcssjs: 7,  
-    python: 1,    
+    htmlcssjs: 4,
+    python: 2,
     english: 1,  
     政治101: 1   
 };
 // 新增：笔记文件缓存版本号（更新笔记后，修改此版本号即可触发全量刷新）
-const NOTE_CACHE_VERSION = "v20251105"; // 格式：v+日期/迭代号，如 v20251031、v3
+const NOTE_CACHE_VERSION = "v20251104"; // 格式：v+日期/迭代号，如 v20251031、v3
 
 
 
@@ -17,7 +17,7 @@ const notePlaceholder = document.getElementById('notePlaceholder');
 const noteContentArea = document.getElementById('noteContentArea');
 const themeBtn = document.getElementById('themeBtn');
 // 当前选中的学科和章节
-let currentSubject = 'html';
+let currentSubject = 'htmlcssjs';
 let currentChapter = null;
 
 // 初始化页面
@@ -25,7 +25,7 @@ function init() {
     // 1. 动态生成学科按钮（内部已绑定事件，无需重复绑定）
     generateSubjectButtons();
     // 2. 加载默认学科（HTML）的章节
-    loadChapters('html');
+    loadChapters('htmlcssjs');
     // 3. 绑定主题切换事件
     themeBtn.addEventListener('click', toggleTheme);
     // 4. 检查本地存储的主题设置
@@ -44,7 +44,7 @@ function generateSubjectButtons() {
         btn.dataset.subject = subject;
         btn.textContent = subject.toUpperCase();
         // 设置默认激活状态（首次加载HTML学科）
-        if (subject === 'html') btn.classList.add('active');
+        if (subject === 'htmlcssjs') btn.classList.add('active');
 
         // 按钮点击事件（仅绑定一次）
         btn.addEventListener('click', () => {
@@ -137,17 +137,32 @@ function loadAndShowNote(subject, chapter) {
         });
 }
 
-// 新增：渲染多篇笔记（每篇笔记保留原有样式，加分隔线）
-function showMultipleNotes(notes) {
-    let allNotesHtml = ''; // 汇总所有笔记的HTML
+// 在处理笔记内容时，对<style>标签进行作用域转换
+function scopedStyle(content, scopedClass) {
+    // 匹配<style>标签内容（简单处理，复杂场景可使用DOM解析）
+    return content.replace(/<style>([\s\S]*?)<\/style>/g, (match, css) => {
+        // 给CSS选择器添加作用域前缀（处理常见选择器场景）
+        const scopedCss = css
+            // 处理元素选择器（如 p -> .note-scoped-0 p）
+            .replace(/([^\n{}#.]+)(?=\s*\{)/g, `.${scopedClass} $1`)
+            // 处理类选择器（如 .nimei -> .note-scoped-0 .nimei）
+            .replace(/(\.)([a-zA-Z0-9_-]+)(?=\s*\{)/g, `.${scopedClass} $&`)
+            // 处理ID选择器（如 #test -> .note-scoped-0 #test）
+            .replace(/(#)([a-zA-Z0-9_-]+)(?=\s*\{)/g, `.${scopedClass} $&`);
+        return `<style>${scopedCss}</style>`;
+    });
+}
 
+// 新增：渲染多篇笔记（每篇笔记保留原有样式，加分隔线）
+// 渲染多篇笔记（第3步：调用scopedStyle）
+function showMultipleNotes(notes) {
+    let allNotesHtml = '';
     notes.forEach((note, index) => {
-        // 单篇笔记的HTML结构（复用原showNote逻辑，加索引区分）
+        const scopedClass = `note-scoped-${index}`; // 唯一作用域类名
         let noteHtml = `
-            <!-- 笔记分隔线（除第一篇外添加） -->
             ${index > 0 ? '<div class="note-separator"></div>' : ''}
-            <div class="single-note">
-                <h2 class="note-title">${index + 1}. ${note.title}</h2> <!-- 加笔记序号 -->
+            <div class="single-note ${scopedClass}"> <!-- 添加作用域类名 -->
+                <h2 class="note-title">${index + 1}. ${note.title}</h2>
                 <div class="note-meta">
                     <i class="fa fa-clock-o"></i>
                     <span>${note.timestamp}</span>
@@ -155,11 +170,15 @@ function showMultipleNotes(notes) {
                 <div class="note-body">
         `;
 
-        // 处理笔记内容（字符串/数组）
+        // 处理笔记内容时应用样式作用域转换
         if (Array.isArray(note.content)) {
-            note.content.forEach(content => noteHtml += `<p>${content}</p>`);
+            note.content.forEach(content => {
+                const scopedContent = scopedStyle(content, scopedClass); // 调用转换函数
+                noteHtml += `<p>${scopedContent}</p>`;
+            });
         } else {
-            noteHtml += `<p>${note.content}</p>`;
+            const scopedContent = scopedStyle(note.content, scopedClass); // 调用转换函数
+            noteHtml += `<p>${scopedContent}</p>`;
         }
 
         // 处理图片
@@ -311,8 +330,6 @@ document.head.appendChild(style);
 // 页面加载完成后初始化
 
 document.addEventListener('DOMContentLoaded', init);
-
-
 
 
 
