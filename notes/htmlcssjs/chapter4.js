@@ -81,7 +81,7 @@ export const note5 = {
         
         "<h3>伪元素选择器</h3><br>对某元素其中一部分实现特殊效果",
         "<h4>伪元素的w3c介绍</h4>",
-        "&lt;a href=\"https://www.w3school.com.cn/css/css_pseudo_elements.asp\" title=\"伪元素选择器\",
+        "&lt;a href=\"https://www.w3school.com.cn/css/css_pseudo_elements.asp\" title=\"伪元素选择器\" ",
         
         "&lt; style &gt; /* 未访问的链接 */  a:link {color: #FF0000;}  /* 已访问的链接 */   a:visited {color: #00FF00;}   /* 鼠标悬停链接 */   a:hover {color: #FF00FF;}  /* 已选择的链接 */   a:active {color: #0000FF;}   &lt; /style  &gt; ",
         "<h4>代码运行效果：</h4>",
@@ -101,6 +101,7 @@ export const note5 = {
 // 统一导出笔记数组（关键：让JS加载时能获取所有笔记）, note2, note3, note4, note5, note6, note7, note8, note9
 
 export default [note1,note2,note3,note4,note5];
+
 
 
 
