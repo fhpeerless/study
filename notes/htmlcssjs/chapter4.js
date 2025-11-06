@@ -48,7 +48,7 @@ export const note4 = {
         "<h4>class选择器的介绍</h4> --><a href=\"https://www.w3school.com.cn/cssref/selector_class.asp\" target=\"_blank\">class选择器功能介绍</a><-- ",
         "<h4>class代码在线演示</h4> --><a href=\"https://www.w3school.com.cn/tiy/t.asp?f=selector_class_1\" target=\"_blank\">class选择器在线演示</a><-- ",
 
-        "<h3>id选择器的功能</h3>id选择器选择带有class属性值的标签，并加入css样式，此代码找到class为nimei的值后，更改了p标签的背景颜色<br> &lt;P class=\"nimei\"&gt;测试属性选择器&lt;/P&gt; &lt;style&gt; .nimei{background-color: aquamarine}&lt;/style&gt; ",
+        "<h3>id选择器的功能</h3>id选择器是选择一个带有id值的一个唯一元素，来更改他的样式<br> class可能是为都多个元素设计的",
         "<h4>id选择器的介绍</h4> --> <a href=\"https://www.w3school.com.cn/cssref/selector_id.asp\" target=\"_blank\">id选择器介绍</a><-- ",
         "<h4>id代码在线演示</h4> --><a href=\"https://www.w3school.com.cn/tiy/t.asp?f=selector_id\" target=\"_blank\">id选择器在线演示</a><-- ",
       
@@ -97,6 +97,7 @@ export const note5 = {
 // 统一导出笔记数组（关键：让JS加载时能获取所有笔记）, note2, note3, note4, note5, note6, note7, note8, note9
 
 export default [note1,note2,note3,note4,note5];
+
 
 
 
