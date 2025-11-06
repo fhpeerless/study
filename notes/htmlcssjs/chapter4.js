@@ -28,7 +28,7 @@ export const note2 = {
 
 // 第一篇笔记
 export const note3 = {
-    title: "css的属性选择器",
+    title: "class和id属性选择器",
     content: [   /* 123123*/
         "<h3>css选择器介绍：先从最简单的四种开始学习</h3>--><a href=\"https://www.w3school.com.cn/cssref/css_selectors.asp\" target=\"_blank\">css的选择器参考手册</a><-- class选择器通常用于一块的元素，而id选择器通常用于某一个，id多和js相互搭配使用" ,
         "<h3>css属性基本使用展示</h3>  <a href=\"https://www.w3school.com.cn/tiy/t.asp?f=selector_attribute\" alt=\"属性在线编辑器\">点击进入属性选择器代码展示</a>",
@@ -76,6 +76,7 @@ export const note4 = {
 // 统一导出笔记数组（关键：让JS加载时能获取所有笔记）, note2, note3, note4, note5, note6, note7, note8, note9
 
 export default [note1,note2,note3,note4];
+
 
 
 
