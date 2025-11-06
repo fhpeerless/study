@@ -35,7 +35,7 @@ export const note3 = {
         "<h3>css的代码位置</h3> <br>css代码可打包成单独的文件后引入，或者直接写在head标签内",
 
         "<h3>选择带有class属性的标签</h3>class选择器选择带有class属性值的标签，并加入css样式，此代码找到class为nimei的值后，更改了p标签的背景颜色<br> &lt;P class=\"nimei\"&gt;测试属性选择器&lt;/P&gt; &lt;style&gt; .nimei{background-color: aquamarine}&lt;/style&gt; ",
-        "<h3>代码运行展示</h3> <br>  <style> #nimei{background-color: aquamarine;}</style> <P id=\"nimei\">测试属性选择器</P> ",
+        "<h3>代码运行展示</h3> <br> <a href=\"https://www.w3school.com.cn/cssref/selector_class.asp\" target=\"_blank\">css的class选择器</a><-- ",
        
         "<h3>选择并设置所有 target=\"_blank\" 的 a 元素的样式，</h3>带有target且值等于blank的a元素会被设置黄色背景 <br>  &lt; h3 &gt;代码运行展示&lt; /h3 &gt; <br> &lt;style&gt;a[target=\"_blank\"]{background-color: yellow;} &lt;/style&gt; <br>  &lt;a href=\"https://www.w3school.com.cn\"&gt;W3School&lt;/a&gt;  <br> &lt;a href=\"https://www.google.com\" target=\"_blank\"&gt;Google&lt;/a&gt; <br>  ",
         " <h3>代码运行展示</h3> <a href=\"https://www.w3school.com.cn\">W3School</a>  <br> <a href=\"https://www.google.com\" target=\"_blank\">Google</a><br> <style>a[target=\"_blank\"]{background-color: yellow;} </style>",
@@ -83,6 +83,7 @@ export const note4 = {
 // 统一导出笔记数组（关键：让JS加载时能获取所有笔记）, note2, note3, note4, note5, note6, note7, note8, note9
 
 export default [note1,note2,note3,note4];
+
 
 
 
