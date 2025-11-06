@@ -160,7 +160,7 @@ function showMultipleNotes(notes) {
     // 1. 生成目录HTML
     let tocHtml = `
         <div class="notes-toc">
-            <h3 class="toc-title">目录</h3>
+            <h3 class="toc-title">目录<span class="toc-hint">（点击目录项可跳转到对应笔记位置）</span></h3>
             <ul class="toc-list">
     `;
     // 遍历笔记生成目录项（同时记录锚点ID）
