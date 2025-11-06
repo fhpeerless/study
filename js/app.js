@@ -156,12 +156,36 @@ function scopedStyle(content, scopedClass) {
 // 新增：渲染多篇笔记（每篇笔记保留原有样式，加分隔线）
 // 渲染多篇笔记（第3步：调用scopedStyle）
 function showMultipleNotes(notes) {
+
+    // 1. 生成目录HTML
+    let tocHtml = `
+        <div class="notes-toc">
+            <h3 class="toc-title">目录</h3>
+            <ul class="toc-list">
+    `;
+    // 遍历笔记生成目录项（同时记录锚点ID）
+    notes.forEach((note, index) => {
+        const noteId = `note-${index}`; // 每篇笔记的唯一锚点ID
+        tocHtml += `
+            <li class="toc-item">
+                <a href="#${noteId}" class="toc-link">${index + 1}. ${note.title}</a>
+            </li>
+        `;
+    });
+    tocHtml += `
+            </ul>
+        </div>
+    `;
+
+    // 2. 生成笔记内容HTML（在原有基础上添加锚点ID）
     let allNotesHtml = '';
     notes.forEach((note, index) => {
-        const scopedClass = `note-scoped-${index}`; // 唯一作用域类名
+        const scopedClass = `note-scoped-${index}`;
+        const noteId = `note-${index}`; // 与目录锚点对应
         let noteHtml = `
             ${index > 0 ? '<div class="note-separator"></div>' : ''}
-            <div class="single-note ${scopedClass}"> <!-- 添加作用域类名 -->
+            <!-- 添加锚点ID，用于目录跳转 -->
+            <div id="${noteId}" class="single-note ${scopedClass}"> 
                 <h2 class="note-title">${index + 1}. ${note.title}</h2>
                 <div class="note-meta">
                     <i class="fa fa-clock-o"></i>
@@ -170,14 +194,14 @@ function showMultipleNotes(notes) {
                 <div class="note-body">
         `;
 
-        // 处理笔记内容时应用样式作用域转换
+        // 处理笔记内容（应用样式隔离，保持不变）
         if (Array.isArray(note.content)) {
             note.content.forEach(content => {
-                const scopedContent = scopedStyle(content, scopedClass); // 调用转换函数
+                const scopedContent = scopedStyle(content, scopedClass);
                 noteHtml += `<p>${scopedContent}</p>`;
             });
         } else {
-            const scopedContent = scopedStyle(note.content, scopedClass); // 调用转换函数
+            const scopedContent = scopedStyle(note.content, scopedClass);
             noteHtml += `<p>${scopedContent}</p>`;
         }
 
@@ -207,9 +231,32 @@ function showMultipleNotes(notes) {
         allNotesHtml += noteHtml; // 拼接单篇笔记到总HTML
     });
 
-    // 渲染所有笔记到页面
-    noteContentArea.innerHTML = allNotesHtml;
+    // 3. 合并目录和笔记内容，渲染到页面
+    noteContentArea.innerHTML = tocHtml + allNotesHtml;
 }
+
+//--------------- 目录滚动高亮功能
+const tocLinks = document.querySelectorAll('.toc-link');
+const sections = document.querySelectorAll('.single-note');
+
+function highlightTocOnScroll() {
+    let scrollPosition = window.scrollY + 100; // 偏移100px提前高亮
+
+    sections.forEach((section, index) => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.offsetHeight;
+        const tocLink = tocLinks[index];
+
+        // 判断当前滚动位置是否在当前章节范围内
+        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+            tocLinks.forEach(link => link.classList.remove('active'));
+            tocLink.classList.add('active');
+        }
+    });
+}
+
+window.addEventListener('scroll', highlightTocOnScroll);
+
 
 // 渲染笔记内容到页面
 function showNote(note) {
