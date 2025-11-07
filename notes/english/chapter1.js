@@ -4,7 +4,7 @@ export const note1 = {
     title: "时态一般疑问句！",
     content: [
         "此笔记内容是上学时写的，总共有70多章，大约400多页，之后可能会出视频讲解，继续上传所有，如果学习上有问题请滑动到网页底部，加入QQ群聊共同探讨",
-        "语法分析，句子纠错，可能需要登录（国内可用）<br> <a href=\"https://wordvice.ai/cn/proofreading\">语法分析</a>， <br>或用百度出的ai查询语法正确与否<br>--><a href=\"https://www.baidu.com/index.htm\">ai语法查询(文心一言)c</a>   <br>更多查询google（国外可用）--><a href=\"https://www.google.com/\">W3c</a>",
+        "语法分析，句子纠错，可能需要登录（国内可用）<br> <a href=\"https://wordvice.ai/cn/proofreading\">语法分析</a>， <br>或用百度出的ai查询语法正确与否<br>--><a href=\"https://www.baidu.com/index.htm\">ai语法查询(文心一言)c</a>   <br>更多查询google（国外可用）--><a href=\"https://www.google.com/\">google</a>",
 
     ],
     timestamp: "2025-10-10 08:30",
@@ -106,3 +106,4 @@ export const note12 = {
 
 //export default [note1, note2, note3, note4, note5, note6, note7, note8, note9, note10, note11, note12];
 export default [note1,];
+
