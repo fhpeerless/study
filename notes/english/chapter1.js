@@ -35,7 +35,7 @@ export const note2 = {
 };
 // HTML第一章 多篇笔记（改为命名导出+数组汇总）
 // 第一篇笔记
-export const note1 = {
+export const note3 = {
     title: "一般疑问句的造句示例！",
     content: [
         "此笔记内容是上学时写的，总共有70多章，大约400多页，之后可能会出视频讲解，继续上传所有，如果学习上有问题请滑动到网页底部，加入QQ群聊共同探讨",
@@ -56,7 +56,7 @@ export const note1 = {
 
 // HTML第一章 多篇笔记（改为命名导出+数组汇总）
 // 第一篇笔记
-export const note2 = {
+export const note4 = {
     title: "可视化与基本结构！",
     content: "html可视化编程可以下载<a href=\"https://www.jetbrains.com/webstorm/\">WebStorm</a>， <br>或者更简单的方式实现可视化：新建一个txt文本把h5代码复制进去，用浏览器打开即可！<br>或用在线代码编辑器--><a href=\"https://codepen.io/pen/\">进入编辑器c</a> <br>更多代码查询请点击--><a href=\"https://www.w3school.com.cn/\">W3c</a>",
     timestamp: "2025-10-10 08:30",
@@ -64,7 +64,7 @@ export const note2 = {
     ],
     embed: ""
 };
-export const note3 = {
+export const note4 = {
     title: "可视化与基本结构！",
     content: "html可视化编程可以下载<a href=\"https://www.jetbrains.com/webstorm/\">WebStorm</a>， <br>或者更简单的方式实现可视化：新建一个txt文本把h5代码复制进去，用浏览器打开即可！<br>或用在线代码编辑器--><a href=\"https://codepen.io/pen/\">进入编辑器c</a> <br>更多代码查询请点击--><a href=\"https://www.w3school.com.cn/\">W3c</a>",
     timestamp: "2025-10-10 08:30",
@@ -138,5 +138,6 @@ export const note12 = {
 
 //export default [note1, note2, note3, note4, note5, note6, note7, note8, note9, note10, note11, note12];
 export default [note1,note2, note3];
+
 
 
