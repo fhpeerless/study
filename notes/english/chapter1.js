@@ -25,8 +25,7 @@ export const note2 = {
 
     ],
     timestamp: "2025-10-10 08:30",
-    images: [
-      
+    images: [  
         "http://note.youdao.com/yws/api/personal/file/WEB6a6c94676b91d0bd611fcd0a3628d05a?method=download&inline=true&shareKey=ad4f15b141d4a4776ad98b4526e38d4b",
         "http://note.youdao.com/yws/api/personal/file/WEBc3b7683be02a656e46b7f065a75dea55?method=download&inline=true&shareKey=eef201f3027b7b1b4c8cabd74d4c153e"
         
@@ -53,91 +52,9 @@ export const note3 = {
 };
 
 
-
-// HTML第一章 多篇笔记（改为命名导出+数组汇总）
-// 第一篇笔记
-export const note4 = {
-    title: "可视化与基本结构！",
-    content: "html可视化编程可以下载<a href=\"https://www.jetbrains.com/webstorm/\">WebStorm</a>， <br>或者更简单的方式实现可视化：新建一个txt文本把h5代码复制进去，用浏览器打开即可！<br>或用在线代码编辑器--><a href=\"https://codepen.io/pen/\">进入编辑器c</a> <br>更多代码查询请点击--><a href=\"https://www.w3school.com.cn/\">W3c</a>",
-    timestamp: "2025-10-10 08:30",
-    images: ["http://note.youdao.com/yws/api/personal/file/WEB6a6c94676b91d0bd611fcd0a3628d05a?method=download&inline=true&shareKey=ad4f15b141d4a4776ad98b4526e38d4b"
-    ],
-    embed: ""
-};
-export const note4 = {
-    title: "可视化与基本结构！",
-    content: "html可视化编程可以下载<a href=\"https://www.jetbrains.com/webstorm/\">WebStorm</a>， <br>或者更简单的方式实现可视化：新建一个txt文本把h5代码复制进去，用浏览器打开即可！<br>或用在线代码编辑器--><a href=\"https://codepen.io/pen/\">进入编辑器c</a> <br>更多代码查询请点击--><a href=\"https://www.w3school.com.cn/\">W3c</a>",
-    timestamp: "2025-10-10 08:30",
-    images: ["http://note.youdao.com/yws/api/personal/file/WEB1f1b8b1a3ddcc3f3ef698a5f8bc7c9f6?method=download&inline=true&shareKey=969f3d4830d0aac90daf21837b4b185e"],
-    embed: "<iframe src=\"//player.bilibili.com/player.html?isOutside=true&aid=115412666747576&bvid=BV1EkWdzvEBx&cid=33343736793&p=2\" scrolling=\"no\" border=\"0\" frameborder=\"no\" framespacing=\"0\" allowfullscreen=\"true\"></iframe>"
-};
-export const note4 = {
-    title: "可视化与基本结构！",
-    content: "html可视化编程可以下载<a href=\"https://www.jetbrains.com/webstorm/\">WebStorm</a>， <br>或者更简单的方式实现可视化：新建一个txt文本把h5代码复制进去，用浏览器打开即可！<br>或用在线代码编辑器--><a href=\"https://codepen.io/pen/\">进入编辑器c</a> <br>更多代码查询请点击--><a href=\"https://www.w3school.com.cn/\">W3c</a>",
-    timestamp: "2025-10-10 08:30",
-    images: ["http://note.youdao.com/yws/api/personal/file/WEB1f1b8b1a3ddcc3f3ef698a5f8bc7c9f6?method=download&inline=true&shareKey=969f3d4830d0aac90daf21837b4b185e"],
-    embed: "<iframe src=\"//player.bilibili.com/player.html?isOutside=true&aid=115412666747576&bvid=BV1EkWdzvEBx&cid=33343736793&p=2\" scrolling=\"no\" border=\"0\" frameborder=\"no\" framespacing=\"0\" allowfullscreen=\"true\"></iframe>"
-};
-export const note5 = {
-    title: "可视化与基本结构！",
-    content: "html可视化编程可以下载<a href=\"https://www.jetbrains.com/webstorm/\">WebStorm</a>， <br>或者更简单的方式实现可视化：新建一个txt文本把h5代码复制进去，用浏览器打开即可！<br>或用在线代码编辑器--><a href=\"https://codepen.io/pen/\">进入编辑器c</a> <br>更多代码查询请点击--><a href=\"https://www.w3school.com.cn/\">W3c</a>",
-    timestamp: "2025-10-10 08:30",
-    images: ["http://note.youdao.com/yws/api/personal/file/WEB1f1b8b1a3ddcc3f3ef698a5f8bc7c9f6?method=download&inline=true&shareKey=969f3d4830d0aac90daf21837b4b185e"],
-    embed: "<iframe src=\"//player.bilibili.com/player.html?isOutside=true&aid=115412666747576&bvid=BV1EkWdzvEBx&cid=33343736793&p=2\" scrolling=\"no\" border=\"0\" frameborder=\"no\" framespacing=\"0\" allowfullscreen=\"true\"></iframe>"
-};
-export const note6 = {
-    title: "可视化与基本结构！",
-    content: "html可视化编程可以下载<a href=\"https://www.jetbrains.com/webstorm/\">WebStorm</a>， <br>或者更简单的方式实现可视化：新建一个txt文本把h5代码复制进去，用浏览器打开即可！<br>或用在线代码编辑器--><a href=\"https://codepen.io/pen/\">进入编辑器c</a> <br>更多代码查询请点击--><a href=\"https://www.w3school.com.cn/\">W3c</a>",
-    timestamp: "2025-10-10 08:30",
-    images: ["http://note.youdao.com/yws/api/personal/file/WEB1f1b8b1a3ddcc3f3ef698a5f8bc7c9f6?method=download&inline=true&shareKey=969f3d4830d0aac90daf21837b4b185e"],
-    embed: "<iframe src=\"//player.bilibili.com/player.html?isOutside=true&aid=115412666747576&bvid=BV1EkWdzvEBx&cid=33343736793&p=2\" scrolling=\"no\" border=\"0\" frameborder=\"no\" framespacing=\"0\" allowfullscreen=\"true\"></iframe>"
-};
-export const note7 = {
-    title: "可视化与基本结构！",
-    content: "html可视化编程可以下载<a href=\"https://www.jetbrains.com/webstorm/\">WebStorm</a>， <br>或者更简单的方式实现可视化：新建一个txt文本把h5代码复制进去，用浏览器打开即可！<br>或用在线代码编辑器--><a href=\"https://codepen.io/pen/\">进入编辑器c</a> <br>更多代码查询请点击--><a href=\"https://www.w3school.com.cn/\">W3c</a>",
-    timestamp: "2025-10-10 08:30",
-    images: ["http://note.youdao.com/yws/api/personal/file/WEB1f1b8b1a3ddcc3f3ef698a5f8bc7c9f6?method=download&inline=true&shareKey=969f3d4830d0aac90daf21837b4b185e"],
-    embed: "<iframe src=\"//player.bilibili.com/player.html?isOutside=true&aid=115412666747576&bvid=BV1EkWdzvEBx&cid=33343736793&p=2\" scrolling=\"no\" border=\"0\" frameborder=\"no\" framespacing=\"0\" allowfullscreen=\"true\"></iframe>"
-};
-export const note8 = {
-    title: "可视化与基本结构！",
-    content: "html可视化编程可以下载<a href=\"https://www.jetbrains.com/webstorm/\">WebStorm</a>， <br>或者更简单的方式实现可视化：新建一个txt文本把h5代码复制进去，用浏览器打开即可！<br>或用在线代码编辑器--><a href=\"https://codepen.io/pen/\">进入编辑器c</a> <br>更多代码查询请点击--><a href=\"https://www.w3school.com.cn/\">W3c</a>",
-    timestamp: "2025-10-10 08:30",
-    images: ["http://note.youdao.com/yws/api/personal/file/WEB1f1b8b1a3ddcc3f3ef698a5f8bc7c9f6?method=download&inline=true&shareKey=969f3d4830d0aac90daf21837b4b185e"],
-    embed: "<iframe src=\"//player.bilibili.com/player.html?isOutside=true&aid=115412666747576&bvid=BV1EkWdzvEBx&cid=33343736793&p=2\" scrolling=\"no\" border=\"0\" frameborder=\"no\" framespacing=\"0\" allowfullscreen=\"true\"></iframe>"
-};
-export const note9 = {
-    title: "可视化与基本结构！",
-    content: "html可视化编程可以下载<a href=\"https://www.jetbrains.com/webstorm/\">WebStorm</a>， <br>或者更简单的方式实现可视化：新建一个txt文本把h5代码复制进去，用浏览器打开即可！<br>或用在线代码编辑器--><a href=\"https://codepen.io/pen/\">进入编辑器c</a> <br>更多代码查询请点击--><a href=\"https://www.w3school.com.cn/\">W3c</a>",
-    timestamp: "2025-10-10 08:30",
-    images: ["http://note.youdao.com/yws/api/personal/file/WEB1f1b8b1a3ddcc3f3ef698a5f8bc7c9f6?method=download&inline=true&shareKey=969f3d4830d0aac90daf21837b4b185e"],
-    embed: "<iframe src=\"//player.bilibili.com/player.html?isOutside=true&aid=115412666747576&bvid=BV1EkWdzvEBx&cid=33343736793&p=2\" scrolling=\"no\" border=\"0\" frameborder=\"no\" framespacing=\"0\" allowfullscreen=\"true\"></iframe>"
-};
-export const note10 = {
-    title: "可视化与基本结构！",
-    content: "html可视化编程可以下载<a href=\"https://www.jetbrains.com/webstorm/\">WebStorm</a>， <br>或者更简单的方式实现可视化：新建一个txt文本把h5代码复制进去，用浏览器打开即可！<br>或用在线代码编辑器--><a href=\"https://codepen.io/pen/\">进入编辑器c</a> <br>更多代码查询请点击--><a href=\"https://www.w3school.com.cn/\">W3c</a>",
-    timestamp: "2025-10-10 08:30",
-    images: ["http://note.youdao.com/yws/api/personal/file/WEB1f1b8b1a3ddcc3f3ef698a5f8bc7c9f6?method=download&inline=true&shareKey=969f3d4830d0aac90daf21837b4b185e"],
-    embed: "<iframe src=\"//player.bilibili.com/player.html?isOutside=true&aid=115412666747576&bvid=BV1EkWdzvEBx&cid=33343736793&p=2\" scrolling=\"no\" border=\"0\" frameborder=\"no\" framespacing=\"0\" allowfullscreen=\"true\"></iframe>"
-};
-export const note11 = {
-    title: "可视化与基本结构！",
-    content: "html可视化编程可以下载<a href=\"https://www.jetbrains.com/webstorm/\">WebStorm</a>， <br>或者更简单的方式实现可视化：新建一个txt文本把h5代码复制进去，用浏览器打开即可！<br>或用在线代码编辑器--><a href=\"https://codepen.io/pen/\">进入编辑器c</a> <br>更多代码查询请点击--><a href=\"https://www.w3school.com.cn/\">W3c</a>",
-    timestamp: "2025-10-10 08:30",
-    images: ["http://note.youdao.com/yws/api/personal/file/WEB1f1b8b1a3ddcc3f3ef698a5f8bc7c9f6?method=download&inline=true&shareKey=969f3d4830d0aac90daf21837b4b185e"],
-    embed: "<iframe src=\"//player.bilibili.com/player.html?isOutside=true&aid=115412666747576&bvid=BV1EkWdzvEBx&cid=33343736793&p=2\" scrolling=\"no\" border=\"0\" frameborder=\"no\" framespacing=\"0\" allowfullscreen=\"true\"></iframe>"
-};
-export const note12 = {
-    title: "可视化与基本结构！",
-    content: "html可视化编程可以下载<a href=\"https://www.jetbrains.com/webstorm/\">WebStorm</a>， <br>或者更简单的方式实现可视化：新建一个txt文本把h5代码复制进去，用浏览器打开即可！<br>或用在线代码编辑器--><a href=\"https://codepen.io/pen/\">进入编辑器c</a> <br>更多代码查询请点击--><a href=\"https://www.w3school.com.cn/\">W3c</a>",
-    timestamp: "2025-10-10 08:30",
-    images: ["http://note.youdao.com/yws/api/personal/file/WEB1f1b8b1a3ddcc3f3ef698a5f8bc7c9f6?method=download&inline=true&shareKey=969f3d4830d0aac90daf21837b4b185e"],
-    embed: "<iframe src=\"//player.bilibili.com/player.html?isOutside=true&aid=115412666747576&bvid=BV1EkWdzvEBx&cid=33343736793&p=2\" scrolling=\"no\" border=\"0\" frameborder=\"no\" framespacing=\"0\" allowfullscreen=\"true\"></iframe>"
-};
-// 统一导出笔记数组（关键：让JS加载时能获取所有笔记）
-
 //export default [note1, note2, note3, note4, note5, note6, note7, note8, note9, note10, note11, note12];
-export default [note1,note2, note3];
+export default [note1,note2,note3];
+
 
 
 
