@@ -29,7 +29,7 @@ export const note2 = {
 export const note3 = {
     title: "属性选择器",
     content: [   /* 123123*/
-        "<h3>css选择器的几大类</h3>--><a href=\"https://www.w3school.com.cn/css/css_selectors.asp\" target=\"_blank\">css的几类选择器</a><-- <br>" ,
+        "<h3>css选择器功能就是选择指定的元素，进行样式布局的修改<br>css选择器的几大类</h3>--><a href=\"https://www.w3school.com.cn/css/css_selectors.asp\" target=\"_blank\">css的几类选择器</a><-- <br>" ,
 
         "<h3>属性选择器是选择带有指定属性的元素，官方介绍</h3>--><a href=\"https://www.w3school.com.cn/cssref/selector_attribute.asp\" target=\"_blank\">css的属性选择器</a><-- <br>" ,
         "<h3>属性选择器的在线代码演示</h3>  <a href=\"https://www.w3school.com.cn/tiy/t.asp?f=selector_attribute\" title=\"属性在线编辑器\">点击进入属性选择器代码展示</a>"
@@ -99,11 +99,33 @@ export const note5 = {
     embed: ""
 };
 
+// 第一篇笔记
+export const note6 = {
+    title: "其他css选择器",
+    content: [   /* 123123*/
+        "<h3>css的多种选择器参考：</h3>--><a href=\"https://www.w3school.com.cn/cssref/css_selectors.asp\" target=\"_blank\">css的其他选择器</a><-- <br>" ,
 
+        "<h3>class选择器的功能</h3>class选择器选择带有class属性值的标签，并加入css样式，此代码找到class为nimei的值后，更改了p标签的背景颜色<br> &lt;P class=\"nimei\"&gt;测试属性选择器&lt;/P&gt; &lt;style&gt; .nimei{background-color: aquamarine}&lt;/style&gt; ",
+        "<h4>class选择器的介绍</h4> --><a href=\"https://www.w3school.com.cn/cssref/selector_class.asp\" target=\"_blank\">class选择器功能介绍</a><-- ",
+        "<h4>class代码在线演示</h4> --><a href=\"https://www.w3school.com.cn/tiy/t.asp?f=selector_class_1\" target=\"_blank\">class选择器在线演示</a><-- ",
+
+
+        "<h3>id选择器的功能</h3>id选择器是选择一个带有id值的一个唯一元素，来更改他的样式<br> class可能是为都多个元素设计的",
+        "<h4>id选择器的介绍</h4> --> <a href=\"https://www.w3school.com.cn/cssref/selector_id.asp\" target=\"_blank\">id选择器介绍</a><-- ",
+        "<h4>id代码在线演示</h4> --><a href=\"https://www.w3school.com.cn/tiy/t.asp?f=selector_id\" target=\"_blank\">id选择器在线演示</a><-- ",
+
+        "<h3>class选择器的多种使用方法</h3> <br> --><a href=\"https://www.w3school.com.cn/cssref/selector_class.asp\" target=\"_blank\">css的class选择器</a><-- ",
+
+    ],
+    timestamp: "2025-10-18 08:30",
+    images: [],  // 确保有images属性
+    embed: ""
+};
 
 // 统一导出笔记数组（关键：让JS加载时能获取所有笔记）, note2, note3, note4, note5, note6, note7, note8, note9
 
-export default [note1,note2,note3,note4,note5];
+export default [note1,note2,note3,note4,note5, note6];
+
 
 
 
