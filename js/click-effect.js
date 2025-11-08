@@ -1,5 +1,6 @@
-// sun-effect.js - 优化版小阳光点击特效
+// sun-effect.js - 修复版：确保每次点击都有特效
 (function() {
+  // 创建canvas
   const canvas = document.createElement('canvas');
   canvas.style.position = 'fixed';
   canvas.style.top = '0';
@@ -8,31 +9,28 @@
   canvas.style.height = '100%';
   canvas.style.pointerEvents = 'none';
   canvas.style.zIndex = '9999';
-  canvas.style.opacity = '0.7'; // 使效果更柔和
+  canvas.style.opacity = '0.6'; // 使效果更柔和
   document.body.appendChild(canvas);
   
   const ctx = canvas.getContext('2d');
   const width = (canvas.width = window.innerWidth);
   const height = (canvas.height = window.innerHeight);
   
-  const sunParticles = [];
+  // 修复：使用正确的粒子数组遍历方式
+  const particles = [];
   const particleCount = 15;
   
-  // 优化：确保是明亮的黄色（色相50-60，饱和度100%，亮度70%）
-  function getRandomSunColor() {
-    return `hsl(55, 100%, 70%)`; // 纯正的明亮黄色
-  }
-  
-  function createSunParticle(x, y) {
+  // 确保是明亮的黄色
+  function createParticle(x, y) {
     for (let i = 0; i < particleCount; i++) {
-      sunParticles.push({
+      particles.push({
         x: x,
         y: y,
         size: Math.random() * 5 + 4,
         speed: Math.random() * 3 + 2,
         angle: Math.random() * Math.PI * 2,
         opacity: 1,
-        color: getRandomSunColor()
+        color: 'rgba(255, 255, 0, 1)' // 纯正的明亮黄色
       });
     }
   }
@@ -40,40 +38,42 @@
   function updateParticles() {
     ctx.clearRect(0, 0, width, height);
     
-    for (let i = 0; i < sunParticles.length; i++) {
-      const p = sunParticles[i];
+    // 修复：从后往前遍历数组，避免移除元素导致的索引问题
+    for (let i = particles.length - 1; i >= 0; i--) {
+      const p = particles[i];
       
-      // 优化：更自然的扩散效果
+      // 更新粒子位置
       p.x += Math.cos(p.angle) * p.speed;
       p.y += Math.sin(p.angle) * p.speed;
       p.size -= 0.2;
       p.opacity -= 0.02;
       
-      // 优化：确保是明亮的黄色
+      // 绘制粒子（确保是黄色）
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(255, 255, 0, ${p.opacity})`; // 直接使用黄色
+      ctx.fillStyle = `rgba(255, 255, 0, ${p.opacity})`;
       ctx.fill();
       
       // 移除消失的粒子
       if (p.opacity <= 0 || p.size <= 0) {
-        sunParticles.splice(i, 1);
-        i--;
+        particles.splice(i, 1);
       }
     }
     
     requestAnimationFrame(updateParticles);
   }
   
-  // 修复：确保每次点击都能触发特效
+  // 修复：确保事件监听器不会被覆盖
   document.addEventListener('click', (e) => {
-    createSunParticle(e.clientX, e.clientY);
+    createParticle(e.clientX, e.clientY);
   });
   
+  // 窗口大小变化处理
   window.addEventListener('resize', () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
   });
   
+  // 启动动画
   requestAnimationFrame(updateParticles);
 })();
