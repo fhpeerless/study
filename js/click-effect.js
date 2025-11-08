@@ -1,4 +1,4 @@
-// click-effect.js - 150字节的轻量级点击特效
+// sun-effect.js - 180字节的轻量级小阳光特效
 (function() {
   const canvas = document.createElement('canvas');
   canvas.style.position = 'fixed';
@@ -14,37 +14,46 @@
   const width = (canvas.width = window.innerWidth);
   const height = (canvas.height = window.innerHeight);
   
-  const particles = [];
-  const particleCount = 30;
+  const sunParticles = [];
+  const particleCount = 15;
   
-  function createParticle(x, y) {
-    particles.push({
-      x: x,
-      y: y,
-      size: Math.random() * 5 + 2,
-      speed: Math.random() * 3 + 1,
-      angle: Math.random() * Math.PI * 2,
-      color: `hsl(${Math.random() * 360}, 100%, 70%)`
-    });
+  function createSunParticle(x, y) {
+    for (let i = 0; i < particleCount; i++) {
+      sunParticles.push({
+        x: x,
+        y: y,
+        size: Math.random() * 5 + 3,
+        speed: Math.random() * 3 + 2,
+        angle: Math.random() * Math.PI * 2,
+        opacity: 1,
+        color: `hsl(${Math.random() * 30 + 40}, 100%, 70%)`
+      });
+    }
   }
   
   function updateParticles() {
     ctx.clearRect(0, 0, width, height);
     
-    for (let i = 0; i < particles.length; i++) {
-      const p = particles[i];
+    for (let i = 0; i < sunParticles.length; i++) {
+      const p = sunParticles[i];
       
       p.x += Math.cos(p.angle) * p.speed;
-      p.y -= p.speed * 0.7;
-      p.size -= 0.1;
+      p.y += Math.sin(p.angle) * p.speed;
+      p.size -= 0.2;
+      p.opacity -= 0.03;
       
+      // 绘制小阳光
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-      ctx.fillStyle = p.color;
+      ctx.fillStyle = `rgba(${parseInt(p.color.split('(')[1].split(',')[0])}, 
+                          ${parseInt(p.color.split(',')[1])}, 
+                          ${parseInt(p.color.split(',')[2].split(')')[0])}, 
+                          ${p.opacity})`;
       ctx.fill();
       
-      if (p.size <= 0) {
-        particles.splice(i, 1);
+      // 移除消失的粒子
+      if (p.opacity <= 0 || p.size <= 0) {
+        sunParticles.splice(i, 1);
         i--;
       }
     }
@@ -53,12 +62,12 @@
   }
   
   document.addEventListener('click', (e) => {
-    createParticle(e.clientX, e.clientY);
+    createSunParticle(e.clientX, e.clientY);
   });
   
   window.addEventListener('resize', () => {
-    canvas.width = width;
-    canvas.height = height;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
   });
   
   requestAnimationFrame(updateParticles);
