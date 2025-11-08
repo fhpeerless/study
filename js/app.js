@@ -302,25 +302,48 @@ function showNote(note) {
 
 // 主题切换（明暗模式）
 function toggleTheme() {
-    document.body.classList.toggle('dark-mode');
-    const isDarkMode = document.body.classList.contains('dark-mode');
-    // 更新主题图标
-    themeBtn.innerHTML = isDarkMode ? '<i class="fa fa-sun-o"></i>' : '<i class="fa fa-moon-o"></i>';
-    // 保存主题偏好到本地存储
-    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+  // 先检查当前是否为暗黑模式（切换前的状态）
+  const isDarkMode = document.body.classList.contains('dark-mode');
+  
+  // 切换主题类（如果是暗黑模式则移除，反之添加）
+  document.body.classList.toggle('dark-mode');
+  
+  // 切换后的状态（与切换前相反）
+  const isDarkAfterToggle = !isDarkMode;
+  
+  // 更新按钮图标（暗黑模式显示太阳，亮色模式显示月亮）
+  themeBtn.innerHTML = isDarkAfterToggle ? '<i class="fa fa-sun-o"></i>' : '<i class="fa fa-moon-o"></i>';
+  
+  // 保存切换后的主题到本地存储
+  localStorage.setItem('theme', isDarkAfterToggle ? 'dark' : 'light');
 }
 
 // 检查本地主题偏好（初始化时生效）
 function checkThemePreference() {
-    const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-        document.body.classList.add('dark-mode');
-        themeBtn.innerHTML = '<i class="fa fa-sun-o"></i>';
+  const savedTheme = localStorage.getItem('theme');
+  // 检测系统是否偏好暗黑模式
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+  // 逻辑优先级：本地存储 > 系统偏好 > 默认暗黑
+  if (savedTheme === 'dark') {
+    document.body.classList.add('dark-mode');
+    themeBtn.innerHTML = '<i class="fa fa-sun-o"></i>';
+  } else if (savedTheme === 'light') {
+    document.body.classList.remove('dark-mode');
+    themeBtn.innerHTML = '<i class="fa fa-moon-o"></i>';
+  } else {
+    // 没有本地存储时，使用系统偏好（如果系统偏好暗黑则启用，否则仍默认暗黑）
+    if (prefersDark) {
+      document.body.classList.add('dark-mode');
+      themeBtn.innerHTML = '<i class="fa fa-sun-o"></i>';
     } else {
-        document.body.classList.remove('dark-mode');
-        themeBtn.innerHTML = '<i class="fa fa-moon-o"></i>';
+      // 系统偏好亮色时，仍默认启用暗黑（保持需求中的默认暗黑）
+      document.body.classList.add('dark-mode');
+      themeBtn.innerHTML = '<i class="fa fa-sun-o"></i>';
     }
+    // 保存当前模式到本地存储
+    localStorage.setItem('theme', 'dark');
+  }
 }
 
 // 添加加载/错误状态样式（避免CSS依赖）
@@ -377,6 +400,7 @@ document.head.appendChild(style);
 // 页面加载完成后初始化
 
 document.addEventListener('DOMContentLoaded', init);
+
 
 
 
