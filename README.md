@@ -11,7 +11,7 @@ study3.0:添加章节，章节文件分段，阅读那章，加载那章文件
 study3.1:分隔style作用域，以防章节内多篇文章的style混淆  
 study3.2:添加跳转目录到页面指定位置  
 study3.3:以今天的日期加载js笔记
-（增加version-loader.js脚本动态加载版本号）
+（增加version-loader.js脚本动态加载版本号，不然则是直接引用的app.js）
 （增加function getTodayVersion函数动态生成版本号，实行动态加载）
 
 ## 笔记预防网页缓存须知
