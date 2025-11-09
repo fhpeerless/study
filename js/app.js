@@ -1,13 +1,5 @@
 // 在app.js顶部添加版本号生成函数
-// 生成纯数字+字母的版本号（避免特殊字符）
-function getTodayVersion() {
-  const date = new Date();
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  return `v${year}${month}${day}`; // 输出：v20251107（无特殊字符）
-}
-// 学科章节映射
+
 
 const subjectChapters = {
     htmlcssjs: 4,
@@ -18,9 +10,9 @@ const subjectChapters = {
 
 
 // 替换原有的固定版本号
-const NOTE_CACHE_VERSION = getTodayVersion(); // 自动使用当天日期版本
+
 // 新增：笔记文件缓存版本号（更新笔记后，修改此版本号即可触发全量刷新）
-// const NOTE_CACHE_VERSION = "v20251106"; // 格式：v+日期/迭代号，如 v20251031、v3
+const NOTE_CACHE_VERSION = "v20251106"; // 格式：v+日期/迭代号，如 v20251031、v3
 
 
 
@@ -413,6 +405,7 @@ document.head.appendChild(style);
 // 页面加载完成后初始化
 
 document.addEventListener('DOMContentLoaded', init);
+
 
 
 
