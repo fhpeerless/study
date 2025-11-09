@@ -8,7 +8,7 @@ export const note1 = {
 "中国近现代史纲要（史纲）: 考察中国近现代历史的变迁和发展。  <br>" +
 "思想道德修养与法律基础（思修）: 考察思想道德和法律方面的知识。 <br>" +
 "形势与政策以及当代世界经济与政治（形势与政策/当代）: 考察当前的国内外形势和政策！<br>-->更多历年真题请点击<a href=\"https://www.bilibili.com/video/BV18g411u7Uj/?spm_id_from=333.1387.homepage.video\">老王讲解历年真题</a><----",
-      ]
+      ],
     timestamp: "2025-10-10 08:30",
     images: [],
      embed: '<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=503996937&bvid=BV18g411u7Uj&cid=463360404&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>'
@@ -19,6 +19,7 @@ export const note1 = {
 // 统一导出笔记数组（关键：让JS加载时能获取所有笔记）
 
 export default [note1];
+
 
 
 
