@@ -1,10 +1,10 @@
-// 生成当天日期版本号（vYYYYMMDD格式）
+// 生成纯数字+字母的版本号（避免特殊字符）
 function getTodayVersion() {
   const date = new Date();
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, '0');
   const day = String(date.getDate()).padStart(2, '0');
-  return `v${year}${month}${day}`;
+  return `v${year}${month}${day}`; // 输出：v20251107（无特殊字符）
 }
 
 // 动态加载app.js（带当天版本号）
