@@ -1,10 +1,11 @@
 // 在app.js顶部添加版本号生成函数
+// 生成纯数字+字母的版本号（避免特殊字符）
 function getTodayVersion() {
   const date = new Date();
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, '0');
   const day = String(date.getDate()).padStart(2, '0');
-  return `v${year}${month}${day}`;
+  return `v${year}${month}${day}`; // 输出：v20251107（无特殊字符）
 }
 // 学科章节映射
 
@@ -412,6 +413,7 @@ document.head.appendChild(style);
 // 页面加载完成后初始化
 
 document.addEventListener('DOMContentLoaded', init);
+
 
 
 
