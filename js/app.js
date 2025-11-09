@@ -5,7 +5,7 @@ const subjectChapters = {
     htmlcssjs: 4,
     python: 2,
     english: 1,  
-    政治101: 1   
+    politics101: 1   
 };
 
 
@@ -405,6 +405,7 @@ document.head.appendChild(style);
 // 页面加载完成后初始化
 
 document.addEventListener('DOMContentLoaded', init);
+
 
 
 
