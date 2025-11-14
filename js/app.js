@@ -12,7 +12,7 @@ const subjectChapters = {
 // 替换原有的固定版本号
 
 // 新增：笔记文件缓存版本号（更新笔记后，修改此版本号即可触发全量刷新）
-const NOTE_CACHE_VERSION = "v20251106"; // 格式：v+日期/迭代号，如 v20251031、v3
+const NOTE_CACHE_VERSION = "v20251107"; // 格式：v+日期/迭代号，如 v20251031、v3
 
 
 
@@ -416,6 +416,7 @@ document.head.appendChild(style);
 // 页面加载完成后初始化
 
 document.addEventListener('DOMContentLoaded', init);
+
 
 
 
