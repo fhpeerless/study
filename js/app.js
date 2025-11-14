@@ -99,18 +99,29 @@ function loadChapters(subject) {
 
 // 预加载章节标题（更新章节列表显示）
 // 预加载章节标题（更新：显示笔记数量）
+// 修改为从章节标题文件加载标题
 function fetchChapterTitle(subject, chapter, element) {
-    import(`../notes/${subject}/chapter${chapter}.js?v=${NOTE_CACHE_VERSION}`)
+    // 导入该学科的章节标题文件
+    import(`../notes/${subject}/chapters.js?v=${NOTE_CACHE_VERSION}`)
         .then(module => {
-            const notes = module.default; // 现在获取的是笔记数组
-            // 显示「第X章（N篇笔记）」，若有第一篇笔记则拼接标题
-            const firstNoteTitle = notes[0]?.title || "笔记集合";
-           // element.textContent = `${chapter}. /* 第${chapter}章（${notes.length}篇笔记） */- ${firstNoteTitle}`;
-            element.textContent = `${chapter}. - ${firstNoteTitle}`;
+            const chapterTitles = module.default; // 获取章节标题数组
+            // 获取对应章节的标题（章节号从1开始，数组索引从0开始）
+            const title = chapterTitles[chapter - 1] || `第${chapter}章`;
+            // 同时加载该章节的笔记数量
+            import(`../notes/${subject}/chapter${chapter}.js?v=${NOTE_CACHE_VERSION}`)
+                .then(noteModule => {
+                    const notes = noteModule.default;
+                    // element.textContent = `${chapter}. - ${title}      ${notes.length}篇`;
+                    element.textContent = `${chapter}. - ${title}     `;
+                })
+                .catch(() => {
+                   //  element.textContent = `${chapter}. - ${title}      0篇`;
+                    element.textContent = `${chapter}. - ${title} `;
+                });
         })
         .catch(error => {
-            console.error(`加载章节 ${chapter} 标题失败:`, error);
-            element.textContent = `${chapter}. 章节加载失败`;
+            console.error(`加载${subject}章节标题文件失败:`, error);
+            element.textContent = `${chapter}. 章节标题加载失败`;
             element.style.color = '#e74c3c';
         });
 }
@@ -405,6 +416,7 @@ document.head.appendChild(style);
 // 页面加载完成后初始化
 
 document.addEventListener('DOMContentLoaded', init);
+
 
 
 
