@@ -23,7 +23,8 @@
         }
 
         .node text {
-            font: 12px sans-serif;
+            font: bold 16px sans-serif; /* 放大字号并加粗 */
+            fill: #800020; /* 酒红色（正常模式） */
         }
 
         .node--internal text {
@@ -36,13 +37,14 @@
             stroke-width: 1.5px;
         }
 
+
         /* 响应式调整 */
         @media (max-width: 768px) {
             .tree-container {
                 height: 400px;
             }
             .node text {
-                font-size: 10px;
+                font-size: 14px; /* 响应式下保持放大并加粗 */
             }
         }
 
@@ -54,7 +56,8 @@
             stroke: #ddd;
         }
         body.dark-mode .node text {
-            fill: #ddd;
+            font-weight: bold; /* 深色模式下保持加粗 */
+            fill: #c11b17; /* 深色模式下的酒红色（更亮一点以适应深色背景） */
             text-shadow: none;
         }
         body.dark-mode .link {
@@ -65,6 +68,7 @@
 <body>
 <div class="tree-container" id="treeContainer"></div>
 
+<!-- 以下JavaScript代码保持不变 -->
 <script>
     // 等待DOM加载完成
     document.addEventListener('DOMContentLoaded', () => {
@@ -129,7 +133,7 @@
         initTree(treeData);
     });
 
-    // 树形图初始化函数
+    // 树形图初始化函数（保持不变）
     function initTree(data) {
         const container = document.getElementById('treeContainer');
         const width = container.clientWidth;
