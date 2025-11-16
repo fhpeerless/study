@@ -53,25 +53,25 @@ function generateSubjectButtons() {
     const buttonContainer = document.getElementById('dynamicSubjectButtons');
     buttonContainer.innerHTML = ''; // 清空原有按钮
 
+    // 获取所有学科并按顺序排列
+    const subjects = Object.keys(subjectChapters);
     // 遍历学科章节映射生成按钮
-    Object.keys(subjectChapters).forEach(subject => {
+    subjects.forEach(subject => {
         const btn = document.createElement('button');
         btn.className = 'subject-btn';
         btn.dataset.subject = subject;
         btn.textContent = subject.toUpperCase();
-        // 设置默认激活状态（首次加载HTML学科）
-       // if (subject === 'htmlcssjs') btn.classList.add('active');
-        if (subject === subjects[0]) btn.classList.add('active'); // 第一
-        // 按钮点击事件（仅绑定一次）
+        // 设置默认激活状态（改为第一个学科）
+        // 原代码：if (subject === 'htmlcssjs') btn.classList.add('active');
+        if (subject === subjects[0]) btn.classList.add('active'); // 第一个学科默认激活
+
+        // 按钮点击事件（保持不变）
         btn.addEventListener('click', () => {
-            // 切换所有按钮激活状态
             document.querySelectorAll('.subject-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            // 更新当前学科并加载章节
             currentSubject = subject;
             currentChapter = null;
             loadChapters(subject);
-            // 显示占位符，隐藏笔记内容
             notePlaceholder.style.display = 'flex';
             noteContentArea.style.display = 'none';
         });
@@ -427,6 +427,7 @@ document.head.appendChild(style);
 // 页面加载完成后初始化
 
 document.addEventListener('DOMContentLoaded', init);
+
 
 
 
