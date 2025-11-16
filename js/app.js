@@ -2,6 +2,7 @@
 
 
 const subjectChapters = {
+    study_map: 7,
     htmlcssjs: 7,
     python: 7,
     english: 7,  
@@ -416,6 +417,7 @@ document.head.appendChild(style);
 // 页面加载完成后初始化
 
 document.addEventListener('DOMContentLoaded', init);
+
 
 
 
