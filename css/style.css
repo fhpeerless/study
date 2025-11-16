@@ -579,6 +579,7 @@ body.dark-mode .toc-link.active {
     .note-embed iframe {
         min-height: 400px;
         max-height: 600px;
+        overflow: auto;
     }
     .note-body {
         /* 已删除min-width: 500px，避免溢出 */
@@ -632,6 +633,7 @@ body.dark-mode .toc-link.active {
     }
     .note-embed iframe {
         height: 160px; /* 超小屏视频高度 */
+        overflow: auto;
     }
     .note-display {
         padding: 10px 8px; /* 减少内边距 */
@@ -646,4 +648,5 @@ body.dark-mode .toc-link.active {
         margin-bottom: 20px;
     }
 }
+
 
