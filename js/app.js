@@ -23,15 +23,25 @@ const notePlaceholder = document.getElementById('notePlaceholder');
 const noteContentArea = document.getElementById('noteContentArea');
 const themeBtn = document.getElementById('themeBtn');
 // 当前选中的学科和章节
-let currentSubject = 'htmlcssjs';
+// let currentSubject = 'htmlcssjs';
+// let currentChapter = null;
+
+
+// 当前选中的学科和章节
+// 原代码：let currentSubject = 'htmlcssjs';
+let currentSubject = ''; // 先初始化为空，后续设置为第一个学科
 let currentChapter = null;
 
+// 初始化页面
 // 初始化页面
 function init() {
     // 1. 动态生成学科按钮（内部已绑定事件，无需重复绑定）
     generateSubjectButtons();
-    // 2. 加载默认学科（HTML）的章节
-    loadChapters('htmlcssjs');
+    // 2. 加载默认学科（改为第一个学科）
+    // 原代码：loadChapters('htmlcssjs');
+    const firstSubject = Object.keys(subjectChapters)[0]; // 获取第一个学科
+    currentSubject = firstSubject; // 设置当前学科为第一个
+    loadChapters(currentSubject); // 加载第一个学科的章节
     // 3. 绑定主题切换事件
     themeBtn.addEventListener('click', toggleTheme);
     // 4. 检查本地存储的主题设置
@@ -50,8 +60,8 @@ function generateSubjectButtons() {
         btn.dataset.subject = subject;
         btn.textContent = subject.toUpperCase();
         // 设置默认激活状态（首次加载HTML学科）
-        if (subject === 'htmlcssjs') btn.classList.add('active');
-
+       // if (subject === 'htmlcssjs') btn.classList.add('active');
+        if (subject === subjects[0]) btn.classList.add('active'); // 第一
         // 按钮点击事件（仅绑定一次）
         btn.addEventListener('click', () => {
             // 切换所有按钮激活状态
@@ -417,6 +427,7 @@ document.head.appendChild(style);
 // 页面加载完成后初始化
 
 document.addEventListener('DOMContentLoaded', init);
+
 
 
 
