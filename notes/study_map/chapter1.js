@@ -25,7 +25,7 @@ export const note1 = {
     images: [],
     embed: `
         <iframe 
-            src="./frontend-tree/frontend-tree.html" 
+            src="./frontend-tree/qianduan-tree.html" 
             width="100%" 
             style="min-height:500px; max-height:800px; height:auto; border: none; box-shadow: 0 2px 10px rgba(0,0,0,0.1);"
             scrolling="auto"
