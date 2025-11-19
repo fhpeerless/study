@@ -67,7 +67,7 @@ export const note6 = {
 export const note7 = {
     title: "文本超链接",
     content: [" 标签内容写法：<hr width=\"30%\"/> <br>文本超链接标签&lt;a href=\"https://www.baidu.com/index.htm\"&gt;百度&lt;/a&gt;  <br> " ,
-        " <a href=\"https://www.baidu.com/index.htm\">百度</a>  <br> " ,
+        " <a href=\"https://www.baidu.com/index.htm\">百度</a>  <br><a href=\"https://www.w3school.com.cn/tags/tag_a.asp\">a标签w3c</a>  <br> " ,
         " <hr width=\"30%\"/>添加target属性标签，target为超链接的打开方式<br>&lt;a href=\"https://www.w3school.com.cn\" target=\"_blank\"&gt;访问 W3School&lt;/a&gt;  <br> ",
         " <a href=\"https://www.w3school.com.cn\" target=\"_blank\">访问w3c官方介绍target的介绍</a>  <br> "
     ],
@@ -92,5 +92,6 @@ export const note8 = {
 // 统一导出笔记数组（关键：让JS加载时能获取所有笔记）
 
 export default [note1, note2, note3, note4, note5, note6, note7, note8];
+
 
 
