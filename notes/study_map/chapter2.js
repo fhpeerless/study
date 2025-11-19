@@ -1,6 +1,6 @@
 // H5/CSS/JS学习路径树形图（修复版）
 export const note1 = {
-    title: "开发一个论坛所要掌握的基础有哪些",
+    title: "开发一个论坛所要掌握的基础",
     content: [
         `<h3 style="text-align: center; margin-bottom: 20px; color: #2196F3;">柱形图根据D3社区开发</h3>
         <div style="text-align: center; margin-top: 15px;">
@@ -50,4 +50,5 @@ export const note1 = {
 };
 
 export default [note1];
+
 
