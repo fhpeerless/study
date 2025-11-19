@@ -19,6 +19,23 @@ export const note1 = {
             ">
                 ✨ 点击访问 D3 官方社区
             </a>
+                        </a>
+                        <a href="./frontend-tree/qianduan-tree.html" target="_blank" style="
+                display: inline-block;
+                padding: 12px 28px;
+                background: linear-gradient(135deg, #4CAF50, #2E7D32);
+                color: white;
+                text-decoration: none;
+                border-radius: 50px;
+                font-weight: bold;
+                font-size: 18px;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+                transition: all 0.4s ease;
+                letter-spacing: 0.5px;
+            ">
+                ✨ 点击访问单页树形图
+            </a>
+            
         </div>`
     ],
     timestamp: "2025-11-08 10:00",
