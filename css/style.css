@@ -1,0 +1,653 @@
+/* 全局样式重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+        box-sizing: border-box; /* 已存在但需确保生效 */
+
+}
+
+/* 基础样式 - 防止页面横向拉伸 */
+html {
+    overflow-x: hidden;
+    scroll-behavior: smooth; /* 平滑滚动 */
+}
+body {
+    background-color: #f5f7fa;
+    color: #333;
+    line-height: 1.6;
+    transition: background-color 0.3s, color 0.3s;
+    max-width: 100vw; /* 限制最大宽度为视口宽度 */
+    overflow-x: hidden; /* 隐藏横向滚动条 */
+}
+body.dark-mode {
+    background-color: #1e1e2e;
+    color: #e0e0e0;
+}
+
+/* 容器样式 */
+.note-container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* 头部样式 */
+.note-header {
+    display: flex;
+    flex-direction: column; /* 纵向排列：标题 → 计时器 → 主题按钮 */
+    align-items: center; /* 所有子元素水平居中 */
+    padding: 20px 0;
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 30px;
+}
+body.dark-mode .note-header {
+    border-bottom-color: #333;
+}
+
+.note-header h1 {
+    font-size: 24px;
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px; /* 标题与计时器的垂直间距 */
+    text-align: center; /* 确保标题文字本身居中（应对长标题） */
+}
+body.dark-mode .note-header h1 {
+    color: #ffffff;
+}
+.note-header h1 i {
+    margin-right: 10px;
+    color: #3498db;
+}
+
+/* 主题按钮样式：增加与计时器的间距 */
+.theme-toggle {
+    margin-top: 12px; /* 计时器与主题按钮的垂直间距 */
+}
+.theme-toggle button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #7f8c8d;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+.theme-toggle button:hover {
+    color: #3498db;
+}
+
+/* 主体内容区 - 网格布局 */
+.note-content {
+    display: grid;
+    grid-template-columns: 180px 250px 1fr;
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+/* 学科选择区 */
+.subject-section h2 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+body.dark-mode .subject-section h2 {
+    color: #ffffff;
+}
+.subject-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 500px;
+    overflow-y: auto;
+    align-items: flex-start;
+}
+
+/* 学科按钮样式 - 基础样式 */
+.subject-btn {
+    padding: 12px 15px;
+    border: none;
+    border-radius: 8px;
+    background-color: #ffffff;
+    color: #333;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    text-align: left;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+body.dark-mode .subject-btn {
+    background-color: #2d2d44;
+    color: #e0e0e0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+.subject-btn.active {
+    background-color: #3498db;
+    color: #ffffff;
+    box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
+}
+.subject-btn:hover:not(.active) {
+    background-color: #f1f5f9;
+    transform: translateY(-2px);
+}
+body.dark-mode .subject-btn:hover:not(.active) {
+    background-color: #3a3a56;
+}
+
+/* 章节列表区 */
+.chapter-section h2 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+body.dark-mode .chapter-section h2 {
+    color: #ffffff;
+}
+.chapter-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 600px;
+    overflow-y: auto;
+    padding-right: 10px;
+    width: 100%;
+}
+
+/* 滚动条样式优化 */
+.chapter-list::-webkit-scrollbar,
+.subject-buttons::-webkit-scrollbar {
+    width: 6px;
+}
+.chapter-list::-webkit-scrollbar-thumb,
+.subject-buttons::-webkit-scrollbar-thumb {
+    background-color: #bdc3c7;
+    border-radius: 3px;
+}
+body.dark-mode .chapter-list::-webkit-scrollbar-thumb,
+body.dark-mode .subject-buttons::-webkit-scrollbar-thumb {
+    background-color: #4a4a6a;
+}
+
+/* 章节项样式 - 基础样式 */
+.chapter-item {
+    /* 核心修改：默认改为 inline-block 使宽度由内容决定，移除内边距 */
+    margin-right: 10px;
+    display: inline-block;
+    padding: 0; /* 关键修改：去除内边距 */
+    border-radius: 6px;
+    background-color: #ffffff;
+    color: #333;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    white-space: nowrap; /* 防止文字换行 */
+    line-height: 1; /* 确保垂直方向尺寸与文字高度一致 */
+}
+body.dark-mode .chapter-item {
+    background-color: #2d2d44;
+    color: #e0e0e0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+.chapter-item:hover {
+    background-color: #f8f9fa;
+    transform: translateX(5px);
+}
+body.dark-mode .chapter-item:hover {
+    background-color: #3a3a56;
+}
+.chapter-item.active {
+    background-color: #e3f2fd;
+    border-left: 3px solid #3498db;
+}
+body.dark-mode .chapter-item.active {
+    background-color: #343458;
+    border-left-color: #4dabf5;
+}
+
+/* 目录容器样式 */
+.notes-toc {
+    margin: 0 0 25px 0;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+}
+body.dark-mode .notes-toc {
+    background-color: #2d2d44;
+    border-color: #444;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+/* 目录标题 */
+.toc-title {
+    margin: 0 0 18px 0;
+    font-size: 18px; /* 增大标题字体 */
+    color: #2c3e50;
+    font-weight: 600;
+    padding-bottom: 10px;
+    border-bottom: none; /* 移除下边框 */
+    display: flex;
+    align-items: center;
+}
+.toc-title::before {
+    content: "📚";
+    margin-right: 8px;
+}
+body.dark-mode .toc-title {
+    color: #ecf0f1;
+}
+
+/* 目录列表：清除默认样式，优化间距 */
+.toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.toc-item {
+    margin: 6px 0;
+    line-height: 1.6;
+    transition: transform 0.2s ease;
+}
+.toc-item:hover {
+    transform: translateX(4px);
+}
+
+/* 目录链接：无下划线，颜色贴近笔记文本 */
+.toc-link {
+    color: #34495e;
+    text-decoration: none !important; /* 强制去除下划线 */
+    font-size: 15px;
+    padding: 4px 6px;
+    border-radius: 4px;
+    display: inline-block;
+    transition: all 0.2s ease;
+}
+/* 链接hover状态：用颜色变化代替下划线 */
+.toc-link:hover {
+    color: #2980b9;
+    background-color: #f5f7fa;
+}
+body.dark-mode .toc-link {
+    color: #bdc3c7;
+}
+body.dark-mode .toc-link:hover {
+    color: #3498db;
+    background-color: #3a3a56;
+}
+/* 当前激活的目录项 */
+.toc-link.active {
+    color: #2980b9;
+    font-weight: 500;
+    background-color: #eef5fb;
+}
+body.dark-mode .toc-link.active {
+    color: #3498db;
+}
+
+/* 笔记分隔线 */
+.note-separator {
+    height: 1px;
+    background-color: #eee;
+    margin: 20px 0;
+}
+
+/* 笔记内容区 - 基础自适应优化 */
+.note-display-wrapper {
+    overflow-x: auto;
+    scrollbar-width: thin;
+    width: 100%;
+}
+
+.note-display {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    padding: 30px;
+    min-height: 600px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box; /* 确保padding不增加宽度 */
+}
+body.dark-mode .note-display {
+    background-color: #2d2d44;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* 笔记占位符 */
+.note-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: #95a5a6;
+    text-align: center;
+    padding: 50px;
+}
+body.dark-mode .note-placeholder {
+    color: #7f8c8d;
+}
+.note-placeholder i {
+    font-size: 60px;
+    margin-bottom: 20px;
+}
+.note-placeholder p {
+    font-size: 18px;
+}
+
+/* 笔记内容区域 */
+.note-content-area {
+    display: none;
+}
+.note-title {
+    font-size: 24px;
+    color: #2c3e50;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e0e0e0;
+}
+body.dark-mode .note-title {
+    color: #e0e0e0;
+}
+
+.note-meta {
+    display: flex;
+    align-items: center;
+    color: #7f8c8d;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+.note-meta i {
+    margin-right: 5px;
+}
+
+/* 笔记正文样式 - 解除固定最小宽度 */
+.note-body {
+    font-size: 16px;
+    line-height: 1.8;
+    width: 100%;
+    word-wrap: break-word;
+    word-break: break-all; /* 强制所有长内容换行 */
+}
+.note-body p {
+    margin-bottom: 20px;
+    word-break: break-all; /* 段落文本强制换行 */
+}
+.note-body a {
+    color: #3498db;
+    text-decoration: none;
+    transition: color 0.2s;
+    word-break: break-all; /* 长链接强制换行 */
+}
+.note-body a:hover {
+    color: #2980b9;
+    text-decoration: underline;
+}
+
+/* 代码块样式 */
+.note-body pre {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 15px 0;
+    overflow-x: auto;
+    font-family: 'Consolas', monospace;
+    font-size: 12px;
+    width: 100%;
+    box-sizing: border-box;
+}
+body.dark-mode .note-body pre {
+    background-color: #343458;
+}
+.note-body code {
+    background-color: #f1f1f1;
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-family: 'Consolas', monospace;
+    font-size: 12px;
+    word-break: break-all;
+}
+body.dark-mode .note-body code {
+    background-color: #444466;
+}
+
+/* 笔记容器样式（参考，确保目录与其协调） */
+.single-note {
+    margin-bottom: 25px;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    background-color: #fff;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+body.dark-mode .single-note {
+    background-color: #2d2d44;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* 优化：多笔记时标题序号样式 */
+.single-note .note-title {
+    color: #3498db;
+    border-bottom: 1px solid #f1f5f9;
+}
+body.dark-mode .single-note .note-title {
+    color: #4dabf5;
+    border-bottom-color: #3a3a56;
+}
+
+/* 笔记图片区域 - 手机端自适应 */
+.note-images {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 15px 0;
+    padding: 0; /* 清除内边距避免挤压 */
+}
+.note-image {
+    width: 100%; /* 用100%宽度代替flex:1，避免计算异常 */
+    min-width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    box-sizing: border-box;
+}
+.note-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    max-width: 100%; /* 兜底防止图片本身宽度过大 */
+}
+.note-image img:hover {
+    transform: scale(1.02);
+}
+
+/* 嵌入内容（如视频）- 手机端自适应 */
+.note-embed {
+    margin: 20px 0;
+    border-radius: 8px;
+    overflow: visible; /* 避免内容被截断 */
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    width: 100%;
+    box-sizing: border-box;
+}
+.note-embed iframe {
+    width: 100%;
+    min-height: 500px; /* 基础最小高度 */
+    max-height: 800px; /* 基础最大高度 */
+    height: auto; /* 允许高度自适应内容 */
+    border: none;
+    overflow: auto; /* 内容过长时显示垂直滚动条 */
+}
+
+/* 底部样式 */
+.note-footer {
+    text-align: center;
+    padding: 20px 0;
+    color: #7f8c8d;
+    border-top: 1px solid #e0e0e0;
+}
+body.dark-mode .note-footer {
+    border-top-color: #333;
+}
+
+/* 响应式设计 - 大屏适配 (1200px以下) */
+@media (max-width: 1200px) {
+    .note-content {
+        grid-template-columns: 160px 220px 1fr;
+    }
+}
+
+/* 平板适配 (992px以下) */
+@media (max-width: 992px) {
+    .note-content {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto 1fr;
+    }
+    .subject-section, .chapter-section {
+        margin-bottom: 20px;
+    }
+    .subject-buttons {
+        flex-direction: row;
+        overflow-x: auto;
+        padding-bottom: 15px;
+        max-height: none;
+        gap: 8px;
+    }
+    .subject-btn {
+        padding: 10px 12px; /* 平板端学科按钮内边距 */
+        font-size: 13px;
+    }
+    .chapter-list {
+        /* 保持容器flex布局，但允许按钮自动换行 */
+        flex-wrap: wrap;
+        justify-content: flex-start; /* 从左侧开始排列 */
+        padding: 10px 0;
+        padding-right: 8px; /* 增加右侧内边距避免内容贴边 */
+        width: 100%; /* 确保列表占满容器 */
+        box-sizing: border-box; /* 包含padding在宽度内 */
+    }
+    .chapter-item {
+        margin-right: 10px;
+        flex: none; /* 取消flex占比 */
+        min-height: auto; /* 取消固定最小高度 */
+        white-space: nowrap; /* 保持文字不换行 */
+        text-align: left; /* 文字左对齐（跟随内容） */
+        padding: 0; /* 移除内边距 */
+    }
+}
+
+/* 小平板/大屏手机适配 (768px以下) */
+@media (max-width: 768px) {
+    .note-container {
+        padding: 15px; /* 大屏手机容器内边距 */
+    }
+    .note-header h1 {
+        font-size: 20px;
+    }
+    .note-display {
+        padding: 20px; /* 大屏手机笔记内容区内边距 */
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .chapter-item {
+        margin-right: 10px;
+        padding: 0; /* 移除内边距 */
+        font-size: 12px;
+        flex: none; /* 取消比例分配，按内容宽度自适应 */
+        max-width: calc(50% - 6px); /* 最大不超过半屏 */
+    }
+    .subject-btn {
+        padding: 9px 11px; /* 大屏手机学科按钮内边距 */
+    }
+}
+
+/* 小屏手机适配 (576px以下) */
+@media (max-width: 576px) {
+    .subject-buttons {
+        padding-bottom: 12px;
+        gap: 6px;
+    }
+    .subject-btn {
+        padding: 8px 10px; /* 小屏手机学科按钮内边距（优化触控区域） */
+        font-size: 12px;
+    }
+    .note-container {
+        padding: 8px 5px; /* 保留最小内边距 */
+        width: 100vw; /* 强制与屏幕同宽 */
+        overflow-x: hidden; /* 隐藏横向滚动 */
+    }
+    .note-display {
+        padding: 10px 8px; /* 减少内边距 */
+        width: 100% !important; /* 强制占满容器 */
+        max-width: 100% !important; /* 覆盖可能的固定宽度 */
+        min-height: auto; /* 取消固定最小高度 */
+    }
+    .note-content-area {
+        width: 100%;
+        overflow-x: auto; /* 内容过长时允许横向滚动 */
+    }
+    .note-content {
+        gap: 15px;
+    }
+    .note-header {
+        padding: 15px 0;
+        margin-bottom: 20px;
+    }
+    .note-header h2.subtitle {
+        font-size: 14px;
+        line-height: 1.5;
+        padding: 0 10px;
+    }
+    .chapter-list {
+        flex-direction: row; /* 横向排列按钮 */
+        flex-wrap: wrap; /* 超出宽度自动换行 */
+        justify-content: flex-start;
+        max-height: 250px;
+        overflow-y: auto;
+        padding: 5px;
+        gap: 6px; /* 减少间距 */
+    }
+    .chapter-item {
+        /* 彻底移除所有固定宽度设置 */
+        margin-right: 10px;
+        flex: none;
+        min-height: auto;
+        padding: 0; /* 移除内边距 */
+        max-width: calc(50% - 6px); /* 最大不超过半屏 */
+        white-space: nowrap; /* 保持文字不换行 */
+        overflow: hidden; /* 超出部分隐藏 */
+        text-overflow: ellipsis; /* 显示省略号 */
+    }
+    .note-title {
+        font-size: 18px; /* 缩小标题字体 */
+        margin-bottom: 12px;
+        padding-bottom: 12px;
+    }
+    .note-image {
+        min-width: 100%;
+    }
+    .note-embed iframe {
+        height: 160px; /* 超小屏视频高度 */
+        overflow: auto;
+    }
+    .note-display {
+        padding: 15px; /* 小屏手机笔记内容区内边距（优化阅读体验） */
+        min-height: 350px; /* 降低最小高度 */
+    }
+    .note-body {
+        font-size: 14px;
+        line-height: 1.6;
+    }
+    .single-note {
+        padding: 12px; /* 小屏手机单篇笔记内边距 */
+        margin-bottom: 20px;
+    }
+}
