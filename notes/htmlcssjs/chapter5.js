@@ -38,12 +38,12 @@ export const note3 = {
 };
 
 export const note4 = {
-    title: "列表的相关属性",
+    title: "新增笔记支持md，支持单页的引入",
     contentmd: `
 ## Markdown测试
   这是一篇**Markdown格式**的笔记，支持：
 
-## 标题
+## 我是二级标题啊，哈哈哈哈
 
 - 列表项1
 - 列表项2
@@ -58,7 +58,7 @@ console.log("Hello, World!");
 \`\`\`
 
 
-### HTML单页引入
+### HTML引入粒子单页
 {{html:../danye/xingkong.html,width:100%,height:400px}}
 
 `,
@@ -69,3 +69,4 @@ console.log("Hello, World!");
 
 
 export default [note1, note2, note3, note4];
+
