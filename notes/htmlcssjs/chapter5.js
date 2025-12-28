@@ -40,7 +40,7 @@ export const note3 = {
 export const note4 = {
     title: "新增笔记支持md，支持单页的引入",
     contentmd: `
-## Markdown测试
+# 我是一级Markdown测试
   这是一篇**Markdown格式**的笔记，支持：
 
 ## 我是二级标题啊，哈哈哈哈
@@ -69,6 +69,7 @@ console.log("Hello, World!");
 
 
 export default [note1, note2, note3, note4];
+
 
 
 
