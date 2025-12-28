@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试代码块复制功能</title>
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it@13.0.1/dist/markdown-it.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .code-block-container {
+            position: relative;
+            margin: 1em 0;
+        }
+        .copy-button {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 4px 8px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        .copy-button:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+        .copy-button.copied {
+            background: #4CAF50;
+        }
+        pre {
+            background: #f5f5f5;
+            padding: 1em;
+            border-radius: 4px;
+            overflow: auto;
+        }
+        code {
+            background: #f5f5f5;
+            padding: 2px 4px;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+    <h1>测试代码块复制功能</h1>
+    <div id="test-result"></div>
+    
+    <script>
+        // 复制我们的processCopyTags函数进行测试
+        function processCopyTags(content) {
+            const copyTagRegex = /```(\w+)\s+copy\n([\s\S]+?)```/g;
+            return content.replace(copyTagRegex, (match, lang, code) => {
+                return `
+<div class="code-block-container">
+    <button class="copy-button">复制</button>
+    <pre><code class="language-${lang}">${code}</code></pre>
+</div>
+`;
+            });
+        }
+        
+        // 测试用例
+        const testMarkdown = `# 测试代码块复制功能
+
+## 普通代码块
+\`\`\`javascript
+console.log("普通代码块，没有复制按钮");
+\`\`\`
+
+## 带有copy标记的代码块
+\`\`\`javascript copy
+console.log("带有copy标记的代码块，应该有复制按钮");
+function hello() {
+    return "Hello, World!";
+}
+\`\`\`
+
+## Python代码块
+\`\`\`python copy
+print("这是Python代码块")
+def greet(name):
+    return f"Hello, {name}!"
+\`\`\`
+`;
+        
+        // 初始化markdown-it
+        const md = window.markdownit({
+            html: true,
+            linkify: true,
+            typographer: true
+        });
+        
+        // 处理copy标记
+        const processedContent = processCopyTags(testMarkdown);
+        // 转换为HTML
+        const htmlContent = md.render(processedContent);
+        
+        // 显示结果
+        document.getElementById('test-result').innerHTML = htmlContent;
+        
+        // 添加复制功能
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('copy-button')) {
+                const codeBlock = e.target.closest('.code-block-container').querySelector('code');
+                const text = codeBlock.textContent;
+                
+                navigator.clipboard.writeText(text).then(() => {
+                    const originalText = e.target.textContent;
+                    e.target.textContent = '已复制!';
+                    e.target.classList.add('copied');
+                    
+                    setTimeout(() => {
+                        e.target.textContent = originalText;
+                        e.target.classList.remove('copied');
+                    }, 2000);
+                }).catch(err => {
+                    console.error('复制失败:', err);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

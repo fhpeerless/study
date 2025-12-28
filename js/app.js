@@ -180,6 +180,242 @@ function scopedStyle(content, scopedClass) {
     });
 }
 
+// 初始化markdown-it实例
+const md = window.markdownit({
+    html: true,
+    linkify: true,
+    typographer: true
+});
+
+// 添加代码块复制功能的CSS样式
+const copyButtonStyle = `
+<style>
+    /* 代码块复制按钮样式 */
+    .code-block-container {
+        position: relative;
+        margin: 1em 0;
+        border: 1px solid #FFA500;
+        border-radius: 6px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+    
+    /* 代码高亮样式 */
+    .code-block-container pre {
+        background-color: #f5f5f5 !important;
+        margin: 0 !important;
+        padding: 15px !important;
+        overflow-x: auto;
+    }
+    
+    .code-block-container code {
+        background-color: transparent !important;
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 13px;
+        line-height: 1.5;
+    }
+    
+    /* 语法高亮颜色 */
+    .code-block-container code .keyword {
+        color: #0000FF;
+    }
+    
+    .code-block-container code .string {
+        color: #008000;
+    }
+    
+    .code-block-container code .comment {
+        color: #808080;
+        font-style: italic;
+    }
+    
+    .code-block-container code .number {
+        color: #FF0000;
+    }
+    
+    .code-block-container code .function {
+        color: #000080;
+    }
+    
+    .copy-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: #800020;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 6px 12px;
+        font-size: 12px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        z-index: 10;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .copy-button:hover {
+        background: #660015;
+        transform: translateY(-1px);
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+    }
+    
+    .copy-button:active {
+        transform: translateY(0);
+    }
+    
+    .copy-button.copied {
+        background: #FF4500;
+        content: '已复制!';
+    }
+    
+    /* 移除文本背景色，但排除复制按钮 */
+    .note-content-area *:not(.copy-button) {
+        background-color: transparent !important;
+        background-image: none !important;
+    }
+    
+    /* 特别针对加粗文本 */
+    .note-content-area strong,
+    .note-content-area b {
+        background-color: transparent !important;
+        background-image: none !important;
+        padding: 0 !important;
+    }
+    
+    /* 确保复制按钮背景色正常显示 */
+    .copy-button {
+        background: #800020 !important;
+    }
+    
+    .copy-button:hover {
+        background: #660015 !important;
+    }
+    
+    .copy-button.copied {
+        background: #FF4500 !important;
+    }
+    
+    /* 深色模式下的复制按钮 */
+    body.dark-mode .copy-button {
+        background: #8B0000 !important;
+    }
+    
+    body.dark-mode .copy-button:hover {
+        background: #660000 !important;
+    }
+    
+    body.dark-mode .copy-button.copied {
+        background: #FF6347 !important;
+    }
+    
+    /* 适配深色模式 */
+    body.dark-mode .code-block-container {
+        border-color: #FF8C00;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    
+    body.dark-mode .code-block-container pre {
+        background-color: #1e1e1e !important;
+    }
+    
+    body.dark-mode .code-block-container code {
+        color: #d4d4d4;
+    }
+    
+    body.dark-mode .code-block-container code .keyword {
+        color: #569cd6;
+    }
+    
+    body.dark-mode .code-block-container code .string {
+        color: #ce9178;
+    }
+    
+    body.dark-mode .code-block-container code .comment {
+        color: #6a9955;
+    }
+    
+    body.dark-mode .code-block-container code .number {
+        color: #b5cea8;
+    }
+    
+    body.dark-mode .code-block-container code .function {
+        color: #dcdcaa;
+    }
+    
+    body.dark-mode .copy-button {
+        background: #8B0000;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    
+    body.dark-mode .copy-button:hover {
+        background: #660000;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+    }
+    
+    body.dark-mode .copy-button.copied {
+        background: #FF6347;
+    }
+</style>`;
+
+// 添加复制按钮样式到页面
+document.head.insertAdjacentHTML('beforeend', copyButtonStyle);
+
+// 添加复制功能的JavaScript逻辑
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('copy-button')) {
+        const codeBlock = e.target.closest('.code-block-container').querySelector('code');
+        const text = codeBlock.textContent;
+        
+        navigator.clipboard.writeText(text).then(() => {
+            const originalText = e.target.textContent;
+            e.target.textContent = '已复制!';
+            e.target.classList.add('copied');
+            
+            setTimeout(() => {
+                e.target.textContent = originalText;
+                e.target.classList.remove('copied');
+            }, 2000);
+        }).catch(err => {
+            console.error('复制失败:', err);
+        });
+    }
+});
+
+// 处理markdown中的copy标记，为代码块添加复制功能
+function processCopyTags(content) {
+    // 匹配带有copy标记的代码块，修复正则表达式
+    const copyTagRegex = /```(\w+)\s+copy\s*\n([\s\S]*?)\s*```/g;
+    
+    return content.replace(copyTagRegex, (match, lang, code) => {
+        // 对代码内容进行HTML转义，确保所有代码都显示为纯文本
+        const escapedCode = code
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+        
+        // 返回带有复制按钮的代码块HTML
+        return `<div class="code-block-container">
+    <button class="copy-button">复制</button>
+    <pre><code class="language-${lang}">${escapedCode}</code></pre>
+</div>`;
+    });
+}
+
+// 解析HTML单页引入语法，格式：{{html:path/to/file.html,width:100%,height:500px}}
+function parseHtmlImport(content) {
+    // 修复正则表达式：确保能正确匹配模板字符串中的HTML引入语法
+    // 分两步处理：先匹配整个{{html:...}}块，再提取参数
+    const htmlImportRegex = /\{\{\s*html\s*:\s*([^,}]+)(?:\s*,\s*width\s*:\s*([^,}]+))?(?:\s*,\s*height\s*:\s*([^,}]+))?\s*\}\}/g;
+    return content.replace(htmlImportRegex, (match, filePath, width, height) => {
+        const defaultWidth = width ? width.trim() : '100%';
+        const defaultHeight = height ? height.trim() : '600px';
+        // 移除../前缀，使路径相对于服务器根目录
+        const correctedPath = filePath.trim().replace(/^\.\.\//g, '');
+        return `<iframe src="${correctedPath}" style="width: ${defaultWidth}; height: ${defaultHeight}; border: none;" frameborder="0" allowfullscreen="true"></iframe>`;
+    });
+}
+
 // 新增：渲染多篇笔记（每篇笔记保留原有样式，加分隔线）
 // 渲染多篇笔记（第3步：调用scopedStyle）
 function showMultipleNotes(notes) {
@@ -221,15 +457,29 @@ function showMultipleNotes(notes) {
                 <div class="note-body">
         `;
 
-        // 处理笔记内容（应用样式隔离，保持不变）
-        if (Array.isArray(note.content)) {
-            note.content.forEach(content => {
-                const scopedContent = scopedStyle(content, scopedClass);
+        // 处理笔记内容：支持content和contentmd两种格式
+        if (note.contentmd) {
+            // 处理contentmd：markdown格式
+            let mdContent = note.contentmd;
+            // 1. 处理代码块的copy标记
+            mdContent = processCopyTags(mdContent);
+            // 2. 解析HTML单页引入
+            mdContent = parseHtmlImport(mdContent);
+            // 3. 再将markdown转换为HTML
+            let htmlContent = md.render(mdContent);
+            const scopedContent = scopedStyle(htmlContent, scopedClass);
+            noteHtml += scopedContent;
+        } else if (note.content) {
+            // 原有content格式处理
+            if (Array.isArray(note.content)) {
+                note.content.forEach(content => {
+                    const scopedContent = scopedStyle(content, scopedClass);
+                    noteHtml += `<p>${scopedContent}</p>`;
+                });
+            } else {
+                const scopedContent = scopedStyle(note.content, scopedClass);
                 noteHtml += `<p>${scopedContent}</p>`;
-            });
-        } else {
-            const scopedContent = scopedStyle(note.content, scopedClass);
-            noteHtml += `<p>${scopedContent}</p>`;
+            }
         }
 
         // 处理图片
@@ -297,11 +547,23 @@ function showNote(note) {
         <div class="note-body">
     `;
 
-    // 处理内容（支持字符串/数组格式）
-    if (Array.isArray(note.content)) {
-        note.content.forEach(content => contentHtml += `<p>${content}</p>`);
-    } else {
-        contentHtml += `<p>${note.content}</p>`;
+    // 处理内容：支持content和contentmd两种格式
+    if (note.contentmd) {
+        // 处理contentmd：markdown格式
+        let mdContent = note.contentmd;
+        // 1. 处理代码块的copy标记
+        mdContent = processCopyTags(mdContent);
+        // 2. 先解析HTML单页引入
+        mdContent = parseHtmlImport(mdContent);
+        // 3. 再将markdown转换为HTML
+        contentHtml += md.render(mdContent);
+    } else if (note.content) {
+        // 原有content格式处理
+        if (Array.isArray(note.content)) {
+            note.content.forEach(content => contentHtml += `<p>${content}</p>`);
+        } else {
+            contentHtml += `<p>${content}</p>`;
+        }
     }
 
     // 处理图片（支持多张图片）
