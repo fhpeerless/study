@@ -49,14 +49,13 @@ export const note4 = {
 - 列表项2
 - 列表项3
 
-### 图片示例
-![Markdown图片示例](https://picsum.photos/800/400)
-
 ### 代码块
 \`\`\`javascript copy
 console.log("Hello, World!");
 \`\`\`
 
+### 图片示例
+![Markdown图片示例](https://picsum.photos/800/400)
 
 ### HTML引入粒子单页
 {{html:../danye/xingkong.html,width:100%,height:400px}}
@@ -69,4 +68,5 @@ console.log("Hello, World!");
 
 
 export default [note1, note2, note3, note4];
+
 
