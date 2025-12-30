@@ -571,15 +571,16 @@ body.dark-mode .toc-link.active {
         flex-direction: row;
         flex-wrap: nowrap;
         overflow-x: auto;
-        padding-right: 0;
+        padding: 0 15px;
         padding-bottom: 10px;
         gap: 8px;
     }
     .chapter-item {
-        flex: 1 0 calc(33.333% - 8px);
+        flex: 1 0 calc(33.333% - 10px);
         white-space: normal;
         text-align: center;
         min-height: 80px;
+        margin: 0 5px;
     }
 }
 
@@ -596,10 +597,14 @@ body.dark-mode .toc-link.active {
         width: 100%;
         box-sizing: border-box;
     }
+    .chapter-list {
+        padding: 0 10px;
+    }
     .chapter-item {
-        flex: 1 0 calc(50% - 8px);
+        flex: 1 0 calc(50% - 10px);
         font-size: 12px;
         padding: 8px 10px;
+        margin: 0 5px;
     }
     .note-embed iframe {
         min-height: 400px;
@@ -641,12 +646,15 @@ body.dark-mode .toc-link.active {
         flex-direction: column;
         max-height: 250px;
         overflow-y: auto;
+        padding: 0 10px;
     }
     .chapter-item {
-        flex: 1 0 100%;
+        flex: 1 0 auto;
         white-space: nowrap;
         min-height: auto;
         text-align: left;
+        width: calc(100% - 20px);
+        margin: 0 auto;
     }
     .note-title {
         font-size: 18px; /* 缩小标题字体 */
