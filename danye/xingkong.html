@@ -20,15 +20,18 @@
         
         #particleContainer {
             width: 100%;
+            max-width: 100vw; /* 限制最大宽度为视口宽度 */
             height: 400px; /* 固定高度，匹配引入参数 */
             position: relative;
             background: #0f2a47; /* 淡蓝色星空背景 */
+            margin: 0 auto;
         }
         
         canvas {
             display: block;
             width: 100%;
             height: 100%;
+            max-width: 100vw; /* 限制最大宽度为视口宽度 */
             background: #0f2a47;
         }
         
@@ -103,10 +106,14 @@
         
         // 动态更新文字配置（优化：减小文字大小，适配容器）
         function updateTextConfig() {
-            // 根据容器高度计算文字大小（400px高度为基准）
+            // 根据容器高度和宽度计算文字大小，确保在移动端等比缩小
             const containerHeight = canvas.height;
-            // 核心修改：减小文字大小比例，从30%降低到25%，最小30px
-            let textSize = Math.max(20, containerHeight * 0.20); // 文字大小为容器高度的25%，最小30px
+            const containerWidth = canvas.width;
+            
+            // 核心修改：根据宽度和高度的最小值计算文字大小，确保在移动端等比缩小
+            const baseSize = Math.min(containerWidth, containerHeight);
+            // 文字大小为基准尺寸的20%，最小20px，最大60px
+            let textSize = Math.max(20, Math.min(60, baseSize * 0.20));
             
             // 调整行间距，适配减小后的文字大小
             const lineSpacing = textSize * 1.0; // 行间距为1.0倍文字大小
@@ -127,22 +134,33 @@
         
         // 设置画布尺寸为容器大小（核心修改：适配400px高度容器）
         function resizeCanvas() {
-            // 获取容器的实际尺寸（适配100%宽度、400px高度）
+            // 获取容器的实际尺寸和视口宽度
             let containerWidth = container.offsetWidth;
             let containerHeight = container.offsetHeight;
+            const viewportWidth = window.innerWidth;
             
             // 核心修复：确保画布尺寸正确，适配iframe环境
             if (containerWidth === 0) {
                 // 如果容器宽度为0（iframe未完全加载），使用默认值
-                containerWidth = 800; // 默认宽度
+                containerWidth = viewportWidth; // 使用视口宽度作为默认值
                 containerHeight = 400; // 默认高度（关键：确保是400px）
             }
             
+            // 核心修改：确保画布宽度不超过视口宽度，实现移动端等比缩小
+            containerWidth = Math.min(containerWidth, viewportWidth);
             // 确保高度不小于400px
             containerHeight = Math.max(containerHeight, 400);
             
             canvas.width = containerWidth;
             canvas.height = containerHeight;
+            
+            // 核心修改：根据视口宽度动态调整粒子大小，确保在移动端等比缩小
+            // 在小屏幕上减小粒子大小，保持视觉效果
+            if (viewportWidth < 768) {
+                config.particleSize = 1.5; // 小屏幕上使用1.5px粒子
+            } else {
+                config.particleSize = 2.0; // 大屏幕上使用2.0px粒子
+            }
             
             // 重新计算文字尺寸和位置
             updateTextConfig();
@@ -150,7 +168,8 @@
         
         // 初始化画布尺寸（核心修复：确保在DOM加载完成后执行）
         // 先设置默认尺寸，确保文字配置能正确计算
-        canvas.width = 800;
+        const initialWidth = window.innerWidth;
+        canvas.width = initialWidth; // 使用视口宽度作为初始宽度
         canvas.height = 400;
         updateTextConfig();
         
