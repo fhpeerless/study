@@ -121,9 +121,9 @@ body.dark-mode .subject-btn {
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 .subject-btn.active {
-    background-color: #3498db;
+    background-color: #ff9800;
     color: #ffffff;
-    box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
+    box-shadow: 0 4px 8px rgba(255, 152, 0, 0.3);
 }
 .subject-btn:hover:not(.active) {
     background-color: #f1f5f9;
@@ -131,6 +131,11 @@ body.dark-mode .subject-btn {
 }
 body.dark-mode .subject-btn:hover:not(.active) {
     background-color: #3a3a56;
+}
+body.dark-mode .subject-btn.active {
+    background-color: #ff9800;
+    color: #ffffff;
+    box-shadow: 0 4px 8px rgba(255, 152, 0, 0.3);
 }
 
 /* 章节列表区 */
