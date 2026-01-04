@@ -2,45 +2,62 @@
 export const note1 = {
     title: "外边距--margin",
     contentmd: `
-## 外边距的解释
+## 1.外边距的解释
   页面中的每一个元素包括一个文字都是一个框的形式存在的，这种框就叫盒模型，
 
-## 外边距的w3c介绍
+## 2.外边距的w3c介绍
 
 - 点击进入-[w3c框模型概述](https://www.w3school.com.cn/css/css_boxmodel.asp "框模型概述")
 - 点击进入-[w3c外边距代码在线演示](https://www.w3school.com.cn/tiy/t.asp?f=css_margin_sides "外边距代码在线演示")
-## 外边距的自述
- padding是元素和外框的空隙长度，width和height为元素的宽高，border是外框的长高，
- 而margin则是两个外框之间的距离了，
+## 3.外边距的自述
+ - padding是元素和外框的空隙长度，width和height为元素的宽高，
+ - border是外框的长高， 而margin则是两个外框之间的距离了，
+ - 温馨提示:如果不设置padding和border则浏览器可能默认设置为1px或2px
 
+
+## padding变换，盒模型的变化详解
+当padding从0开始增加时，是否改变height和width的显示区域大小，取决于盒模型类型（box-sizing）：
+
+1. 默认的 content-box 盒模型（CSS默认）
+padding增加会改变元素的总尺寸（width和height）：
+
+元素的width和height只包含内容区域
+padding会额外增加元素的总尺寸
+例如：width: 100px; padding: 0; → 总宽度 = 100px
+当padding增加到20px：width: 100px; padding: 20px; → 总宽度 = 100 + 20×2 = 140px
+元素在页面上变大了，内容区域不变。
+
+2. border-box 盒模型（推荐全局设置）
+padding增加不会改变元素的总尺寸（width和height）：
+
+元素的width和height包含内容、padding和border
+padding增加会压缩内容区域，但总尺寸不变
+例如：width: 100px; padding: 0; → 内容宽度 = 100px
+当padding增加到20px：width: 100px; padding: 20px; → 内容宽度 = 100 - 20×2 = 60px，但总宽度仍为100px
+视觉效果：元素在页面上大小不变，但内容区域变小了。
 
 \`\`\`javascript copy
 <!DOCTYPE html>
 <html>
 <head>
 <style>
-div {
-  border: 1px solid black;
+p {
   margin-top: 100px;
   margin-bottom: 100px;
   margin-right: 150px;
   margin-left: 80px;
   background-color: lightblue;
-  width:300px;
-  height:300px;
-  padding:50px;
-  border:450px;
-  align:center;
-  
+  width: 100px;
+  height: 100px;
+  padding: 10px; /* 修正：必须加单位，且值要合理（原50导致内容区域为0） */
+  border: 1px solid black; /* 修正：必须指定样式和颜色 */
+ /* text-align: center;  关键：让文本水平居中 */
 }
 </style>
 </head>
 <body>
-
 <h1>使用单独的外边距属性</h1>
-
-<div>这个 div 元素的上外边距为 100 像素，右外边距是 fghcfgjcfjvhkvj cfyjcyfgjhcfgyjhgvfyjhfvgyjhctjcyj150 像素，下外边距是 100 像素，左外边距是 80 像素。</div>
-
+<p>nihao</p>
 </body>
 </html>
 
