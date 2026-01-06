@@ -46,6 +46,42 @@ function init() {
     themeBtn.addEventListener('click', toggleTheme);
     // 4. 检查本地存储的主题设置
     checkThemePreference();
+    // 5. 初始化侧边导航栏
+    initSidebar();
+}
+
+// 初始化侧边导航栏
+function initSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const sidebarOverlay = document.getElementById('sidebarOverlay');
+    const sidebarToggleBtn = document.getElementById('sidebarToggleBtn');
+    const sidebarCloseBtn = document.getElementById('sidebarCloseBtn');
+    
+    // 显示侧边栏
+    function showSidebar() {
+        sidebar.classList.add('show');
+        sidebarOverlay.classList.add('show');
+        document.body.style.overflow = 'hidden'; // 防止背景滚动
+    }
+    
+    // 隐藏侧边栏
+    function hideSidebar() {
+        sidebar.classList.remove('show');
+        sidebarOverlay.classList.remove('show');
+        document.body.style.overflow = ''; // 恢复背景滚动
+    }
+    
+    // 绑定事件
+    sidebarToggleBtn.addEventListener('click', showSidebar);
+    sidebarCloseBtn.addEventListener('click', hideSidebar);
+    sidebarOverlay.addEventListener('click', hideSidebar);
+    
+    // 按ESC键隐藏侧边栏
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && sidebar.classList.contains('show')) {
+            hideSidebar();
+        }
+    });
 }
 
 // 动态生成学科按钮（含点击事件绑定，避免重复）

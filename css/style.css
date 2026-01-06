@@ -31,10 +31,99 @@ body.dark-mode {
     padding: 20px;
 }
 
+/* 侧边导航栏样式 */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    width: 300px;
+    height: 100vh;
+    background-color: #ffffff;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+    z-index: 1000;
+    transition: left 0.3s ease;
+    overflow-y: auto;
+}
+body.dark-mode .sidebar {
+    background-color: #2d2d44;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.3);
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #e0e0e0;
+}
+body.dark-mode .sidebar-header {
+    border-bottom-color: #333;
+}
+
+.sidebar-header h3 {
+    margin: 0;
+    color: #2c3e50;
+}
+body.dark-mode .sidebar-header h3 {
+    color: #ffffff;
+}
+
+.sidebar-close-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #7f8c8d;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+.sidebar-close-btn:hover {
+    color: #3498db;
+}
+
+.sidebar-content {
+    padding: 20px;
+}
+
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 999;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.sidebar.show {
+    left: 0;
+}
+
+.sidebar-overlay.show {
+    display: block;
+    opacity: 1;
+}
+
+/* 汉堡按钮样式 */
+.sidebar-toggle-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #7f8c8d;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: color 0.3s;
+}
+.sidebar-toggle-btn:hover {
+    color: #3498db;
+}
+
 /* 头部样式 */
 .note-header {
     display: flex;
-    flex-direction: column; /* 纵向排列：标题 → 计时器 → 主题按钮 */
+    flex-direction: column; /* 纵向排列：标题 → 计时器 → 主题按钮 → 学科选择 */
     align-items: center; /* 所有子元素水平居中 */
     padding: 20px 0;
     border-bottom: 1px solid #e0e0e0;
@@ -62,6 +151,23 @@ body.dark-mode .note-header h1 {
 /* 主题按钮样式：增加与计时器的间距 */
 .theme-toggle {
     margin-top: 12px; /* 计时器与主题按钮的垂直间距 */
+    width: 100%;
+    max-width: 100%;
+}
+.header-content {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+.header-content h1 {
+    flex: 1;
+    text-align: center;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .theme-toggle button {
     background: none;
@@ -75,30 +181,43 @@ body.dark-mode .note-header h1 {
     color: #3498db;
 }
 
-/* 主体内容区 - 网格布局 */
-.note-content {
-    display: grid;
-    grid-template-columns: 180px 250px 1fr;
-    gap: 30px;
-    margin-bottom: 50px;
+/* 学科选择区 - 参考kira-hexo导航栏样式 */
+.subject-section {
+    width: 100%;
+    margin: 0;
+    padding: 0;
 }
-
-/* 学科选择区 */
 .subject-section h2 {
     font-size: 18px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     color: #2c3e50;
+    text-align: center;
 }
 body.dark-mode .subject-section h2 {
     color: #ffffff;
 }
 .subject-buttons {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 10px;
-    max-height: 500px;
-    overflow-y: auto;
-    align-items: flex-start;
+    overflow-x: auto;
+    padding: 10px 0;
+    justify-content: center;
+    width: 100%;
+    max-width: 100%;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+.subject-buttons::-webkit-scrollbar {
+    display: none;
+}
+
+/* 主体内容区 - 网格布局 */
+.note-content {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 30px;
+    margin-bottom: 50px;
 }
 /* 学科按钮样式 - 优化横向占用空间 */
 .subject-btn {
@@ -547,7 +666,7 @@ body.dark-mode .toc-link.active {
 /* 响应式设计 - 大屏适配 */
 @media (max-width: 1200px) {
     .note-content {
-        grid-template-columns: 160px 220px 1fr;
+        grid-template-columns: 220px 1fr;
     }
 }
 
@@ -555,9 +674,9 @@ body.dark-mode .toc-link.active {
 @media (max-width: 992px) {
     .note-content {
         grid-template-columns: 1fr;
-        grid-template-rows: auto auto 1fr;
+        grid-template-rows: auto 1fr;
     }
-    .subject-section, .chapter-section {
+    .chapter-section {
         margin-bottom: 20px;
     }
     .subject-buttons {

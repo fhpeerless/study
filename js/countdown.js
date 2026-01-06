@@ -99,56 +99,56 @@
     function addCountdownStyles() {
         const style = document.createElement('style');
         style.textContent = `
-            /* 计时器容器：h1下方，flex布局 */
+            /* 侧边栏计时器容器样式 */
             .countdown-container {
                 display: flex;
-                gap: 16px;
-                flex-wrap: wrap;
-                align-items: center;
+                flex-direction: column;
+                gap: 12px;
                 width: 100%;
-                margin: 12px 0 20px;
-                padding: 12px 16px;
-                border-radius: 8px;
-                background-color: rgba(255, 255, 255, 0.9);
-                box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+                margin: 0;
+                padding: 16px;
+                border-radius: 0;
+                background-color: transparent;
+                box-shadow: none;
                 transition: all 0.3s;
             }
             /* 暗黑模式容器 */
             body.dark-mode .countdown-container {
-                background-color: rgba(45, 45, 68, 0.9);
-                box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+                background-color: transparent;
+                box-shadow: none;
             }
 
-            /* 倒计时卡片：四等分排列 */
-            .countdown-card {
-                flex: 1;
-                min-width: 160px;
-                padding: 14px;
-                border-radius: 8px;
-                background-color: #fff;
-                box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-                text-align: center;
-                transition: transform 0.2s;
+            /* 倒计时项：垂直排列 */
+            .countdown-item {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 6px;
+                width: 100%;
+                padding: 10px;
+                border-radius: 6px;
+                background-color: rgba(255, 255, 255, 0.8);
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             }
-            /* 暗黑模式卡片 */
-            body.dark-mode .countdown-card {
-                background-color: #2d2d44;
-                box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-            }
-            /* 卡片hover效果 */
-            .countdown-card:hover {
-                transform: translateY(-2px);
+            body.dark-mode .countdown-item {
+                background-color: rgba(58, 58, 86, 0.8);
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
             }
 
-            /* 卡片标题 */
+            /* 倒计时标题 */
             .countdown-title {
-                margin: 0 0 8px;
+                margin: 0;
                 font-size: 14px;
                 font-weight: 600;
                 color: #2c3e50;
+                width: 100%;
+                text-align: left;
+                padding-bottom: 4px;
+                border-bottom: 1px solid #e0e0e0;
             }
             body.dark-mode .countdown-title {
                 color: #e0e0e0;
+                border-bottom-color: #4a4a6a;
             }
 
             /* 时间显示区 */
@@ -157,9 +157,12 @@
                 font-weight: bold;
                 color: #3498db;
                 display: flex;
-                justify-content: center;
+                justify-content: flex-start;
                 align-items: center;
-                gap: 5px;
+                gap: 6px;
+                word-wrap: break-word;
+                flex-wrap: wrap;
+                width: 100%;
             }
             body.dark-mode .countdown-time {
                 color: #4dabf5;
@@ -167,104 +170,133 @@
 
             /* 时间数字项 */
             .time-item {
-                padding: 5px 10px;
+                padding: 4px 8px;
                 border-radius: 4px;
-                background-color: #f1f5f9;
-                color: #2c3e50;
+                background-color: #3498db;
+                color: white;
+                font-size: 14px;
+                min-width: 25px;
+                text-align: center;
+                font-weight: bold;
+                line-height: 1.2;
+                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
             }
             body.dark-mode .time-item {
-                background-color: #3a3a56;
-                color: #e0e0e0;
+                background-color: #4dabf5;
+                color: white;
+                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
             }
 
             /* 时间分隔符 */
             .time-sep {
-                color: #7f8c8d;
-                font-weight: normal;
+                color: #2c3e50;
+                font-weight: 600;
+                font-size: 14px;
+                line-height: 1.2;
+                margin: 0 2px;
             }
             body.dark-mode .time-sep {
-                color: #a0a0b0;
+                color: #e0e0e0;
             }
 
-            /* 响应式适配：平板/手机 */
-            @media (max-width: 768px) {
+            /* 响应式适配：侧边栏特殊样式 */
+            @media (max-width: 1200px) {
                 .countdown-container {
-                    gap: 10px;
-                    padding: 10px;
-                }
-                .countdown-card {
-                    min-width: 130px;
                     padding: 12px;
+                    gap: 10px;
+                }
+                .countdown-item {
+                    padding: 8px;
+                    gap: 4px;
+                }
+                .countdown-title {
+                    font-size: 13px;
                 }
                 .countdown-time {
                     font-size: 14px;
+                    gap: 4px;
+                }
+                .time-item {
+                    padding: 3px 6px;
+                    font-size: 12px;
+                    min-width: 22px;
+                }
+                .time-sep {
+                    font-size: 12px;
+                }
+            }
+            @media (max-width: 768px) {
+                .countdown-container {
+                    padding: 10px;
+                    gap: 8px;
+                }
+                .countdown-item {
+                    padding: 6px;
+                    gap: 3px;
+                }
+                .countdown-title {
+                    font-size: 12px;
+                }
+                .countdown-time {
+                    font-size: 13px;
                     gap: 3px;
                 }
                 .time-item {
-                    padding: 4px 8px;
+                    padding: 2px 5px;
+                    font-size: 11px;
+                    min-width: 20px;
                 }
-            }
-            @media (max-width: 576px) {
-            
-  .countdown-container {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 8px; /* 小屏减小卡片间距 */
-        padding: 8px;
-    }
-    .countdown-card {
-        min-width: 100%;
-        padding: 10px; /* 小屏减小卡片内边距 */
-    }
-                
+                .time-sep {
+                    font-size: 11px;
+                }
             }
         `;
         document.head.appendChild(style);
     }
 
     /**
-     * 创建四个倒计时卡片
+     * 创建四个倒计时项
      * @param {HTMLElement} container - 计时器容器
      */
     function createCountdownCards(container) {
         const targets = getTargetDates();
-        // 遍历生成四个卡片
+        // 遍历生成四个倒计时项
         Object.values(targets).forEach(target => {
-            const card = document.createElement('div');
-            card.className = 'countdown-card';
-            card.innerHTML = `
-                <h3 class="countdown-title">${target.title}</h3>
+            const item = document.createElement('div');
+            item.className = 'countdown-item';
+            item.innerHTML = `
+                <div class="countdown-title">${target.title}</div>
                 <div class="countdown-time">
-                    <span class="time-item days">00</span>
-                    <span class="time-sep">天</span>
-                    <span class="time-item hours">00</span>
-                    <span class="time-sep">时</span>
-                    <span class="time-item minutes">00</span>
-                    <span class="time-sep">分</span>
-                    <span class="time-item seconds">00</span>
-                    <span class="time-sep">秒</span>
+                    <div class="time-item days">00</div>
+                    <div class="time-sep">天</div>
+                    <div class="time-item hours">00</div>
+                    <div class="time-sep">时</div>
+                    <div class="time-item minutes">00</div>
+                    <div class="time-sep">分</div>
+                    <div class="time-item seconds">00</div>
+                    <div class="time-sep">秒</div>
                 </div>
             `;
-            container.appendChild(card);
+            container.appendChild(item);
         });
     }
 
     // -------------------------- 3. 实时更新与初始化 --------------------------
     /**
-     * 更新所有倒计时卡片的时间
+     * 更新所有倒计时项的时间
      */
     function updateCountdown() {
         const targets = getTargetDates();
-        const cards = document.querySelectorAll('.countdown-card');
+        const items = document.querySelectorAll('.countdown-item');
 
-        cards.forEach((card, index) => {
+        items.forEach((item, index) => {
             const target = Object.values(targets)[index];
             const remaining = calculateRemainingTime(target.date);
-            // 更新卡片内的时间数字
-            card.querySelector('.days').textContent = remaining.days;
-            card.querySelector('.hours').textContent = remaining.hours;
-            card.querySelector('.minutes').textContent = remaining.minutes;
-            card.querySelector('.seconds').textContent = remaining.seconds;
+            // 更新倒计时项内的时间数字
+            item.querySelector('.days').textContent = remaining.days;
+            item.querySelector('.hours').textContent = remaining.hours;
+            item.querySelector('.minutes').textContent = remaining.minutes;
+            item.querySelector('.seconds').textContent = remaining.seconds;
         });
     }
 

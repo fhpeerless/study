@@ -24,31 +24,49 @@
 <script>LA.init({id:"3Nl3aeKIo4l68lkl",ck:"3Nl3aeKIo4l68lkl"})</script>
     
 <body>
+<!-- 侧边导航栏 -->
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <h3>智能笔记系统</h3>
+        <button class="sidebar-close-btn" id="sidebarCloseBtn"><i class="fa fa-times"></i></button>
+    </div>
+    <div class="sidebar-content">
+        <!-- 倒计时功能 -->
+        <div class="countdown-container" id="countdownContainer"></div>
+        <!-- 其他导航内容可以在这里添加 -->
+    </div>
+</div>
+
+<!-- 侧边栏遮罩层 -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
 <div class="note-container">
     <!-- 顶部导航栏 -->
     <header class="note-header">
         <div class="theme-toggle">
-            <h1><i class="fa fa-book"></i> <a href="https://study.xtwa.org" target="_blank ">智能笔记系统</a> &nbsp;&nbsp;
-
-            <button id="themeBtn"><i class="fa fa-moon-o"></i></button>
-        </h1>
+            <div class="header-content">
+                <!-- 汉堡按钮 -->
+                <button class="sidebar-toggle-btn" id="sidebarToggleBtn" title="倒计时"><i class="fa fa-bars"></i></button>
+                
+                <h1>
+                    <i class="fa fa-book"></i> <a href="https://study.xtwa.org" target="_blank ">智能笔记系统</a>
+                </h1>
+                
+                <button id="themeBtn"><i class="fa fa-moon-o"></i></button>
+            </div>
         </div>
         
         <h2 class="subtitle" align="center"><br>各位学子，请随我一同前行，助其在凡尘中，乘风而起!<br>网页记录各个科目零基础笔记内容，可供任何人随时查看学习!</h2>
-        <div class="countdown-container" id="countdownContainer"></div>
 
-
+        <!-- 顶部学科选择区 -->
+        <section class="subject-section">
+            <!-- 动态生成的学科按钮容器 -->
+            <div class="subject-buttons" id="dynamicSubjectButtons"></div>
+        </section>
     </header>
 
     <!-- 主体内容区 -->
     <main class="note-content">
-        <!-- 左侧学科选择区（仅保留动态按钮容器） -->
-        <section class="subject-section">
-            <h2>选择学科</h2>
-            <!-- 动态生成的学科按钮容器（删除手动按钮，避免重复） -->
-            <div class="subject-buttons" id="dynamicSubjectButtons"></div>
-        </section>
-
         <!-- 中间章节列表区 -->
         <section class="chapter-section">
             <h2>选择章节</h2>
