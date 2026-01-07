@@ -46,6 +46,7 @@ export const note4 = {
 ## 我是二级标题啊，哈哈哈哈
 
 - 列表项1
+列表项换行后的普通文本必须顶格写，不然就会仍然当作列表项
 - 列表项2
 - 列表项3
 
@@ -69,6 +70,7 @@ console.log("Hello, World!");
 
 
 export default [note1, note2, note3, note4];
+
 
 
 
