@@ -130,6 +130,7 @@ export const note4 = {
    - 点击进入w3c-->[css清除浮动的介绍](https://www.w3school.com.cn/css/css_float_clear.asp "css浮动的介绍")
 # 个人自述
 - 清除的元素的理解
+
 “清除的元素” 就是被设置了 clear CSS 属性的元素 —— 这个属性的核心作用是：让该元素 “拒绝” 被前面的浮动元素影响，强制自己出现在所有浮动元素的正下方，而不是像普通元素那样环绕浮动元素。
 
 
@@ -171,6 +172,7 @@ console.log("Hello, World!");
 
 
 export default [note1, note2, note3, note4];
+
 
 
 
