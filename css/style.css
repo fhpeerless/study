@@ -1,5 +1,6 @@
 /* 全局样式重置 */
 * {
+
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -489,6 +490,53 @@ body.dark-mode .toc-title {
     width: 100%;
     word-wrap: break-word;
     word-break: break-all; /* 新增：强制所有长内容换行 */
+}
+
+/* Markdown 标题样式 */
+.note-body h1 {
+    color: #8B0000; /* 酒红色 */
+    font-size: 28px;
+    margin: 20px 0 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e0e0e0;
+}
+.note-body h2 {
+    color: #FAFAD2; /* 淡黄色 */
+    font-size: 24px;
+    margin: 18px 0 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e0e0e0;
+}
+.note-body h3 {
+    color: #ADD8E6; /* 淡蓝色 */
+    font-size: 20px;
+    margin: 16px 0 10px;
+}
+
+/* Markdown 列表项样式 */
+.note-body ul li,
+.note-body ol li {
+    color: #aaff86; /* 浅绿色 */
+    margin-bottom: 8px;
+}
+
+/* 暗黑模式下的 Markdown 标题样式 */
+body.dark-mode .note-body h1 {
+    color: #FF4500; /* 暗黑模式下的酒红色（橙红色） */
+    border-bottom-color: #333;
+}
+body.dark-mode .note-body h2 {
+    color: #FFD700; /* 暗黑模式下的淡黄色（金色） */
+    border-bottom-color: #333;
+}
+body.dark-mode .note-body h3 {
+    color: #1E90FF; /* 暗黑模式下的淡蓝色（深蓝色） */
+}
+
+/* 暗黑模式下的 Markdown 列表项样式 */
+body.dark-mode .note-body ul li,
+body.dark-mode .note-body ol li {
+    color: #8aff66; /* 暗黑模式下的浅绿色 */
 }
 .note-body p {
     margin-bottom: 20px;
