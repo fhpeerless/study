@@ -124,11 +124,11 @@ border直接的属性就三个，不加指定的属性必须简写三个：宽�
 export const note4 = {
     title: "浮动",
     contentmd: `
-## w3c的官方解释
+# w3c的官方解释
 请详细观看浮动和清除浮动的介绍，
    - 点击进入w3c-->[css浮动的属性介绍](https://www.w3school.com.cn/css/css_float.asp "css浮动的介绍")
    - 点击进入w3c-->[css清除浮动的介绍](https://www.w3school.com.cn/css/css_float_clear.asp "css浮动的介绍")
-## 个人自述
+# 个人自述
 - 清除的元素的理解
 “清除的元素” 就是被设置了 clear CSS 属性的元素 —— 这个属性的核心作用是：让该元素 “拒绝” 被前面的浮动元素影响，强制自己出现在所有浮动元素的正下方，而不是像普通元素那样环绕浮动元素。
 
@@ -137,7 +137,7 @@ export const note4 = {
 **浮动元素** = **给CSS的 \`float\` 属性设置了 \`left\`（左浮动）或 \`right\`（右浮动）值的HTML元素**。
 反之，如果元素的 \`float\` 是默认值 \`none\`（不设置float时就是这个值），那它就不是浮动元素，而是「普通文档流元素」。
 
-##$ 用生活化比喻理解：
+### 用生活化比喻理解：
 - 正常的HTML元素就像排队买奶茶的人：
   1.块级元素（比如div、p）：一个人占一整行，后面的人必须排到下一行；
   2.行内元素（比如span、img）：能并排站，直到一行装不下才换行。
@@ -169,6 +169,7 @@ console.log("Hello, World!");
 
 
 export default [note1, note2, note3, note4];
+
 
 
 
