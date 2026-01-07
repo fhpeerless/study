@@ -122,12 +122,15 @@ border直接的属性就三个，不加指定的属性必须简写三个：宽�
 
 
 export const note4 = {
-    title: "浮动",
+    title: "浮动和清除元素",
     contentmd: `
 # w3c的官方解释
 请详细观看浮动和清除浮动的介绍，
-   - 点击进入w3c-->[css浮动的属性介绍](https://www.w3school.com.cn/css/css_float.asp "css浮动的介绍")
-   - 点击进入w3c-->[css清除浮动的介绍](https://www.w3school.com.cn/css/css_float_clear.asp "css浮动的介绍")
+   - 点击进入w3c-->
+   
+   [css浮动的属性介绍](https://www.w3school.com.cn/css/css_float.asp "css浮动的介绍")
+
+   [css清除浮动的介绍](https://www.w3school.com.cn/css/css_float_clear.asp "css浮动的介绍")
 # 个人自述
 - 清除的元素的理解
 
@@ -172,6 +175,7 @@ console.log("Hello, World!");
 
 
 export default [note1, note2, note3, note4];
+
 
 
 
