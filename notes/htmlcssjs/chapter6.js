@@ -138,7 +138,9 @@ export const note4 = {
 
 
 ## 什么是浮动元素？
-**浮动元素** = **给CSS的 \`float\` 属性设置了 \`left\`（左浮动）或 \`right\`（右浮动）值的HTML元素**。
+- **官方定义** 
+
+浮动元素就是**给CSS的 \`float\` 属性设置了 \`left\`（左浮动）或 \`right\`（右浮动）值的HTML元素**。
 反之，如果元素的 \`float\` 是默认值 \`none\`（不设置float时就是这个值），那它就不是浮动元素，而是「普通文档流元素」。
 
 ### 用生活化比喻理解：
@@ -175,6 +177,7 @@ console.log("Hello, World!");
 
 
 export default [note1, note2, note3, note4];
+
 
 
 
