@@ -494,21 +494,21 @@ body.dark-mode .toc-title {
 
 /* Markdown 标题样式 */
 .note-body h1 {
-    color: #8B0000; /* 酒红色 */
+    color: #1E90FF; /* 蓝色 */
     font-size: 28px;
     margin: 20px 0 15px;
     padding-bottom: 10px;
     border-bottom: 1px solid #e0e0e0;
 }
 .note-body h2 {
-    color: #FAFAD2; /* 淡黄色 */
+    color: #98FB98; /* 淡绿色 */
     font-size: 24px;
     margin: 18px 0 12px;
     padding-bottom: 8px;
     border-bottom: 1px solid #e0e0e0;
 }
 .note-body h3 {
-    color: #ADD8E6; /* 淡蓝色 */
+    color: #333333; /* 黑色 */
     font-size: 20px;
     margin: 16px 0 10px;
 }
@@ -516,27 +516,27 @@ body.dark-mode .toc-title {
 /* Markdown 列表项样式 */
 .note-body ul li,
 .note-body ol li {
-    color: #aaff86; /* 浅绿色 */
+    color: #D2B48C; /* 淡棕色 */
     margin-bottom: 8px;
 }
 
 /* 暗黑模式下的 Markdown 标题样式 */
 body.dark-mode .note-body h1 {
-    color: #FF4500; /* 暗黑模式下的酒红色（橙红色） */
+    color: #4169E1; /* 暗黑模式下的蓝色 */
     border-bottom-color: #333;
 }
 body.dark-mode .note-body h2 {
-    color: #FFD700; /* 暗黑模式下的淡黄色（金色） */
+    color: #32CD32; /* 暗黑模式下的淡绿色（亮绿色） */
     border-bottom-color: #333;
 }
 body.dark-mode .note-body h3 {
-    color: #1E90FF; /* 暗黑模式下的淡蓝色（深蓝色） */
+    color: #FFC107; /* 暗黑模式下的暗黄色，加深的淡黄色 */
 }
 
 /* 暗黑模式下的 Markdown 列表项样式 */
 body.dark-mode .note-body ul li,
 body.dark-mode .note-body ol li {
-    color: #8aff66; /* 暗黑模式下的浅绿色 */
+    color: #CD853F; /* 暗黑模式下的淡棕色（秘鲁色） */
 }
 .note-body p {
     margin-bottom: 20px;
