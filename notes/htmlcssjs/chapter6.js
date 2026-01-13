@@ -156,17 +156,6 @@ export const note4 = {
 块级元素（比如div）：会假装这个“插队的人”不存在，直接顶到他原来的位置（但会被浮动元素“盖住”部分区域）。
 
 
-### 我是三级标题啊，哈哈哈哈
-### 代码块
-\`\`\`javascript copy
-console.log("Hello, World!");
-\`\`\`
-
-### 图片示例
-![Markdown图片示例](https://picsum.photos/800/400)
-
-### HTML引入粒子单页
-{{html:../danye/xingkong.html,width:100%,height:400px}}
 
 `,
     timestamp: "2025-10-18 08:30",
@@ -239,6 +228,7 @@ z-index在页面的最底下有介绍。
 
 
 export default [note1, note2, note3, note4, note5];
+
 
 
 
