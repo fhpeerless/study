@@ -186,11 +186,12 @@ export const note5 = {
 
 [区别每种css定位属性效果渲染文件](http://note.youdao.com/yws/api/personal/file/WEB9215367eb6e6b599f3ad1174b7dd2742?method=download&inline=true&shareKey=a5058fd8137f0e9ec6e3585a9bf8aa70 "css渲染结果")
 
-
 # css定位的属性自述
+
 如果设置定位属性后，设置right或者lift或top属性,bottom，四个属性是用来定位元素的位置的,不设置默认为0
 
 - absolute
+
 absolute是对于父级元素来进行定位的，
 直接父容器：是 HTML 结构中直接包裹当前元素的上层元素（和定位无关，纯结构关系）；
 absolute 的参考容器：优先找「最近的已定位祖先」（position 非 static），这个祖先可能是直接父容器、祖父容器等；
@@ -198,12 +199,16 @@ absolute 的参考容器：优先找「最近的已定位祖先」（position �
 
 
 - fixed
+
 是对于浏览器窗口来进行定位的，滚动鼠标仍然在窗口的指定位置不动
 - relative
+
 是对于元素本身来进行定位的，直接根据四个方向属性定位，不设置默认为零
 - static
+
 是默认的定位属性，元素按照正常的文档流来定位，不设置默认为零
 - sticky
+
 是粘性定位，元素根据正常的文档流定位，但是在滚动到指定位置时会固定在指定位置不动，例如：固定在顶部
 
 # z-index堆叠顺序
@@ -234,6 +239,7 @@ z-index在页面的最底下有介绍。
 
 
 export default [note1, note2, note3, note4, note5];
+
 
 
 
