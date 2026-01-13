@@ -108,10 +108,10 @@ padding增加会压缩内容区域，但总尺寸不变
 export const note3 = {
     title: "边框-border",
     contentmd: `
-## 边框是设置边框的颜色，粗细，粗细的宽度设置，
+## 1.边框是设置边框的颜色，粗细，粗细的宽度设置，
 - 点击进入w3c-->[边框的简写属性](https://www.w3school.com.cn/css/css_border_shorthand.asp "边框的属性")
 - 点击进入w3c-->[边框的颜色属性](https://www.w3school.com.cn/css/css_border_color.asp "边框的属性")
-## 边框颜色的自述
+## 2.边框颜色的自述
 border直接的属性就三个，不加指定的属性必须简写三个：宽度 形状 颜色，例如border-style只是形状属性
 
 `,
@@ -239,6 +239,7 @@ z-index在页面的最底下有介绍。
 
 
 export default [note1, note2, note3, note4, note5];
+
 
 
 
