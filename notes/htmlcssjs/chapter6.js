@@ -182,7 +182,7 @@ export const note5 = {
 - absolute
 
 absolute是对于父级元素来进行定位的，
-[定位父级元素和无父级元素的定位效果展示单文件(http://note.youdao.com/yws/api/personal/file/WEB2e0f0dc40f20608657a9c540b4b04d63?method=download&inline=true&shareKey=823bfbdc0d1bbc721a9a46075f7a8f47 "css定位的介绍")
+[定位父级元素和无父级元素的定位效果展示单html文件](http://note.youdao.com/yws/api/personal/file/WEB2e0f0dc40f20608657a9c540b4b04d63?method=download&inline=true&shareKey=823bfbdc0d1bbc721a9a46075f7a8f47 "css定位的介绍")
 
 直接父容器：是 HTML 结构中直接包裹当前元素的上层元素（和定位无关，纯结构关系）；
 absolute 的参考容器：优先找「最近的已定位祖先」（position 非 static），这个祖先可能是直接父容器、祖父容器等；
