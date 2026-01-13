@@ -72,7 +72,7 @@ export const note2 = {
 ## padding变换，border-box和content-box盒模型的变化详解
 当padding从0开始增加时，是否改变height和width的显示区域大小，取决于盒模型类型（box-sizing）：
 
-- 1. 默认的 content-box 盒模型（CSS默认）
+1. 默认的 content-box 盒模型（CSS默认）
 padding增加会改变元素的总尺寸（width和height）：
 
 元素的width和height只包含内容区域
@@ -81,7 +81,7 @@ padding会额外增加元素的总尺寸
 当padding增加到20px：width: 100px; padding: 20px; → 总宽度 = 100 + 20×2 = 140px
 元素在页面上变大了，内容区域不变。
 
-- 2. border-box 盒模型（推荐全局设置）
+2. border-box 盒模型（推荐全局设置）
 padding增加不会改变元素的总尺寸（width和height）：
 
 元素的width和height包含内容、padding和border
@@ -239,6 +239,7 @@ z-index在页面的最底下有介绍。
 
 
 export default [note1, note2, note3, note4, note5];
+
 
 
 
