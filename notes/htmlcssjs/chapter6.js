@@ -173,10 +173,58 @@ console.log("Hello, World!");
     images: [],
     embed: ""
 };
+export const note5 = {
+    title: "css定位-position",
+    contentmd: `
+# w3c的解释
+
+- 点击进入w3c-->
+
+[css定位的属性介绍](https://www.w3school.com.cn/css/css_positioning.asp "css定位的介绍")
+
+- 点击下载html文件
+
+[区别每种css定位属性效果渲染文件](http://note.youdao.com/yws/api/personal/file/WEB9215367eb6e6b599f3ad1174b7dd2742?method=download&inline=true&shareKey=a5058fd8137f0e9ec6e3585a9bf8aa70 "css渲染结果")
 
 
+# css定位的属性自述
+- 如果设置定位属性后，设置right或者lift或top属性,bottom，四个属性是用来定位元素的位置的,不设置默认为0
 
-export default [note1, note2, note3, note4];
+- absolute是对于父级元素来进行定位的，
+- fixed是对于浏览器窗口来进行定位的，滚动鼠标仍然在窗口的指定位置不动
+- relative是对于元素本身来进行定位的，直接根据四个方向属性定位，不设置默认为零
+- static是默认的定位属性，元素按照正常的文档流来定位，不设置默认为零
+- sticky是粘性定位，元素根据正常的文档流定位，但是在滚动到指定位置时会固定在指定位置不动，例如：固定在顶部
+
+# z-index堆叠顺序
+## w3c介绍
+z-index在页面的最底下有介绍。
+[css定位的堆叠顺序](https://www.w3school.com.cn/css/css_positioning.asp "css定位的介绍")
+
+## 自述z-index
+在CSS中，z-index 的堆叠顺序规则是：值越大，元素越靠前（显示在最上面）。
+- 元素 z-index 为 3 的元素会显示在最上面（z-index 最高）。
+- 元素 z-index 为 2 的元素会显示在 z-index 为 3 的元素下方。
+- 元素 z-index 为 1 的元素会显示在 z-index 为 2 的元素下方。
+- 元素 z-index 为 -1 的元素会显示在 z-index 为 1 的元素下方（z-index 最低）。
+### 如果没有设置z-index属性
+
+默认值为0,既按照元素的代码的渲染顺序来显示，
+但是先写图片代码，再写文字代码，图片是在文字上层的，但如果设置图片的透明度，例如opacity:0.3，
+则文字正常显示，如果pacity:1则图片把文字完全盖住，文字不显示
+
+点击进入链接在线查看实例：
+[css定位的堆叠顺序](https://www.w3school.com.cn/tiy/t.asp?f=css_image_text_top_left "css定位的介绍")
+
+`,
+    timestamp: "2026-01-05 08:30",
+    images: [],
+    embed: ""
+};
+
+
+export default [note1, note2, note3, note4, note5];
+
 
 
 
