@@ -3,7 +3,7 @@
 
 const subjectChapters = {
     study_map: 7,
-    htmlcssjs: 7,
+    css: 20,
     python: 7,
     english: 7,  
     politics101: 7  
