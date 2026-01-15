@@ -1,7 +1,7 @@
 // 第一篇笔记
 export const note1 = {
     title: "图像标签",
-    contentmd:` 
+    contentmd: ` 
 ## 网页多用gif，jpeg，png JPG (JPEG)三种格式图片de区别
 
 ### JPG
