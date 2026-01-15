@@ -44,7 +44,7 @@ x<sub>2</sub>
 
 
 ### 代码效果浏览
-{{html:../danye/Section_2.html,width:100%,height:450px}}
+{{html:../danye/css/Section_2.html,width:100%,height:450px}}
 
         `,
     timestamp: "2025-10-12 10:00",
@@ -57,7 +57,7 @@ x<sub>2</sub>
 
 export const note2 = {
     title: "文本超链接",
-    contentmd: `
+    contentmd:`
 ## 1.超链接a标签
 
 \`\`\`html5 copy
