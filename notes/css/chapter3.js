@@ -49,25 +49,48 @@ title悬停提示符
 
 export const note2 = {
 title: "图像热区超链接",
-    content: [" <h3>热区链接的代码官方表示：</h3> ",
-        "<a href=\"https://www.w3school.com.cn/tags/tag_map.asp\">w3c_map</a><hr width=\"80%\"> ",
-        " <h3>热区链接实现的功能说明:</h3> ",
-        "当点击图片上的特定坐标位置的时候，可以链接到其他页面！，图像热区区域可以通过ps来获取坐标，ps中的点击窗口，信息即可显示坐标，坐标要以像素来编写，",
-         " <h3>热区链接所要注意：</h3> 热区区域是根据坐标来确定的，但是区域是根据代码来计算的，如果整个图片没有加入auto属性就是固定图片大小<br>那么图片的大小被固定，热区域也会随之固定，当用户拖动窗口，热区域不变，图片区域不变，就会导致图片位置与图片区域对不上，<br>相反加入auto，那么图片大小是发生变动的，浏览器收到图片大小会发生变动的信息，热区域也会随之变动，自适应！",     
-        " <h3> 热区链接的写法: </h3>",
-        " &lt;img src=\"life.png\" alt=\"图片未成功加载的显示或用于网页阅读器时所需要\" usemap=\"#映射图像的名称\" width=\"650\" height=\"451\" &gt;",
-        " &lt;map name=\"所要关联的映射图像的名称\" 或者用id=\"所要关联的映射图像的名称\"&gt; <br> &lt;area shape=\"rect（矩形）\" coords=\"（左上角角标）10,208,（右下角角标）155,338\" alt=\"AirPods\" href=\"热区索要连接的地址\"&gt; <br> &lt;/map&gt;",
-        " &lt;map name=\"所要关联的映射图像的名称\" 或者用id=\"所要关联的映射图像的名称\"&gt; <br> &lt;area shape=\"rect（矩形）\" coords=\"（左上角角标）10,208,（右下角角标）155,338\" alt=\"AirPods\" href=\"热区索要连接的地址\"&gt; <br> &lt;/map&gt;",
-        " <h4>同一张图片上可以同时写多个area热区域标签，</h4>",
+    contentmd: ` 
+## 1.热区链接的w3c概述
+ --> [图片热区超链接](https://www.w3school.com.cn/tags/tag_map.asp "WebStorm") 
+ 
+ 
+## 2.热区链接实现的功能说明
+- 当点击图片上的特定坐标位置的时候，可以链接到其他页面！，图像热区区域可以通过ps来获取坐标，ps中的点击窗口，信息即可显示坐标，坐标要以像素来编写，
+   
+## 3.热区超链接所要注意
+热区区域是根据坐标来确定的，但是区域是根据代码来计算的，如果整个图片没有加入auto属性就是固定图片大小
+那么图片的大小被固定，热区域也会随之固定，当用户拖动窗口，热区域不变，图片区域不变，就会导致图片位置与图片区域对不上，
+相反加入auto，那么图片大小是发生变动的，浏览器收到图片大小会发生变动的信息，热区域也会随之变动，自适应！
 
-        " &lt;img src=\"123.jpg\" alt=\"shenyue_zhao\" useMap=\"#lifemap\" width=\"50%\" height=\"50%\"/&gt; ",
+## 4.热区域超链接的写法说明
+同一张图片上可以同时写多个area热区域标签，
 
-        " &lt;map name=\"lifemap\"&gt; <br>   &lt;area shape=\"rect\" coords=\"0,50,313,527\" alt=\"zhao\" href=\"https://baike.baidu.com/item/%E8%B5%B5%E4%BB%8A%E9%BA%A6?fromModule=lemma_search-box\" target=\"_blank\"/&gt; <br>   &lt;area shape=\"rect\" coords=\"315,105,641,527\" alt=\"shenyue\" href=\"https://baike.baidu.com/item/%E6%B2%88%E6%9C%88/22068465\"  target=\"_blank\"/&gt; <br> &lt;/map&gt; ",
+\`\`\`css copy
+<img src="life.png" alt="图片未成功加载的显示或用于网页阅读器时所需要" usemap="#映射图像的名称" width="650" height="451" >
+
+### 第一个热区
+<map name="所要关联的映射图像的名称" 或者用id="所要关联的映射图像的名称">
+<area shape="rect（矩形）" coords="（左上角角标）10,208,（右下角角标）155,338" alt="AirPods" href="热区索要连接的地址">
+</map>
+### 第二个热区
+<map name="所要关联的映射图像的名称" 或者用id="所要关联的映射图像的名称">
+<area shape="rect（矩形）" coords="（左上角角标）10,208,（右下角角标）155,338" alt="AirPods" href="热区索要连接的地址">
+</map>
+\`\`\`
 
 
-         "<img src=\"http://note.youdao.com/yws/api/personal/file/WEB8a48aae05f66ef8898eec51ecef9aee6?method=download&inline=true&shareKey=e80a26504cd0f7289f960603ee94eab6\" useMap=\"#123map\" alt=\"shenyue_zhao\" style=\"width: auto; height: auto; \"> " +
-        " <map name=\"123map\"> <br> <area shape=\"rect\" coords=\"0,57,347,570\" alt=\"zhao\" href=\"https://baike.baidu.com/item/%E8%B5%B5%E4%BB%8A%E9%BA%A6?fromModule=lemma_search-box\" target=\"_blank\"/>   <area shape=\"rect\" coords=\"347,112,700,576\" alt=\"shenyue\" href=\"https://baike.baidu.com/item/%E6%B2%88%E6%9C%88/22068465\"  target=\"_blank\"/> </map> "
-    ],
+
+## 热区超链接实例代码
+\`\`\`css copy
+<img src=\"http://note.youdao.com/yws/api/personal/file/WEB8a48aae05f66ef8898eec51ecef9aee6?method=download&inline=true&shareKey=e80a26504cd0f7289f960603ee94eab6\" useMap=\"#123map\" alt=\"shenyue_zhao\" style=\"width: auto; height: auto; \">
+<map name=\"123map\"> 
+<area shape="rect" coords="0,57,347,570" alt="zhaojinmai" href="https://baike.baidu.com/item/%E8%B5%B5%E4%BB%8A%E9%BA%A6?fromModule=lemma_search-box" target="_blank">   
+<area shape="rect" coords="347,112,700,576" alt="shenyue" href="https://baike.baidu.com/item/%E6%B2%88%E6%9C%88/22068465"  target="_blank">
+ </map> 
+\`\`\`
+
+
+     `,
     timestamp: "2025-10-20 08:30",
     images: [],
     embed: ""
@@ -77,7 +100,6 @@ title: "图像热区超链接",
 // 统一导出笔记数组（关键：让JS加载时能获取所有笔记）, note2, note3, note4, note5, note6, note7, note8, note9
 
 export default [note1, note2];
-
 
 
 
