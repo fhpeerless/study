@@ -15,7 +15,12 @@ const subjectChapters = {
 // 新增：笔记文件缓存版本号（更新笔记后，修改此版本号即可触发全量刷新）
 const NOTE_CACHE_VERSION = "v20251107"; // 格式：v+日期/迭代号，如 v20251031、v3
 
-
+// 错误处理：捕获并记录未处理的错误
+window.addEventListener('error', function(event) {
+    console.error('全局错误捕获:', event.error);
+    console.error('错误信息:', event.message);
+    console.error('错误堆栈:', event.error ? event.error.stack : '无堆栈信息');
+});
 
 // DOM 元素
 const chapterList = document.getElementById('chapterList');
@@ -247,6 +252,38 @@ md.renderer.rules.link_open = function(tokens, idx, options, env, self) {
     
     // 调用默认渲染器
     return defaultRender(tokens, idx, options, env, self);
+};
+
+// 修改markdown-it的图片渲染规则，支持自定义宽度和高度
+const defaultImageRender = md.renderer.rules.image || function(tokens, idx, options, env, self) {
+    return self.renderToken(tokens, idx, options);
+};
+
+md.renderer.rules.image = function(tokens, idx, options, env, self) {
+    const token = tokens[idx];
+    const titleIndex = token.attrIndex('title');
+    
+    if (titleIndex >= 0) {
+        const title = token.attrs[titleIndex][1];
+        const widthMatch = title.match(/width=(\d+)/);
+        const heightMatch = title.match(/height=(\d+)/);
+        
+        if (widthMatch) {
+            token.attrPush(['width', widthMatch[1]]);
+        }
+        if (heightMatch) {
+            token.attrPush(['height', heightMatch[1]]);
+        }
+        // 如果title是尺寸信息，可以选择不移除title属性，因为可能还有其他用途
+    }
+    
+    // 添加懒加载
+    if (token.attrIndex('loading') < 0) {
+        token.attrPush(['loading', 'lazy']);
+    }
+    
+    // 调用默认渲染器
+    return defaultImageRender(tokens, idx, options, env, self);
 };
 
 // 添加代码块复制功能的CSS样式
@@ -533,6 +570,8 @@ function showMultipleNotes(notes) {
             noteHtml += scopedContent;
         }
 
+
+
         // 处理嵌入内容
         if (note.embed && note.embed.trim() !== '') {
             noteHtml += `<div class="note-embed">${note.embed}</div>`;
@@ -602,6 +641,8 @@ function showNote(note) {
             contentHtml += `<p>${content}</p>`;
         }
     }
+
+
 
     // 处理嵌入内容（如视频）
     if (note.embed && note.embed.trim() !== '') {
