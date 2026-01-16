@@ -594,7 +594,6 @@ body.dark-mode .note-body ol li {
 .note-body object,
 .note-embed iframe {
     max-width: 100%;
-    height: auto;
     display: block;
     box-sizing: border-box;
 }
@@ -669,8 +668,6 @@ body.dark-mode .note-body code {
     box-sizing: border-box;
 }
 .note-image img {
-    width: 100%;
-    height: auto;
     display: block;
     object-fit: cover;
     max-width: 100%; /* 新增：兜底防止图片本身宽度过大 */
