@@ -44,7 +44,7 @@ x<sub>2</sub>
 
 
 ### 代码效果浏览
-{{html:../danye/css/Section_2.html,width:100%,height:450px}}
+{{html:../danye/css/section_2.html,width:100%,height:450px}}
 
         `,
     timestamp: "2025-10-12 10:00",
@@ -108,6 +108,7 @@ export const note3 = {
 // 统一导出笔记数组（关键：让JS加载时能获取所有笔记）
 
 export default [note1, note2, note3];
+
 
 
 
