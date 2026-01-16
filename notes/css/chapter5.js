@@ -112,7 +112,6 @@ console.log("Hello, World!");
 ### 图片示例
 ### 示例1：自定义不等比尺寸（原始800x400，调整为1000x200）
 ![Markdown图片示例](https://picsum.photos/800/400 "width=500 height=100")
-![Markdown图片示例](http://note.youdao.com/yws/api/personal/file/WEBe97fe01bbaf7282c7ebffe1901a437b7?method=download&inline=true&shareKey=7a07ba40ceee734f609011099b8f72c5 "width=500 height=100")
 
 ### 示例2：仅设置宽度（高度自适应）
 ![Markdown图片示例](http://note.youdao.com/yws/api/personal/file/WEBe97fe01bbaf7282c7ebffe1901a437b7?method=download&inline=true&shareKey=7a07ba40ceee734f609011099b8f72c5 "width=500")
@@ -130,6 +129,7 @@ console.log("Hello, World!");
 
 
 export default [note1, note2, note3, note4];
+
 
 
 
