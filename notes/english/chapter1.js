@@ -16,11 +16,7 @@ export const note1 = {
 
 `,
     timestamp: "2025-10-10 08:30",
-    images: [
-        "http://note.youdao.com/yws/api/personal/file/WEB1f1b8b1a3ddcc3f3ef698a5f8bc7c9f6?method=download&inline=true&shareKey=969f3d4830d0aac90daf21837b4b185e"
-       
 
-    ],
     embed: ""
 };
 // HTML第一章 多篇笔记（改为命名导出+数组汇总）
@@ -33,10 +29,7 @@ export const note2 = {
 
 `,
     timestamp: "2025-10-10 08:30",
-    images: [  
-        "http://note.youdao.com/yws/api/personal/file/WEB6a6c94676b91d0bd611fcd0a3628d05a?method=download&inline=true&shareKey=ad4f15b141d4a4776ad98b4526e38d4b",
-        "http://note.youdao.com/yws/api/personal/file/WEBc3b7683be02a656e46b7f065a75dea55?method=download&inline=true&shareKey=eef201f3027b7b1b4c8cabd74d4c153e"
-    ],
+
     embed: ""
 };
 
@@ -51,12 +44,7 @@ export const note3 = {
 `,
 
     timestamp: "2025-10-10 08:30",
-    images: [
-       
-        "http://note.youdao.com/yws/api/personal/file/WEBeaf35a45f0b043d4f84f57b5b10702f0?method=download&inline=true&shareKey=97e62c4f25fa0df0ab526f5abc127e93",
-        "http://note.youdao.com/yws/api/personal/file/WEB42b4540760cb13a0a952fd0926b173a4?method=download&inline=true&shareKey=f6d3ee92899d795595adb62d2f091977"
 
-    ],
     embed: ""
 };
 

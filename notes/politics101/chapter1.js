@@ -27,7 +27,7 @@ export const note1 = {
   
 `,
     timestamp: "2025-10-10 08:30",
-    images: [],
+
      embed: '<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=503996937&bvid=BV18g411u7Uj&cid=463360404&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>'
   };
 

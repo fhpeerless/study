@@ -23,7 +23,7 @@ export const note1 = {
 
 `,
     timestamp: "2025-10-10 08:30",
-    images: [],
+
     embed: "<iframe src=\"//player.bilibili.com/player.html?isOutside=true&aid=115412666747576&bvid=BV1EkWdzvEBx&cid=33343736793&p=2\" scrolling=\"no\" border=\"0\" frameborder=\"no\" framespacing=\"0\" allowfullscreen=\"true\"></iframe>"
 };
 
@@ -66,7 +66,7 @@ html是一个超链接的网页语言，h5是第五代，大多数网页都是�
         
        `,
     timestamp: "2025-10-11 14:20",
-    images: []
+
 };
 
 // 统一导出笔记数组（关键：让JS加载时能获取所有笔记）

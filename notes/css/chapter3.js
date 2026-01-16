@@ -42,7 +42,7 @@ title悬停提示符
        
     `,
     timestamp: "2025-10-18 08:30",
-    images: [],  // 确保有images属性
+
     embed: ""
 };
 
@@ -94,7 +94,7 @@ title: "图像热区超链接",
 
      `,
     timestamp: "2025-10-20 08:30",
-    images: [],
+
     embed: ""
 };
 

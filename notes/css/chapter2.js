@@ -48,7 +48,7 @@ x<sub>2</sub>
 
         `,
     timestamp: "2025-10-12 10:00",
-    images: [],
+
     embed: ""
 };
 
@@ -72,7 +72,7 @@ export const note2 = {
 
     `,
     timestamp: "2025-10-19 08:30",
-    images: [],  // 确保有images属性
+
     embed: ""
 };
 
@@ -97,10 +97,7 @@ export const note3 = {
 
 `,
     timestamp: "2025-10-19 08:30",
-      images: [
-        "https://picsum.photos/seed/love1/400/300",
-        "https://picsum.photos/seed/love3/400/300"
-    ],  // 确保有images属性
+
     embed: ""
 };
 

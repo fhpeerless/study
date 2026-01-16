@@ -21,7 +21,7 @@ export const note1 = {
             
 `,
     timestamp: "2025-10-18 08:30",
-    images: [],
+
     embed: ""
 };
 
@@ -44,7 +44,7 @@ export const note2 = {
     
 `,
     timestamp: "2025-10-18 08:30",
-    images: [],
+
     embed: ""
 };
 
@@ -80,7 +80,7 @@ height和width表示的div所占的区域
        
 `,
     timestamp: "2025-10-18 08:30",
-    images: [],
+
     embed: ""
 };
 
@@ -104,14 +104,14 @@ console.log("Hello, World!");
 \`\`\`
 
 ### 图片示例
-![Markdown图片示例](https://picsum.photos/800/400)
+![Markdown图片示例](https://picsum.photos/800/400 "width=1000 height=400")
 
 ### HTML引入粒子单页
 {{html:../danye/css/xingkong.html,width:100%,height:400px}}
 
 `,
     timestamp: "2025-10-18 08:30",
-    images: [],
+
     embed: ""
 };
 

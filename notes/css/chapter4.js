@@ -16,7 +16,7 @@ export const note1 = {
 
 `,
     timestamp: "2025-10-18 08:30",
-    images: [],  // 确保有images属性
+
     embed: ""
 };
 
@@ -34,7 +34,7 @@ css代码可打包成单独的文件后引入，或者直接写在head标签内
        
 `,
     timestamp: "2025-10-18 08:30",
-    images: [],  // 确保有images属性
+
     embed: ""
 };
 
@@ -59,7 +59,7 @@ export const note3 = {
  
 `,
     timestamp: "2025-10-18 08:30",
-    images: [],  // 确保有images属性
+
     embed: ""
 };
 
@@ -103,7 +103,7 @@ id选择器是选择一个带有id值的一个唯一元素，来更改他的样�
 
 `,
     timestamp: "2025-10-18 08:30",
-    images: [],  // 确保有images属性
+
     embed: ""
 };
 
@@ -147,7 +147,7 @@ export const note5 = {
 
 `,
     timestamp: "2025-10-18 08:30",
-    images: [],  // 确保有images属性
+
     embed: ""
 };
 
@@ -163,7 +163,7 @@ export const note6 = {
        
 `,
     timestamp: "2025-10-18 08:30",
-    images: [],  // 确保有images属性
+
     embed: ""
 };
 

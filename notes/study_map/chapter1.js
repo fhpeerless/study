@@ -7,7 +7,7 @@ export const note1 = {
 {{html:../danye/study_map/section_1.html,width:100%,height:600px}}
         `,
     timestamp: "2025-11-08 10:00",
-    images: [],
+
     embed: `
 
     `
