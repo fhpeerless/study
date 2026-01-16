@@ -37,7 +37,7 @@ title悬停提示符
 \`\`\`
 
 
-{{html:../danye/css/section_3.html,width:100%,height:450px}}
+{{html:../danye/css/section_3_1.html,width:100%,height:450px}}
 
        
     `,
@@ -89,6 +89,8 @@ title: "图像热区超链接",
  </map> 
 \`\`\`
 
+## 热区超链接代码效果
+{{html:../danye/css/section_3_2.html,width:100%,height:450px}}
 
      `,
     timestamp: "2025-10-20 08:30",
