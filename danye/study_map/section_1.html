@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>前端知识体系树形图</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        /* 树形图容器样式 */
+        .tree-container {
+            width: 100%;
+            height: 600px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        /* 节点样式 */
+        .node circle {
+            fill: #fff;
+            stroke: #333;
+            stroke-width: 1.5px;
+        }
+
+        .node text {
+            font: bold 16px sans-serif; /* 放大字号并加粗 */
+            fill: #800020; /* 酒红色（正常模式） */
+        }
+
+        .node--internal text {
+            text-shadow: 0 1px 0 #fff, 0 -1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff;
+        }
+
+        .link {
+            fill: none;
+            stroke: #ccc;
+            stroke-width: 1.5px;
+        }
+
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .tree-container {
+                height: 400px;
+            }
+            .node text {
+                font-size: 14px; /* 响应式下保持放大并加粗 */
+            }
+        }
+
+        /* 深色模式支持 */
+        body.dark-mode .tree-container {
+            border-color: #444;
+        }
+        body.dark-mode .node circle {
+            stroke: #ddd;
+        }
+        body.dark-mode .node text {
+            font-weight: bold; /* 深色模式下保持加粗 */
+            fill: #c11b17; /* 深色模式下的酒红色（更亮一点以适应深色背景） */
+            text-shadow: none;
+        }
+        body.dark-mode .link {
+            stroke: #666;
+        }
+    </style>
+</head>
+<body>
+
+<h3 style="text-align: center; margin-bottom: 20px; color: orangered;">H5/CSS/JS学习路径全景图<</h3>
+<h3 style="text-align: center; margin-bottom: 20px; color: #2196F3;">柱形图根据D3社区开发</h3>
+<div style="text-align: center; margin-top: 15px;">
+    <a href="https://d3js.org/" target="_blank" style="
+                display: inline-block;
+                padding: 12px 28px;
+                background: linear-gradient(135deg, #4CAF50, #2E7D32);
+                color: white;
+                text-decoration: none;
+                border-radius: 50px;
+                font-weight: bold;
+                font-size: 18px;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+                transition: all 0.4s ease;
+                letter-spacing: 0.5px;
+            ">
+        ✨ 点击访问 D3 官方社区
+    </a>
+    </a>
+    <a href="./frontend-tree/qianduan-tree.html" target="_blank" style="
+                display: inline-block;
+                padding: 12px 28px;
+                background: linear-gradient(135deg, #4CAF50, #2E7D32);
+                color: white;
+                text-decoration: none;
+                border-radius: 50px;
+                font-weight: bold;
+                font-size: 18px;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+                transition: all 0.4s ease;
+                letter-spacing: 0.5px;
+            ">
+        ✨ 点击访问单页树形图
+    </a>
+
+</div>
+
+<div class="tree-container" id="treeContainer"></div>
+
+<!-- 以下JavaScript代码保持不变 -->
+<script>
+    // 等待DOM加载完成
+    document.addEventListener('DOMContentLoaded', () => {
+        // 树形图数据
+        const treeData = {
+            name: "前端开发",
+            children: [
+                {
+                    name: "HTML",
+                    children: [
+                        { name: "基本结构" },
+                        { name: "文本标签" },
+                        { name: "链接与图像" },
+                        { name: "表格与表单" },
+                        { name: "语义化标签" }
+                    ]
+                },
+                {
+                    name: "CSS",
+                    children: [
+                        { name: "选择器" },
+                        { name: "盒模型" },
+                        { name: "浮动与定位" },
+                        { name: "Flex布局" },
+                        { name: "Grid布局" },
+                        { name: "响应式设计" }
+                    ]
+                },
+                {
+                    name: "JavaScript",
+                    children: [
+                        { name: "变量与数据类型" },
+                        { name: "函数与作用域" },
+                        { name: "DOM操作" },
+                        { name: "事件处理" },
+                        { name: "异步编程" },
+                        {
+                            name: "ES6+特性",
+                            children: [
+                                { name: "箭头函数" },
+                                { name: "解构赋值" },
+                                { name: "Promise" },
+                                { name: "模块系统" }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "框架与工具",
+                    children: [
+                        { name: "React" },
+                        { name: "Vue" },
+                        { name: "Webpack" },
+                        { name: "Babel" },
+                        { name: "Git" }
+                    ]
+                }
+            ]
+        };
+
+        // 初始化树形图
+        initTree(treeData);
+    });
+
+    // 树形图初始化函数（保持不变）
+    function initTree(data) {
+        const container = document.getElementById('treeContainer');
+        const width = container.clientWidth;
+        const height = container.clientHeight;
+        const margin = { top: 20, right: 20, bottom: 20, left: 120 };
+
+        // 创建SVG
+        const svg = d3.select("#treeContainer")
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height)
+            .append("g")
+            .attr("transform", `translate(${margin.left},${margin.top})`);
+
+        // 计算内部尺寸
+        const innerWidth = width - margin.left - margin.right;
+        const innerHeight = height - margin.top - margin.bottom;
+
+        // 创建树形布局
+        const treeLayout = d3.tree()
+            .size([innerHeight, innerWidth]);
+
+        // 转换数据为层次结构
+        const root = d3.hierarchy(data);
+
+        // 计算节点位置
+        treeLayout(root);
+
+        // 保存初始位置用于动画
+        root.x0 = innerHeight / 2;
+        root.y0 = 0;
+
+        // 折叠子节点
+        function collapse(d) {
+            if (d.children) {
+                d._children = d.children;
+                d._children.forEach(collapse);
+                d.children = null;
+            }
+        }
+        root.children.forEach(collapse);
+
+        // 更新树形图
+        function update(source) {
+            const duration = 300;
+            const treeData = treeLayout(root);
+
+            // 获取节点和连接线
+            const nodes = treeData.descendants();
+            const links = treeData.links();
+
+            // 标准化节点深度
+            nodes.forEach(d => d.y = d.depth * 120);
+
+            // 处理节点
+            const node = svg.selectAll(".node")
+                .data(nodes, d => d.id || (d.id = ++nodeId));
+
+            // 创建新节点
+            const nodeEnter = node.enter().append("g")
+                .attr("class", "node")
+                .attr("transform", () => `translate(${source.y0},${source.x0})`)
+                .on("click", toggleNode);
+
+            // 添加节点圆圈
+            nodeEnter.append("circle")
+                .attr("r", 4)
+                .style("fill", d => d._children ? "#ccc" : "#fff");
+
+            // 添加节点文本
+            nodeEnter.append("text")
+                .attr("dy", ".35em")
+                .attr("x", d => d.children || d._children ? -10 : 10)
+                .attr("text-anchor", d => d.children || d._children ? "end" : "start")
+                .text(d => d.data.name)
+                .style("fill-opacity", 0);
+
+            // 更新现有节点
+            const nodeUpdate = nodeEnter.merge(node)
+                .transition()
+                .duration(duration)
+                .attr("transform", d => `translate(${d.y},${d.x})`);
+
+            nodeUpdate.select("text")
+                .style("fill-opacity", 1);
+
+            nodeUpdate.select("circle")
+                .attr("r", 4)
+                .style("fill", d => d._children ? "#ccc" : "#fff");
+
+            // 移除节点
+            const nodeExit = node.exit()
+                .transition()
+                .duration(duration)
+                .attr("transform", () => `translate(${source.y},${source.x})`)
+                .remove();
+
+            nodeExit.select("text")
+                .style("fill-opacity", 0);
+
+            nodeExit.select("circle")
+                .attr("r", 0);
+
+            // 处理连接线
+            const link = svg.selectAll(".link")
+                .data(links, d => d.target.id);
+
+            // 添加新连接线
+            const linkEnter = link.enter().insert("path", "g")
+                .attr("class", "link")
+                .attr("d", () => {
+                    const o = {x: source.x0, y: source.y0};
+                    return diagonal({source: o, target: o});
+                });
+
+            // 更新现有连接线
+            linkEnter.merge(link)
+                .transition()
+                .duration(duration)
+                .attr("d", diagonal);
+
+            // 移除连接线
+            link.exit()
+                .transition()
+                .duration(duration)
+                .attr("d", () => {
+                    const o = {x: source.x, y: source.y};
+                    return diagonal({source: o, target: o});
+                })
+                .remove();
+
+            // 保存节点位置用于下次更新
+            nodes.forEach(d => {
+                d.x0 = d.x;
+                d.y0 = d.y;
+            });
+        }
+
+        // 切换节点展开/折叠状态
+        function toggleNode(event, d) {
+            if (d.children) {
+                d._children = d.children;
+                d.children = null;
+            } else {
+                d.children = d._children;
+                d._children = null;
+            }
+            update(d);
+        }
+
+        // 对角线生成函数
+        function diagonal(d) {
+            return `M${d.source.y},${d.source.x}
+                        C${(d.source.y + d.target.y) / 2},${d.source.x}
+                         ${(d.source.y + d.target.y) / 2},${d.target.x}
+                         ${d.target.y},${d.target.x}`;
+        }
+
+        // 全局节点ID计数器
+        let nodeId = 0;
+
+        // 初始化绘制
+        update(root);
+
+        // 窗口大小变化时重绘
+        window.addEventListener('resize', () => {
+            const newWidth = container.clientWidth;
+            const newHeight = container.clientHeight;
+
+            svg.attr("width", newWidth)
+                .attr("height", newHeight);
+
+            treeLayout.size([
+                newHeight - margin.top - margin.bottom,
+                newWidth - margin.left - margin.right
+            ]);
+
+            update(root);
+        });
+    }
+</script>
+</body>
+</html>
+
