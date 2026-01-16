@@ -103,15 +103,21 @@ export const note4 = {
 console.log("Hello, World!");
 \`\`\`
 
+\`\`\`markdown copy
+
+![图片描述](图片URL "width=宽度值 height=高度值")
+
+\`\`\`
+
 ### 图片示例
-示例1：自定义不等比尺寸（原始800x400，调整为1000x200）
+### 示例1：自定义不等比尺寸（原始800x400，调整为1000x200）
 ![Markdown图片示例](https://picsum.photos/800/400 "width=500 height=100")
 ![Markdown图片示例](http://note.youdao.com/yws/api/personal/file/WEBe97fe01bbaf7282c7ebffe1901a437b7?method=download&inline=true&shareKey=7a07ba40ceee734f609011099b8f72c5 "width=500 height=100")
 
-示例2：仅设置宽度（高度自适应）
+### 示例2：仅设置宽度（高度自适应）
 ![Markdown图片示例](http://note.youdao.com/yws/api/personal/file/WEBe97fe01bbaf7282c7ebffe1901a437b7?method=download&inline=true&shareKey=7a07ba40ceee734f609011099b8f72c5 "width=500")
 
-示例3：仅设置高度（宽度自适应）
+### 示例3：仅设置高度（宽度自适应）
 ![Markdown图片示例](http://note.youdao.com/yws/api/personal/file/WEBe97fe01bbaf7282c7ebffe1901a437b7?method=download&inline=true&shareKey=7a07ba40ceee734f609011099b8f72c5 "height=300")
 ### HTML引入粒子单页
 {{html:../danye/css/xingkong.html,width:100%,height:400px}}
@@ -124,6 +130,7 @@ console.log("Hello, World!");
 
 
 export default [note1, note2, note3, note4];
+
 
 
 
