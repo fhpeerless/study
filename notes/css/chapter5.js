@@ -86,7 +86,7 @@ height和width表示的div所占的区域
 
 export const note4 = {
     title: "新增笔记支持md，支持单页的引入",
-    contentmd: `
+    contentmd:`
 # 我是一级Markdown测试
   这是一篇**Markdown格式**的笔记，支持：
 
@@ -107,7 +107,7 @@ console.log("Hello, World!");
 ![Markdown图片示例](https://picsum.photos/800/400)
 
 ### HTML引入粒子单页
-{{html:../danye/xingkong.html,width:100%,height:400px}}
+{{html:../danye/css/xingkong.html,width:100%,height:400px}}
 
 `,
     timestamp: "2025-10-18 08:30",
