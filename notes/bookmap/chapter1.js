@@ -1,6 +1,6 @@
 // H5/CSS/JS学习路径树形图（修复版）
 export const note1 = {
-    title: "H5/CSS/JS学习路径全景图",
+    title: "css图书推荐",
     contentmd: `
 # 1.css学习图书推荐
 - 入门推荐 
