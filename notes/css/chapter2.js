@@ -5,36 +5,52 @@ export const note1 = {
 # css的语法介绍，专有名词
 [css语法专有名词介绍](https://www.w3school.com.cn/css/css_syntax.asp "进入超链接")
 
-# 我是二级标题啊，哈哈哈哈
+属性和值的写法
 
-- 列表项1
-列表项换行后的普通文本必须顶格写，不然就会仍然当作列表项
-- 列表项2
-- 列表项3
 
-### 我是三级标题啊，哈哈哈哈
-### 代码块
-\`\`\`javascript copy
-console.log("Hello, World!");
+`,
+    timestamp: "2025-11-18 08:30",
+
+    embed: ""
+};
+
+// 第一篇笔记
+export const note2 = {
+    title: "class选择器和id选择器",
+    contentmd:`    /* 123123*/
+## 1.css选择器介绍
+点击--> [css选择器介绍](https://www.w3school.com.cn/cssref/css_selectors.asp "WebStorm") css的选择器参考手册  
+    
+## 2.class选择器功能
+class选择器通常用于一块的元素，而id选择器通常用于某一个，id多和js联合使用
+class选择器选择带有class属性值的标签，并加入css样式，此代码找到class为nimei的值后，更改了p标签的背景颜色
+
+\`\`\`css copy
+<P class="nimei">测试属性选择器</P> <style> .nimei{background-color: aquamarine}</style>
 \`\`\`
 
-\`\`\`markdown copy
+### 1.1.class选择器的介绍
 
-![图片描述](图片URL "width=宽度值 height=高度值")
+点击--> [class选择器](https://www.w3school.com.cn/cssref/selector_class.asp "WebStorm") 了解class选择器功能介绍
+### 2.2.class代码在线演示
 
-\`\`\`
+点击--> [class代码在线演示](https://www.w3school.com.cn/tiy/t.asp?f=selector_class_1 "WebStorm") 了解class选择器在线演示
 
-### 图片示例
-### 示例1：自定义不等比尺寸（原始800x400，调整为1000x200）
-[Markdown图片示例](https://picsum.photos/800/400 "进入超链接")
 
-### 示例2：仅设置宽度（高度自适应）
-![Markdown图片示例](http://note.youdao.com/yws/api/personal/file/WEBe97fe01bbaf7282c7ebffe1901a437b7?method=download&inline=true&shareKey=7a07ba40ceee734f609011099b8f72c5 "width=500")
+## 3.id选择器的功能
+id选择器是选择一个带有id值的一个唯一元素，来更改他的样式,class可能是为都多个元素设计的
 
-### 示例3：仅设置高度（宽度自适应）
-![Markdown图片示例](http://note.youdao.com/yws/api/personal/file/WEBe97fe01bbaf7282c7ebffe1901a437b7?method=download&inline=true&shareKey=7a07ba40ceee734f609011099b8f72c5 "height=300")
-### HTML引入粒子单页
-{{html:../danye/css/xingkong.html,width:100%,height:400px}}
+## 4.id选择器的介绍
+
+点击--> [id选择器的介绍](https://www.w3school.com.cn/cssref/selector_id.asp "WebStorm") 了解id选择器介绍
+
+## 5.id代码在线演示
+
+点击--> [id代码在线演示](https://www.w3school.com.cn/tiy/t.asp?f=selector_id "WebStorm") 了解id选择器在线演示
+
+## 6.class选择器的多种使用方法
+点击--> [class选择器的多种使用方法](https://www.w3school.com.cn/cssref/selector_class.asp "WebStorm") 了解css的class选择器
+
 
 `,
     timestamp: "2025-10-18 08:30",
@@ -43,43 +59,59 @@ console.log("Hello, World!");
 };
 
 
+// 第一篇笔记
+export const note3 = {
+    title: "css的伪类和伪元素选择器",
+    contentmd:`   
+
+## 代码实例
+ \`\`\`css copy
+ 
+< style >
+ /* 未访问的链接 */ 
+ a:link {color: #FF0000;} 
+ /* 已访问的链接 */ 
+ a:visited {color: #00FF00;}
+  /* 鼠标悬停链接 */ 
+ a:hover {color: #FF00FF;}
+   /* 已选择的链接 */ 
+ a:active {color: #0000FF;} 
+
+</style >
+<a href="https://www.w3school.com.cn/css/css_pseudo_classes.asp" title="伪类选择器"> 点击进入伪类选择器</a>
+\`\`\`
+
+## css伪类定义概念
+
+点击--> [伪类定义](https://www.w3school.com.cn/css/css_pseudo_classes.asp "WebStorm") 了解伪类选择器
+
+## 伪元素选择器的功能
+
+对某元素其中一部分实现特殊效果
+
+点击--> [w3c介绍的伪元素选择器](https://www.w3school.com.cn/css/css_pseudo_elements.asp "WebStorm") 了解w3c介绍的伪元素选择器
+            
+点击--> [w3c伪元素选择器在线演示](https://www.w3school.com.cn/tiy/t.asp?f=css_pseudo-element "WebStorm") 了解伪元素选择器在线演示
+
+
+{{html:../danye/css/section_4_5.html,width:100%,height:450px}}
+
+`,
+    timestamp: "2025-10-18 08:30",
+
+    embed: ""
+};
+
+// 第一篇笔记
 export const note4 = {
-    title: "新增笔记支持md，支持单页的引入",
-    contentmd:`
-# 我是一级Markdown测试
-  这是一篇**Markdown格式**的笔记，支持：
+    title: "其他css选择器",
+    contentmd:`   /* 123123*/
+## css的多种选择器参考
 
-## 我是二级标题啊，哈哈哈哈
+点击--> [css的其他选择器](https://www.w3school.com.cn/cssref/css_selectors.asp "WebStorm") 了解css多种选择器
 
-- 列表项1
-列表项换行后的普通文本必须顶格写，不然就会仍然当作列表项
-- 列表项2
-- 列表项3
-
-### 我是三级标题啊，哈哈哈哈
-### 代码块
-\`\`\`javascript copy
-console.log("Hello, World!");
-\`\`\`
-
-\`\`\`markdown copy
-
-![图片描述](图片URL "width=宽度值 height=高度值")
-
-\`\`\`
-
-### 图片示例
-### 示例1：自定义不等比尺寸（原始800x400，调整为1000x200）
-![Markdown图片示例](https://picsum.photos/800/400 "width=500 height=100")
-
-### 示例2：仅设置宽度（高度自适应）
-![Markdown图片示例](http://note.youdao.com/yws/api/personal/file/WEBe97fe01bbaf7282c7ebffe1901a437b7?method=download&inline=true&shareKey=7a07ba40ceee734f609011099b8f72c5 "width=500")
-
-### 示例3：仅设置高度（宽度自适应）
-![Markdown图片示例](http://note.youdao.com/yws/api/personal/file/WEBe97fe01bbaf7282c7ebffe1901a437b7?method=download&inline=true&shareKey=7a07ba40ceee734f609011099b8f72c5 "height=300")
-### HTML引入粒子单页
-{{html:../danye/css/xingkong.html,width:100%,height:400px}}
-
+上面的w3c网址，已经包含了在线代码测试，直接在网站测试学习即可
+       
 `,
     timestamp: "2025-10-18 08:30",
 
@@ -89,9 +121,11 @@ console.log("Hello, World!");
 
 
 
-// export default [note1, note2, note3, note4];
 
-export default [note1, note2];
+
+
+export default [note1, note2, note3, note4];
+
 
 
 
