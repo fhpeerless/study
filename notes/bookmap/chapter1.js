@@ -4,7 +4,10 @@ export const note1 = {
     contentmd: `
 # 1.css学习图书推荐
 - 入门推荐 
-    - 在网页跟着：w3cschool css入门学习
+    - 在网页跟着：w3cschool css入门学习  
+     
+     .点击--> [进入w3c](https://www.w3school.com.cn/ "w3c")
+     
     - 看书用：《Head First HTML与CSS(第2版)》
 小娃建议：直接跟着w3学习，基础足够，非要看书用Head First HTML与CSS
 - 进阶推荐   
