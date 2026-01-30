@@ -29,13 +29,22 @@ class选择器选择带有class属性值的标签，并加入css样式，此代�
 <P class="nimei">测试属性选择器</P> <style> .nimei{background-color: aquamarine}</style>
 \`\`\`
 
-### 1.1.class选择器的介绍
+### 2.1.类选择器的介绍
 
 点击--> [class选择器](https://www.w3school.com.cn/cssref/selector_class.asp "WebStorm") 了解class选择器功能介绍
 ### 2.2.class代码在线演示
 
 点击--> [class代码在线演示](https://www.w3school.com.cn/tiy/t.asp?f=selector_class_1 "WebStorm") 了解class选择器在线演示
 
+
+\`\`\`css copy
+li.leixuanze     类名为 leixuanze 的 <li> 元素             <li class="leixuanze">...</li>
+
+li p.leixuanze   <li> 内部的、类名为 leixuanze 的 <p> 元素   <li><p class="leixuanze">...</p></li>
+
+.leixuanze       所有类名为 leixuanze 的元素（通用）          任意带 class="leixuanze" 的标签
+
+\`\`\`
 
 ## 3.id选择器的功能
 id选择器是选择一个带有id值的一个唯一元素，来更改他的样式,class可能是为都多个元素设计的
@@ -47,6 +56,16 @@ id选择器是选择一个带有id值的一个唯一元素，来更改他的样�
 ## 5.id代码在线演示
 
 点击--> [id代码在线演示](https://www.w3school.com.cn/tiy/t.asp?f=selector_id "WebStorm") 了解id选择器在线演示
+
+## id选择器和类选择器的区别
+1. ID 选择器
+定义：用于为页面中唯一的元素设置样式，一个 ID 在整个 HTML 文档中只能出现一次。
+语法：以 # 开头，后跟 ID 名称，例如 #header { ... }。
+HTML 对应：元素的 id 属性，例如 <div id="header"></div>。
+2. 类选择器
+定义：用于为多个元素设置相同样式，一个类名可以在页面中重复使用。
+语法：以 . 开头，后跟类名称，例如 .box { ... }。
+HTML 对应：元素的 class 属性，例如 <div class="box"></div>、<p class="box"></p>
 
 ## 6.class选择器的多种使用方法
 点击--> [class选择器的多种使用方法](https://www.w3school.com.cn/cssref/selector_class.asp "WebStorm") 了解css的class选择器

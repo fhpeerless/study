@@ -1,9 +1,13 @@
+
+body{
+    background-color: lightgreen;
+}
+
 p {
     /* 该选择器将选择所有的p元素并使用以下样式*/
     text-align: left;
-    color:red;
+    color:#1A1718;
 }
-
 h1 {/*left	左对齐（默认值，大部分语言如中文 / 英文的默认对齐方式）
 right	右对齐（比如表单的右侧标签、金额数字等场景）
 center	居中对齐（比如页面标题、按钮文字居中）
@@ -13,5 +17,21 @@ justify 两端对齐，最后一行无效 */
 
 #idxuanze {
 
+    text-align: left;
+}
 
+p.leixuanze{/*或.leixuanze*/
+
+    text-align: left;
+    color:blueviolet;
+}
+
+/*  带<> 要用空格，一个<>里面的用元素.属性控制*/
+li p.leixuanzex{
+
+    color:red;
+}
+
+p.leixuanze2{
+    font-size:20px;
 }
