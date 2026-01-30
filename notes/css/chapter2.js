@@ -17,17 +17,12 @@ export const note1 = {
 // 第一篇笔记
 export const note2 = {
     title: "class选择器和id选择器",
-    contentmd:`    /* 123123*/
+    contentmd:`   
 ## 1.css选择器介绍
 点击--> [css选择器介绍](https://www.w3school.com.cn/cssref/css_selectors.asp "WebStorm") css的选择器参考手册  
     
 ## 2.class选择器功能
-class选择器通常用于一块的元素，而id选择器通常用于某一个，id多和js联合使用
-class选择器选择带有class属性值的标签，并加入css样式，此代码找到class为nimei的值后，更改了p标签的背景颜色
 
-\`\`\`css copy
-<P class="nimei">测试属性选择器</P> <style> .nimei{background-color: aquamarine}</style>
-\`\`\`
 
 ### 2.1.类选择器的介绍
 
@@ -57,7 +52,7 @@ id选择器是选择一个带有id值的一个唯一元素，来更改他的样�
 
 点击--> [id代码在线演示](https://www.w3school.com.cn/tiy/t.asp?f=selector_id "WebStorm") 了解id选择器在线演示
 
-## id选择器和类选择器的区别
+## 6.id选择器和类选择器的区别
 1. ID 选择器
 定义：用于为页面中唯一的元素设置样式，一个 ID 在整个 HTML 文档中只能出现一次。
 语法：以 # 开头，后跟 ID 名称，例如 #header { ... }。

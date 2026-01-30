@@ -14,18 +14,19 @@ center	居中对齐（比如页面标题、按钮文字居中）
 justify 两端对齐，最后一行无效 */
     text-align: center;
 }
-
+/*id选择器 -----------------------------------------*/
 #idxuanze {
 
     text-align: left;
 }
 
+
+/*  类选择器 --------------------------------------------*/
 p.leixuanze{/*或.leixuanze*/
 
     text-align: left;
     color:blueviolet;
 }
-
 /*  带<> 要用空格，一个<>里面的用元素.属性控制*/
 li p.leixuanzex{
 
@@ -33,5 +34,17 @@ li p.leixuanzex{
 }
 
 p.leixuanze2{
+
     font-size:20px;
+}
+
+/*图像选择样式*/
+
+.tupian{
+    width: 200px;      /* 严格限制显示宽度为200px */
+height: auto;      /* ⚠️ 关键：自动计算高度，避免变形 */
+display: block;    /* 消除行内元素底部空白间隙 */
+margin: 10px 0;    /* 可选：添加上下间距提升观感 */
+border-radius: 15px;/* 可选：微圆角提升现代感 */
+
 }
