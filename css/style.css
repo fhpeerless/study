@@ -427,15 +427,32 @@ body.dark-mode .toc-link.active {
     height: 1px;
     background-color: #eee;
     margin: 20px 0;
+
+
+
 }
 
 /* 笔记内容区 - 基础自适应优化 */
+div.note-display{
+    /* 熊猫附着贴图 */
+    background-image: url("https://note.youdao.com/yws/api/personal/file/WEB3717a94eb37c228d503901ab5745f5b3?method=download&inline=true&shareKey=55208ff8daf5e8b402285c0106fcf532");
+    background-repeat: no-repeat;
+    background-position: right;
+    margin-right: -21Px;
+    background-attachment: fixed;
+    background-size:200px auto;
+
+}
+
+
+
 .note-display-wrapper {
     overflow-x: auto;
     scrollbar-width: thin;
     width: 100%;
     max-width: 100vw;
     box-sizing: border-box;
+
 }
 
 .note-display {
@@ -448,6 +465,8 @@ body.dark-mode .toc-link.active {
     max-width: 100vw;
     box-sizing: border-box; /* 新增：确保padding不增加宽度 */
     margin: 0 auto;
+
+
 }
 body.dark-mode .note-display {
     background-color: #2d2d44;
@@ -464,6 +483,9 @@ body.dark-mode .note-display {
     color: #95a5a6;
     text-align: center;
     padding: 50px;
+
+
+
 }
 body.dark-mode .note-placeholder {
     color: #7f8c8d;
@@ -471,6 +493,8 @@ body.dark-mode .note-placeholder {
 .note-placeholder i {
     font-size: 60px;
     margin-bottom: 20px;
+
+
 }
 .note-placeholder p {
     font-size: 18px;
@@ -479,6 +503,8 @@ body.dark-mode .note-placeholder {
 /* 笔记内容区域 */
 .note-content-area {
     display: none;
+
+
 }
 .note-title {
     font-size: 24px;
@@ -486,6 +512,7 @@ body.dark-mode .note-placeholder {
     margin-bottom: 15px;
     padding-bottom: 15px;
     border-bottom: 1px solid #e0e0e0;
+
 }
 .note-meta {
     display: flex;
@@ -493,6 +520,9 @@ body.dark-mode .note-placeholder {
     color: #7f8c8d;
     font-size: 14px;
     margin-bottom: 25px;
+
+
+
 }
 .note-meta i {
     margin-right: 5px;
@@ -505,6 +535,8 @@ body.dark-mode .note-placeholder {
     width: 100%;
     word-wrap: break-word;
     word-break: break-all; /* 新增：强制所有长内容换行 */
+
+
 }
 
 /* Markdown 标题样式 */
