@@ -1,52 +1,58 @@
+/*背景颜色-----------------------------------------------------------------*/
+body{  background-color: lightgreen;  }
 
-body{
-    background-color: lightgreen;
-}
 
-p {
-    /* 该选择器将选择所有的p元素并使用以下样式*/
-    text-align: left;
-    color:#1A1718;
-}
-h1 {/*left	左对齐（默认值，大部分语言如中文 / 英文的默认对齐方式）
-right	右对齐（比如表单的右侧标签、金额数字等场景）
-center	居中对齐（比如页面标题、按钮文字居中）
-justify 两端对齐，最后一行无效 */
+h1 {/*left	左对齐（默认值，大部分语言如中文 / 英文的默认对齐方式）||right	右对齐（比如表单的右侧标签、金额数字等场景）||center	居中对齐（比如页面标题、按钮文字居中）  || justify 两端对齐，最后一行无效 */
     text-align: center;
 }
-/*id选择器 -----------------------------------------*/
-#idxuanze {
 
+
+/*id选择器 ------------------------------------------------------------------*/
+#idxuanze,#idxuanze1 {
     text-align: left;
 }
 
 
-/*  类选择器 --------------------------------------------*/
-p.leixuanze{/*或.leixuanze*/
+/*  类选择器 ------------ 带<> 要用空格，一个<>里面的用元素.属性控制-------------------------------------------------------*/
+p.p1{
+
+    text-align: left;
+    color:#1A1718;
+    border-style: dotted;
+    width: 60%;
+}
+p.p2{
+
+    text-align: left;
+    color:#1A1718;
+    border-style: dashed;
+    width: 60%;
+}
+
+p.p3{
 
     text-align: left;
     color:blueviolet;
-}
-/*  带<> 要用空格，一个<>里面的用元素.属性控制*/
-li p.leixuanzex{
-
-    color:red;
-}
-
-p.leixuanze2{
-
+    width: 50%;
     font-size:20px;
+    border-style: solid; /*点状边框*/
+}
+
+p.p4,li p.leixuanzeplus{
+    border-style: double; /*点状边框*/
+    color:red;
+    width: 50%;
 }
 
 
-p.dotted {border-style: dotted;}
-p.dashed {border-style: dashed;}
-p.solid {border-style: solid;}
+
+
+/* 增加边框，设置样式 -----------------------------------------------------------------------*/
+
 
 /*图像选择样式*/
-
-.tupian{
-    width: 200px;      /* 严格限制显示宽度为200px */
+.tu1{
+width: 200px;      /* 严格限制显示宽度为200px */
 height: auto;      /* ⚠️ 关键：自动计算高度，避免变形 */
 display: block;    /* 消除行内元素底部空白间隙 */
 margin: 10px 0;    /* 可选：添加上下间距提升观感 */
