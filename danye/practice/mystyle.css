@@ -38,6 +38,11 @@ p.leixuanze2{
     font-size:20px;
 }
 
+
+p.dotted {border-style: dotted;}
+p.dashed {border-style: dashed;}
+p.solid {border-style: solid;}
+
 /*图像选择样式*/
 
 .tupian{

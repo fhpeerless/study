@@ -1,11 +1,10 @@
-// HTML/CSS/JS 学科所有章节标题定义
-export default [
-    "css的简介和结构",
+
+export default ["css的简介和结构", // HTML/CSS/JS 学科所有章节标题定义
     "css的语法和选择器",
     "css的使用和注释",
     "css的颜色/rgb/hex/hsl",
     "css的背景属性",
-    "常见的元素属性",
+    "css的边框属性",
     "盒模型与布局基础",
     "浮动与定位",
    "占位预设标题------",

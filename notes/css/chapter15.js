@@ -1,13 +1,18 @@
 
 export const note1 = {
-    title: "css边框的大致介绍",
+    title: "外边距--margin",
     contentmd: `
-## 1.css的边框
+## 1.外边距的解释
+  页面中的每一个元素包括一个文字都是一个框的形式存在的，这种框就叫盒模型，
 
+## 2.外边距的w3c介绍
 
 - 点击进入-[w3c框模型概述](https://www.w3school.com.cn/css/css_boxmodel.asp "框模型概述")
 - 点击进入-[w3c外边距代码在线演示](https://www.w3school.com.cn/tiy/t.asp?f=css_margin_sides "外边距代码在线演示")
-
+## 3.外边距的自述
+ - padding是元素和外框的空隙长度，width和height为元素的宽高，
+ - border是外框的长高， 而margin则是两个外框之间的距离了，
+ - 温馨提示:如果不设置padding和border则浏览器可能默认设置为1px或2px
 
 
 
@@ -46,8 +51,6 @@ export const note1 = {
 
 ### 图片示例
 ![Markdown图片示例](http://note.youdao.com/yws/api/personal/file/WEBf35db5b39af331af139681d566fe7df6?method=download&inline=true&shareKey=03a8ea58355c3934dec0f651e3f828df)
-
-
 
 `,
     timestamp: "2026-01-02 08:30",
