@@ -1,53 +1,30 @@
 
 export const note1 = {
-    title: "css边框的大致介绍",
+    title: "css边框概述",
     contentmd: `
 ## 1.css的边框
+- 点击进入-[w3c边框概述](https://www.w3school.com.cn/css/css_border.asp "边框演示概述")
+- 点击进入-[w3c边框的在线演示](https://www.w3school.com.cn/tiy/t.asp?f=css_border-style "框模型概述")
 
+\`\`\`css copy
+p.dotted {
+border-style: dotted;
+}
 
-- 点击进入-[w3c框模型概述](https://www.w3school.com.cn/css/css_boxmodel.asp "框模型概述")
-- 点击进入-[w3c外边距代码在线演示](https://www.w3school.com.cn/tiy/t.asp?f=css_margin_sides "外边距代码在线演示")
-
-
-
-
-\`\`\`javascript copy
-<!DOCTYPE html>
-
-
-<html>
-
-<head>
-    <meta charset="utf-8">
-    <style>
-        p {
-            margin-top: 90px;
-            margin-bottom: 110px;
-            margin-right: 130px;
-            margin-left: 80px;
-            background-color: lightblue;
-            width: 100px;
-            height: 100px;
-            padding: 100px 80px 60px 80px ; /* 修正：必须加单位，且值要合理（原50导致内容区域为0） */
-            border: 5px solid orangered; /* 修正：必须指定样式和颜色 */
-            /* text-align: center;  关键：让文本水平居中 */
-        }
-    </style>
-</head>
-
-
-<body>
-<h1>使用单独的外边距属性</h1>
-<p>nihao</p>
-</body>
-</html>
-
+允许以下值：
+dotted - 定义点线边框
+dashed - 定义虚线边框
+solid - 定义实线边框
+double - 定义双边框
+groove - 定义 3D 坡口边框。效果取决于 border-color 值
+ridge - 定义 3D 脊线边框。效果取决于 border-color 值
+inset - 定义 3D inset 边框。效果取决于 border-color 值
+outset - 定义 3D outset 边框。效果取决于 border-color 值
+none - 定义无边框
+hidden - 定义隐藏边框
+border-style 混合边框写法
+p.mix {border-style: dotted dashed solid double;}
 \`\`\`
-
-### 图片示例
-![Markdown图片示例](http://note.youdao.com/yws/api/personal/file/WEBf35db5b39af331af139681d566fe7df6?method=download&inline=true&shareKey=03a8ea58355c3934dec0f651e3f828df)
-
-
 
 `,
     timestamp: "2026-01-02 08:30",
@@ -57,43 +34,29 @@ export const note1 = {
 
 
 export const note2 = {
-    title: "内边距-padding",
+    title: "css边框宽度",
     contentmd: `
-## 内边距的各种写法
-- 点击进入-[w3c内边距的多种写法](https://www.w3school.com.cn/css/css_padding.asp "框模型概述")
+## 边框宽度自定义概述
+**可以将宽度设置为特定大小（以 px、pt、cm、em 都是相似px的单位），也可以使用以下三个预定义值之一：thin大约是1px、medium大约是3px 或 thick大约是5px**
 
-## 内边距的自述
-- 内边距为内容本身到边框的距离，当然内容可输入的区域是不会变的
+ - 点击-> [w3c宽度](https://www.w3school.com.cn/css/css_border_width.asp "边框演示概述")进入了解边框线的粗细代码使用
     
-    
-## padding变换，border-box和content-box盒模型的变化详解
-当padding从0开始增加时，是否改变height和width的显示区域大小，取决于盒模型类型（box-sizing）：
 
-1. 默认的 content-box 盒模型（CSS默认）
-padding增加会改变元素的总尺寸（width和height）：
+## 指定边的宽度
+**border-width 属性可以设置一到四个值（用于上边框、右边框、下边框和左边框）**
+\`\`\`css copy
+边框风格和边框各边的宽度
+p.three {
+  border-style: solid;
+  border-width: 25px 10px 4px 35px; /* 上边框 25px，右边框 10px，下边框 4px，左边框 35px */
+}
 
-元素的width和height只包含内容区域
-padding会额外增加元素的总尺寸
-例如：width: 100px; padding: 0; → 总宽度 = 100px
-当padding增加到20px：width: 100px; padding: 20px; → 总宽度 = 100 + 20×2 = 140px
-元素在页面上变大了，内容区域不变。
-
-2. border-box 盒模型（推荐全局设置）
-padding增加不会改变元素的总尺寸（width和height）：
-
-元素的width和height包含内容、padding和border
-padding增加会压缩内容区域，但总尺寸不变
-例如：width: 100px; padding: 0; → 内容宽度 = 100px
-当padding增加到20px：width: 100px; padding: 20px; → 内容宽度 = 100 - 20×2 = 60px，但总宽度仍为100px
-视觉效果：元素在页面上大小不变，但内容区域变小了。
-
-
-## 内边距相关代码请看上面相关代码即可
-
-\`\`\`javascript copy
-内边距相关代码请看上一个章节相关代码即可！
+p.one {
+  border-style: solid;
+  border-width: 5px 20px; /* 上边框和下边框为 5px，其他边为 20px */
+}
 \`\`\`
-
+点击->[w3c边框指定边宽度](https://www.w3school.com.cn/tiy/t.asp?f=css_border-width_2 "边框演示概述")进入指定边自定义宽度
 
 `,
     timestamp: "2026-01-05 08:30",
@@ -103,55 +66,96 @@ padding增加会压缩内容区域，但总尺寸不变
 
 
 export const note3 = {
-    title: "边框-border",
+    title: "边框-颜色",
     contentmd: `
-## 1.边框是设置边框的颜色，粗细，粗细的宽度设置，
-- 点击进入w3c-->[边框的简写属性](https://www.w3school.com.cn/css/css_border_shorthand.asp "边框的属性")
+## 1.边框的颜色的概述，，
+
 - 点击进入w3c-->[边框的颜色属性](https://www.w3school.com.cn/css/css_border_color.asp "边框的属性")
-## 2.边框颜色的自述
-border直接的属性就三个，不加指定的属性必须简写三个：宽度 形状 颜色，例如border-style只是形状属性
+
+## 2.指定四个边框的属性
+border-color:单独使用的时候不起作用，需要指定边框样式border-style后才起作用。
+
+\`\`\`css copy
+/* 指定四个边为不同颜色*/
+p.one {
+  border-style: solid;
+  border-color: red green blue yellow; /* 上红、右绿、下蓝、左黄 */
+}
+\`\`\`
+\`\`\`css copy
+可以通过以下方式设置颜色：
+指定颜色名，比如 "red"
+HEX - 指定十六进制值，比如 "#ff0000"
+RGB - 指定 RGB 值，比如 "rgb(255,0,0)"
+HSL - 指定 HSL 值，比如 "hsl(0, 100%, 50%)"
+transparent也是颜色的值。
+例如color: transparent;
+rgba(0,0,0,0) 与 transparent 等价
+注释：如果未设置 border-color，则它将继承元素的颜色。
+
+\`\`\`
 
 `,
     timestamp: "2026-01-05 08:30",
-
     embed: ""
 };
 
 
 export const note4 = {
-    title: "浮动和清除元素",
+    title: "边框各边样式自定义义",
     contentmd: `
-# 1.w3c的官方解释
-请详细观看浮动和清除浮动的介绍，
-   - 点击进入w3c-->
-   
-   [css浮动的属性介绍](https://www.w3school.com.cn/css/css_float.asp "css浮动的介绍")
+# 1.边框各边
+**从上一章的例子中，您已经看到可以为每一侧指定不同的边框。在 CSS 中，还有一些属性可用于指定每个边框（顶部、右侧、底部和左侧）：
+\`\`\`css copy
+边框各边
+p {
+  border-top-style: dotted;
+  border-right-style: solid;
+  border-bottom-style: dotted;
+  border-left-style: solid;
+}
+\`\`\`
+可以简写，那就是
+\`\`\`css copy
+/* 四个值 对应的是，上右下左。简写可以*/
+p {
+  border-style: dotted solid double dashed; /*可放置1-4个值都可以*/
+}
 
-   [css清除浮动的介绍](https://www.w3school.com.cn/css/css_float_clear.asp "css浮动的介绍")
-# 2.个人自述
-- 清除的元素的理解
+\`\`\`
 
-“清除的元素” 就是被设置了 clear CSS 属性的元素 —— 这个属性的核心作用是：让该元素 “拒绝” 被前面的浮动元素影响，强制自己出现在所有浮动元素的正下方，而不是像普通元素那样环绕浮动元素。
+`,
+    timestamp: "2025-12-18 08:30",
+
+    embed: ""
+};
 
 
-# 3.什么是浮动元素？
-## 1.**官方定义** 
 
-浮动元素就是**给CSS的 \`float\` 属性设置了 \`left\`（左浮动）或 \`right\`（右浮动）值的HTML元素**。
-反之，如果元素的 \`float\` 是默认值 \`none\`（不设置float时就是这个值），那它就不是浮动元素，而是「普通文档流元素」。
+export const note5 = {
+    title: "边框的简写属性",
+    contentmd: `
+# 1.css的简写属性
+border 属性是以下各个边框属性的简写属性：
 
-## 2.用生活化比喻理解：
-- 正常的HTML元素就像排队买奶茶的人：
+- border-width
+- border-style（必需）
+- border-color
+\`\`\`css copy
+p {
+  border: 5px solid red;
+}
+/*单单指定左边框*/
+p {
+  border-left: 6px solid red;
+  background-color: lightgrey; /* p元素的背景颜色*/
+}
 
-块级元素（比如div、p）：一个人占一整行，后面的人必须排到下一行；
-行内元素（比如span、img）：能并排站，直到一行装不下才换行。
+/*单单指定下边框*/
+border-bottom
 
-- 浮动元素
 
-就像是队伍里有人“插队”到队伍的左侧/右侧站着——它不再按原队列的顺序占位置，但还没离开排队区域，后面的人（普通元素）会有两种反应：
-行内元素（比如文字）：会绕着这个“插队的人”走（文字环绕效果）；
-块级元素（比如div）：会假装这个“插队的人”不存在，直接顶到他原来的位置（但会被浮动元素“盖住”部分区域）。
-
+\`\`\`
 
 
 `,
@@ -159,74 +163,38 @@ export const note4 = {
 
     embed: ""
 };
-export const note5 = {
-    title: "css定位-position",
+
+
+export const note6 = {
+    title: "CSS 圆角边框",
     contentmd: `
-# 1.w3c的解释
+# 圆角边框
 
-- 点击进入w3c-->
+border-radius 属性用于向元素添加圆角边框：
 
-[css定位的属性介绍](https://www.w3school.com.cn/css/css_positioning.asp "css定位的介绍")
+- border-width
+- border-style（必需）
+- border-color
 
-- 点击下载html文件
-
-[区别每种css定位属性效果渲染文件](http://note.youdao.com/yws/api/personal/file/WEB9215367eb6e6b599f3ad1174b7dd2742?method=download&inline=true&shareKey=a5058fd8137f0e9ec6e3585a9bf8aa70 "css渲染结果")
-
-# 2.css定位的属性自述
-
-如果设置定位属性后，设置right或者lift或top属性,bottom，四个属性是用来定位元素的位置的,不设置默认为0
-
-- absolute
-
-absolute是对于父级元素来进行定位的，
-[定位父级元素和无父级元素的定位效果展示单html文件-下载-->](http://note.youdao.com/yws/api/personal/file/WEB2e0f0dc40f20608657a9c540b4b04d63?method=download&inline=true&shareKey=823bfbdc0d1bbc721a9a46075f7a8f47 "css定位的介绍")
-
-直接父容器：是 HTML 结构中直接包裹当前元素的上层元素（和定位无关，纯结构关系）；
-absolute 的参考容器：优先找「最近的已定位祖先」（position 非 static），这个祖先可能是直接父容器、祖父容器等；
-若没有任何已定位祖先，参考容器就是根元素 <html>（视觉上≈浏览器视口）
+\`\`\`css copy
+p {
+  border: 2px solid red;
+  border-radius: 5px; /*数值是圆的半径，半径越大弧度越大*/
+}
 
 
-- fixed
+\`\`\`
 
-是对于浏览器窗口来进行定位的，滚动鼠标仍然在窗口的指定位置不动
-- relative
-
-是对于元素本身来进行定位的，直接根据四个方向属性定位，不设置默认为零
-- static
-
-是默认的定位属性，元素按照正常的文档流来定位，不设置默认为零
-- sticky
-
-是粘性定位，元素根据正常的文档流定位，但是在滚动到指定位置时会固定在指定位置不动，例如：固定在顶部
-
-# 3.z-index堆叠顺序
-## 1.w3c介绍
-z-index在页面的最底下有介绍。
-[css定位的堆叠顺序](https://www.w3school.com.cn/css/css_positioning.asp "css定位的介绍")
-
-## 2.自述z-index
-### 1.在CSS中，z-index 的堆叠顺序规则是：值越大，元素越靠前（显示在最上面）。
-- 元素 z-index 为 3 的元素会显示在最上面（z-index 最高）。
-- 元素 z-index 为 2 的元素会显示在 z-index 为 3 的元素下方。
-- 元素 z-index 为 1 的元素会显示在 z-index 为 2 的元素下方。
-- 元素 z-index 为 -1 的元素会显示在 z-index 为 1 的元素下方（z-index 最低）。
-### 2.如果没有设置z-index属性
-
-默认值为0,既按照元素的代码的渲染顺序来显示，
-但是先写图片代码，再写文字代码，图片是在文字上层的，但如果设置图片的透明度，例如opacity:0.3，
-则文字正常显示，如果pacity:1则图片把文字完全盖住，文字不显示
-
-点击进入链接在线查看实例：
-[css定位的堆叠顺序](https://www.w3school.com.cn/tiy/t.asp?f=css_image_text_top_left "css定位的介绍")
 
 `,
-    timestamp: "2026-01-05 08:30",
+    timestamp: "2025-10-18 08:30",
 
     embed: ""
 };
 
 
-export default [note1, note2, note3, note4, note5];
+
+export default [note1, note2, note3, note4, note5, note6];
 
 
 
