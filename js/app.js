@@ -3,7 +3,7 @@
 
 const subjectChapters = {
     bookmap: 7,
-
+    police:12,
     css: 20,
     html: 20,
     python: 7,
