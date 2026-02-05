@@ -4,7 +4,7 @@ export const note1 = {
     contentmd: `
         
         
-{{html:../danye/study_map/section_1.html,width:100%,height:600px}}
+{{html:../danye/bookmap/section_1.html,width:100%,height:600px}}
         `,
     timestamp: "2025-11-08 10:00",
 
