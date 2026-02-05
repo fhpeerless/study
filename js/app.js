@@ -6,6 +6,7 @@ const subjectChapters = {
     police考试:12,
     css: 20,
     html: 20,
+    javascript:15,
     python: 7,
     english: 7,  
     politics101: 7  
