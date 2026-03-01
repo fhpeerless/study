@@ -9,6 +9,7 @@ const subjectChapters = {
     python: 7,
     police考试:12,
     english: 7,  
+    xingce:5,
     politics101: 7  
 };
 
