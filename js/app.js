@@ -232,6 +232,21 @@ const md = window.markdownit({
     typographer: true
 });
 
+// 启用KaTeX数学公式支持（使用markdown-it-texmath插件）
+if (window.texmath && window.katex) {
+    md.use(window.texmath, {
+        engine: window.katex,
+        delimiters: 'dollars',
+        katexOptions: {
+            throwOnError: false,
+            errorColor: '#cc0000'
+        }
+    });
+    console.log('KaTeX数学公式插件已成功加载');
+} else {
+    console.warn('KaTeX插件未加载，数学公式可能无法正常显示');
+}
+
 // 修改markdown-it的链接渲染规则，让所有链接在新窗口中打开
 const defaultRender = md.renderer.rules.link_open || function(tokens, idx, options, env, self) {
     return self.renderToken(tokens, idx, options);
