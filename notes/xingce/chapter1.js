@@ -1,5 +1,5 @@
 export const note1 = {
-    title: "时态一般疑问句！",
+    title: "第一章增长类！",
     contentmd:`
 ## 英语简介
 "此笔记内容是上学时写的，总共有70多章，大约400多页，之后可能会出视频讲解，继续上传所有，如果学习上有问题请滑动到网页底部，加入QQ群聊共同探讨",
@@ -17,3 +17,6 @@ export const note1 = {
 
     embed: ""
 };
+
+
+export default [note1, note2, note3];
