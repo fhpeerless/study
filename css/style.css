@@ -501,25 +501,6 @@ body.dark-mode .note-placeholder {
 /* 笔记内容区域 */
 .note-content-area {
     display: none;
-    position: relative;
-}
-
-/* 水印样式 - study.xtwa.org */
-.note-content-area::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    pointer-events: none;
-    z-index: 1;
-    background-repeat: repeat;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='150'%3E%3Ctext x='10' y='80' fill='rgba(0,0,0,0.06)' font-size='16' font-family='Arial,sans-serif' transform='rotate(-25 100 75)'%3Estudy.xtwa.org%3C/text%3E%3C/svg%3E");
-}
-
-body.dark-mode .note-content-area::before {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='150'%3E%3Ctext x='10' y='80' fill='rgba(255,255,255,0.08)' font-size='16' font-family='Arial,sans-serif' transform='rotate(-25 100 75)'%3Estudy.xtwa.org%3C/text%3E%3C/svg%3E");
 }
 
 .note-content-area::after {
@@ -716,6 +697,26 @@ body.dark-mode .note-body code {
 body.dark-mode .single-note {
     background-color: #2d2d44;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* 带水印的笔记样式 */
+.single-note.has-watermark {
+    position: relative;
+}
+.single-note.has-watermark::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 1;
+    background-repeat: repeat;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='400'%3E%3Ctext x='50' y='200' fill='rgba(0,0,0,0.06)' font-size='20' font-family='Arial,sans-serif' transform='rotate(-20 300 200)'%3Estudy.xtwa.org%3C/text%3E%3C/svg%3E");
+}
+body.dark-mode .single-note.has-watermark::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='400'%3E%3Ctext x='50' y='200' fill='rgba(255,255,255,0.08)' font-size='20' font-family='Arial,sans-serif' transform='rotate(-20 300 200)'%3Estudy.xtwa.org%3C/text%3E%3C/svg%3E");
 }
 
 /* 优化：多笔记时标题序号样式 */
