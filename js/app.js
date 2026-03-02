@@ -10,6 +10,7 @@ const subjectChapters = {
     police考试:12,
     english: 7,  
     xingce:5,
+    shenlun:5,
     politics101: 7  
 };
 
@@ -41,22 +42,96 @@ const themeBtn = document.getElementById('themeBtn');
 let currentSubject = ''; // 先初始化为空，后续设置为第一个学科
 let currentChapter = null;
 
+// URL参数解析函数
+function getUrlParams() {
+    const params = new URLSearchParams(window.location.search);
+    return {
+        subject: params.get('subject'),
+        chapter: params.get('chapter')
+    };
+}
+
+// 更新URL参数（不刷新页面）
+function updateUrl(subject, chapter) {
+    const url = new URL(window.location);
+    if (subject) {
+        url.searchParams.set('subject', subject);
+    } else {
+        url.searchParams.delete('subject');
+    }
+    if (chapter) {
+        url.searchParams.set('chapter', chapter);
+    } else {
+        url.searchParams.delete('chapter');
+    }
+    window.history.pushState({}, '', url);
+}
+
 // 初始化页面
 // 初始化页面
 function init() {
     // 1. 动态生成学科按钮（内部已绑定事件，无需重复绑定）
     generateSubjectButtons();
-    // 2. 加载默认学科（改为第一个学科）
-    // 原代码：loadChapters('htmlcssjs');
-    const firstSubject = Object.keys(subjectChapters)[0]; // 获取第一个学科
-    currentSubject = firstSubject; // 设置当前学科为第一个
-    loadChapters(currentSubject); // 加载第一个学科的章节
+    
+    // 2. 检查URL参数，如果有指定学科和章节则直接加载
+    const urlParams = getUrlParams();
+    if (urlParams.subject && urlParams.chapter) {
+        // 验证学科是否存在
+        if (subjectChapters[urlParams.subject]) {
+            currentSubject = urlParams.subject;
+            loadChapters(currentSubject);
+            // 设置学科按钮激活状态
+            document.querySelectorAll('.subject-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.subject === urlParams.subject) {
+                    btn.classList.add('active');
+                }
+            });
+            // 延迟加载章节内容（等待章节列表渲染完成）
+            setTimeout(() => {
+                const chapterNum = parseInt(urlParams.chapter);
+                if (chapterNum > 0 && chapterNum <= subjectChapters[urlParams.subject]) {
+                    const chapterItem = document.querySelector(`.chapter-item[data-chapter="${chapterNum}"]`);
+                    if (chapterItem) {
+                        chapterItem.click();
+                    }
+                }
+            }, 100);
+        } else {
+            // 学科不存在，加载默认
+            loadDefaultSubject();
+        }
+    } else if (urlParams.subject) {
+        // 只有学科参数，加载该学科但不加载章节
+        if (subjectChapters[urlParams.subject]) {
+            currentSubject = urlParams.subject;
+            loadChapters(currentSubject);
+            document.querySelectorAll('.subject-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.subject === urlParams.subject) {
+                    btn.classList.add('active');
+                }
+            });
+        } else {
+            loadDefaultSubject();
+        }
+    } else {
+        loadDefaultSubject();
+    }
+    
     // 3. 绑定主题切换事件
     themeBtn.addEventListener('click', toggleTheme);
     // 4. 检查本地存储的主题设置
     checkThemePreference();
     // 5. 初始化侧边导航栏
     initSidebar();
+}
+
+// 加载默认学科
+function loadDefaultSubject() {
+    const firstSubject = Object.keys(subjectChapters)[0];
+    currentSubject = firstSubject;
+    loadChapters(currentSubject);
 }
 
 // 初始化侧边导航栏
@@ -119,6 +194,8 @@ function generateSubjectButtons() {
             loadChapters(subject);
             notePlaceholder.style.display = 'flex';
             noteContentArea.style.display = 'none';
+            // 更新URL（只保留学科参数）
+            updateUrl(subject, null);
         });
 
         buttonContainer.appendChild(btn);
@@ -148,6 +225,8 @@ function loadChapters(subject) {
             chapterItem.classList.add('active');
             // 加载并显示笔记
             loadAndShowNote(subject, i);
+            // 更新URL
+            updateUrl(subject, i);
         });
         chapterList.appendChild(chapterItem);
     }
@@ -772,6 +851,63 @@ document.head.appendChild(style);
 // 页面加载完成后初始化
 
 document.addEventListener('DOMContentLoaded', init);
+
+// 监听浏览器前进/后退事件
+window.addEventListener('popstate', function() {
+    const urlParams = getUrlParams();
+    if (urlParams.subject && urlParams.chapter) {
+        // 验证学科是否存在
+        if (subjectChapters[urlParams.subject]) {
+            // 如果学科变化，重新加载章节列表
+            if (currentSubject !== urlParams.subject) {
+                currentSubject = urlParams.subject;
+                loadChapters(currentSubject);
+                // 设置学科按钮激活状态
+                document.querySelectorAll('.subject-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.dataset.subject === urlParams.subject) {
+                        btn.classList.add('active');
+                    }
+                });
+            }
+            // 加载章节内容
+            const chapterNum = parseInt(urlParams.chapter);
+            if (chapterNum > 0 && chapterNum <= subjectChapters[urlParams.subject]) {
+                const chapterItem = document.querySelector(`.chapter-item[data-chapter="${chapterNum}"]`);
+                if (chapterItem && !chapterItem.classList.contains('active')) {
+                    chapterItem.click();
+                }
+            }
+        }
+    } else if (urlParams.subject) {
+        // 只有学科参数
+        if (subjectChapters[urlParams.subject] && currentSubject !== urlParams.subject) {
+            currentSubject = urlParams.subject;
+            loadChapters(currentSubject);
+            document.querySelectorAll('.subject-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.subject === urlParams.subject) {
+                    btn.classList.add('active');
+                }
+            });
+            notePlaceholder.style.display = 'flex';
+            noteContentArea.style.display = 'none';
+        }
+    } else {
+        // 没有参数，加载默认学科
+        if (currentSubject !== Object.keys(subjectChapters)[0]) {
+            loadDefaultSubject();
+            document.querySelectorAll('.subject-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.subject === Object.keys(subjectChapters)[0]) {
+                    btn.classList.add('active');
+                }
+            });
+            notePlaceholder.style.display = 'flex';
+            noteContentArea.style.display = 'none';
+        }
+    }
+});
 
 
 
