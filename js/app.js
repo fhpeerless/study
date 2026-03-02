@@ -642,10 +642,12 @@ function showMultipleNotes(notes) {
     notes.forEach((note, index) => {
         const scopedClass = `note-scoped-${index}`;
         const noteId = `note-${index}`; // 与目录锚点对应
+        // 根据shuiyin字段决定是否添加水印class（只有shuiyin为"open"时才添加水印）
+        const watermarkClass = note.shuiyin === 'open' ? 'has-watermark' : '';
         let noteHtml = `
             ${index > 0 ? '<div class="note-separator"></div>' : ''}
             <!-- 添加锚点ID，用于目录跳转 -->
-            <div id="${noteId}" class="single-note ${scopedClass}"> 
+            <div id="${noteId}" class="single-note ${scopedClass} ${watermarkClass}"> 
                 <h2 class="note-title">${index + 1}. ${note.title}</h2>
                 <div class="note-meta">
                     <i class="fa fa-clock-o"></i>
