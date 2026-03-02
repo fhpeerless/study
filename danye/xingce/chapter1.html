@@ -242,6 +242,8 @@
             z-index: 1;
             background-repeat: repeat;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200'%3E%3Ctext x='20' y='100' fill='rgba(0,0,0,0.08)' font-size='18' font-family='Arial,sans-serif' transform='rotate(-20 150 100)'%3Estudy.xtwa.org%3C/text%3E%3C/svg%3E");
+            -webkit-background-size: 300px 200px;
+            background-size: 300px 200px;
         }
         
         .back-link {
@@ -284,6 +286,15 @@
             .note-body th, .note-body td {
                 padding: 8px;
             }
+            
+            .watermark {
+                font-size: 12px;
+                opacity: 0.3;
+            }
+            
+            .container::before {
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200'%3E%3Ctext x='20' y='100' fill='rgba(0,0,0,0.15)' font-size='18' font-family='Arial,sans-serif' transform='rotate(-20 150 100)'%3Estudy.xtwa.org%3C/text%3E%3C/svg%3E");
+            }
         }
     </style>
 </head>
@@ -291,7 +302,7 @@
     <div class="container">
         <div class="header">
             <h1>行测资料分析知识点</h1>
-            <div class="subtitle">study.xtwa.org 智能笔记系统 by 风之轻鸿</div>
+            <div class="subtitle">study.xtwa.org 智能笔记系统  by 风之轻鸿 </div>
         </div>
         
         <a href="../index.html" class="back-link">← 返回首页</a>
