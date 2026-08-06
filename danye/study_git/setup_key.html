@@ -424,7 +424,7 @@ ls ~/.ssh
 
 <span class="comment"># ====== 第步：用 Token 关联远程仓库 ======</span>
 <span class="comment"># 格式：https://git:TOKEN@github.com/用户名/仓库名.git</span>
-<span class="comment"># 把 你的Token、用户名、仓库名 替换成实际值</span>
+<span class="comment"># 把 你的Token、用户名、仓库名 替换成实际值，以下命令会把远程仓库的地址记录到 .git/config 里</span>
 <span class="cmd">git</span> remote add origin https://git:<span class="var">你的Token</span>@github.com/<span class="var">用户名</span>/<span class="var">仓库名</span>.git
 
 <span class="comment"># ====== 第步：拉取远程文件到本地 ======</span>
