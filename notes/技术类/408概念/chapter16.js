@@ -382,7 +382,92 @@ export const note1 = {
 
 ---
 
-## 八、万维网 WWW 与 URL
+## 八、Socket 网络编程基础
+
+### 1. Socket 概念
+
+**Socket（套接字）**：应用层与传输层之间的**编程接口**，应用程序通过 Socket 使用传输层协议（TCP/UDP）发送和接收数据。
+
+一个 Socket 由 **IP 地址 + 端口号** 唯一标识：`(IP, Port)`。一个 TCP 连接由一对 Socket 唯一标识：`(源IP, 源端口, 目的IP, 目的端口)`。
+
+**Socket 类型：**
+- **流式 Socket（SOCK_STREAM）**：基于 TCP，面向连接、可靠、字节流。
+- **数据报 Socket（SOCK_DGRAM）**：基于 UDP，无连接、不可靠、数据报。
+- **原始 Socket（SOCK_RAW）**：直接访问下层协议（IP/ICMP），用于网络诊断和抓包。
+
+### 2. TCP Socket 编程（C/S 模型）
+
+**服务器端步骤：**
+1. `socket()` — 创建套接字，返回文件描述符。
+2. `bind()` — 绑定本地 IP 和端口。
+3. `listen()` — 进入监听状态，设置最大连接队列。
+4. `accept()` — 阻塞等待客户端连接，返回已连接套接字。
+5. `recv()/send()` — 收发数据。
+6. `close()` — 关闭连接。
+
+**客户端步骤：**
+1. `socket()` — 创建套接字。
+2. `connect()` — 发起连接请求（三次握手）。
+3. `send()/recv()` — 收发数据。
+4. `close()` — 关闭连接。
+
+**TCP 连接状态变迁（常见）：**
+- CLOSED → LISTEN（服务端 listen）
+- LISTEN → SYN_RCVD（收到 SYN）→ ESTABLISHED（收到 ACK）
+- CLOSED → SYN_SENT（客户端 connect）
+- ESTABLISHED → FIN_WAIT_1/CLOSE_WAIT（主动/被动关闭）
+
+### 3. UDP Socket 编程
+
+- 无连接，无需 `listen()` 和 `accept()`。
+- 服务端 `bind()` 后直接用 `recvfrom()` 等数据。
+- 客户端可用 `sendto()` 直接发送（先 bind 或自动绑定随机端口）。
+- 每次 `sendto/recvfrom` 需指定对方地址，是**独立报文**。
+
+### 4. Socket 常考点
+- TCP Socket 是字节流，无消息边界，需应用层自行分包/粘包处理。
+- `listen` 的第二个参数是已完成连接队列（SYN_RCVD→ESTABLISHED）的最大长度，不是并发连接数。
+- `accept` 返回新的已连接套接字文件描述符，原监听套接字保持监听状态。
+
+---
+
+## 九、P2P 对等网络
+
+### 1. P2P 基本概念
+
+**P2P（Peer-to-Peer）**：每个结点既是**客户**又是**服务器**，结点之间直接通信共享资源。
+
+与 C/S 模式对比：
+| 特性 | C/S 模式 | P2P 模式 |
+|------|---------|---------|
+| 依赖 | 始终依赖中央服务器 | 依赖程度可分级 |
+| 可扩展性 | 服务器为瓶颈 | 好，结点越多资源越多 |
+| 可靠性 | 服务器单点故障 | 去中心化，健壮 |
+| 管理 | 集中管理易 | 分散难管理 |
+| 安全性 | 较好 | 较差，易传播恶意内容 |
+
+### 2. 结构化 P2P — DHT（分布式哈希表）
+
+**Chord 算法**（典型 DHT 实现）：
+- 所有结点和资源用 Hash 函数映射到环形的 Chord 环上（例如 SHA-1 生成 m 位标识符）。
+- 资源 k 存储在第一个标识符**大于等于** k 的结点上（后继结点 successor(k)）。
+- 每结点维护**路由表（Finger Table）**，第 i 项指向 successor(n + 2^i)，实现 O(log N) 查找。
+- 结点加入/退出只需更新其后继和前驱的路由信息。
+
+### 3. 非结构化 P2P — 泛洪查询
+
+- 查询数据时向所有邻居转发查询消息（**泛洪法**），有了结果原路返回。
+- 限制 TTL（跳数）防无限扩散。
+- BitTorrent 文件共享：使用 **Tracker 服务器**（分散到 DHT）作为结点发现，文件分块后各结点交换块（Tit-for-Tat 策略）。
+
+### 4. P2P 常考点
+- P2P 每个结点既是客户端也是服务器，可扩展性强。
+- Chord 环用 DHT 实现 O(log N) 结构化查找。
+- BitTorrent 是 P2P 文件共享，文件分块下载，"下载的同时也在上传"。
+
+---
+
+## 十、万维网 WWW 与 URL
 
 ### 1. WWW 万维网
 
@@ -409,7 +494,7 @@ export const note1 = {
 
 ---
 
-## 九、典型考点速记
+## 十一、典型考点速记
 
 - **传输层 vs 网络层**：传输层端到端（进程间），网络层主机到主机。
 - **UDP**：无连接、不可靠、面向报文、首部 8B、支持一对多、用于实时应用。
@@ -426,8 +511,10 @@ export const note1 = {
 - **邮件协议**：SMTP 推送（端口 25）、POP3 拉取（端口 110）、IMAP 在线管理（端口 143）。
 - **FTP**：双连接，控制 21 + 数据 20，主动 PORT / 被动 PASV。
 - **URL 格式**：协议://主机:端口/路径/文件名。
+- **Socket**：传输层与应用层编程接口；TCP 流式 SOCK_STREAM，UDP 数据报 SOCK_DGRAM；服务端 bind→listen→accept→recv/send→close。
+- **P2P**：去中心化，结点兼客户服务器；Chord 环 DHT 来 O(log N) 查找；BitTorrent 分块共享。
 `,
-    timestamp: "2026-08-06 18:30",
+    timestamp: "2026-08-06 23:10",
     embed: ``
 };
 
