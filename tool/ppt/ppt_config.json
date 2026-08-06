@@ -2,8 +2,8 @@
     "ppt_tasks": [
         {
             "name": "行测资料分析",
-            "input": "./notes/xingce/chapter5.js",
-            "output": "./ppt/xingce/ziliao.html",
+            "input": "input/notes/xingce/chapter5.js",
+            "output": "output/ppt/xingce/ziliao.html",
             "title": "资料分析知识点"
         }
     ],

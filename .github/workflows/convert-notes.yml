@@ -22,7 +22,7 @@ jobs:
           python-version: '3.10'
       
       - name: Run notes converter
-        run: python main_work/convert_notes.py
+        run: python tool/convert/convert_notes.py
       
       - name: Commit and push changes
         run: |

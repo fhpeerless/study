@@ -25,7 +25,7 @@ jobs:
       
       - name: Run PPT generation script
         run: |
-          python main_work/generate_ppt.py
+          python tool/ppt/generate_ppt.py
       
       - name: Check for changes
         id: check_changes

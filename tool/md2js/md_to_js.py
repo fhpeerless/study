@@ -177,7 +177,7 @@ def process_task(task, project_root):
 def process_config(config_path):
     config = load_config(config_path)
     config_dir = os.path.dirname(config_path)
-    project_root = os.path.dirname(config_dir)
+    project_root = config_dir
     
     results = []
     for task in config.get('tasks', []):
@@ -196,7 +196,7 @@ def main():
     parser.add_argument('input', nargs='?', help='输入的Markdown文件路径（可选，不指定则读取配置文件）')
     parser.add_argument('-o', '--output', help='输出的JS文件路径（可选）')
     parser.add_argument('-l', '--level', type=int, default=1, help='按几级标题分割笔记（默认：1）')
-    parser.add_argument('-c', '--config', default='./config/md_to_js_config.json', help='配置文件路径')
+    parser.add_argument('-c', '--config', default=None, help='配置文件路径')
     parser.add_argument('--name', help='任务名称（可选）')
     
     args = parser.parse_args()
@@ -226,6 +226,9 @@ def main():
         generate_js_notes(notes, output_path)
         print('JS笔记生成完成！')
     else:
+        if args.config is None:
+            script_dir = os.path.dirname(os.path.abspath(__file__))
+            args.config = os.path.join(script_dir, 'md_to_js_config.json')
         config_path = args.config
         print(f'使用配置文件: {config_path}')
         process_config(config_path)

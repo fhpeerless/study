@@ -506,8 +506,8 @@ def convert_note(input_path, output_path, config_item, base_dir, global_config=N
 
 def main():
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    project_root = os.path.dirname(script_dir)
-    config_path = os.path.join(project_root, 'config', 'convert_config.json')
+    project_root = script_dir
+    config_path = os.path.join(script_dir, 'convert_config.json')
     
     if not os.path.exists(config_path):
         print(f"错误: 配置文件不存在: {config_path}")

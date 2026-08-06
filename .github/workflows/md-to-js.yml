@@ -22,7 +22,7 @@ jobs:
           python-version: '3.10'
       
       - name: Run MD to JS converter
-        run: python main_work/md_to_js.py
+        run: python tool/md2js/md_to_js.py
       
       - name: Commit and push changes
         run: |

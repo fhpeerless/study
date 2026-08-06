@@ -2,8 +2,8 @@
     "tasks": [
         {
             "name": "成语大全合并版",
-            "input": "./md/成语大全_合并版.md",
-            "output": "./md/chapter2.js",
+            "input": "input/md/成语大全_合并版.md",
+            "output": "output/md/chapter2.js",
             "split_level": 2,
             "options": {
                 "shuiyin": "open",
@@ -12,8 +12,8 @@
         },
         {
             "name": "成语大全合并完整版",
-            "input": "./md/成语大全_合并完整版.md",
-            "output": "./md/chapter3.js",
+            "input": "input/md/成语大全_合并完整版.md",
+            "output": "output/md/chapter3.js",
             "split_level": 2,
             "options": {
                 "shuiyin": "open",

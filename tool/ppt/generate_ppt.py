@@ -563,11 +563,12 @@ def generate_ppt_html(notes, output_path, title_prefix="资料分析知识点", 
 def process_config(config_path):
     config = load_config(config_path)
     base_dir = os.path.dirname(config_path)
-    
+    project_root = base_dir
+
     results = []
     for task in config.get('ppt_tasks', []):
-        input_path = os.path.normpath(os.path.join(base_dir, '..', task['input']))
-        output_path = os.path.normpath(os.path.join(base_dir, '..', task['output']))
+        input_path = os.path.normpath(os.path.join(project_root, task['input']))
+        output_path = os.path.normpath(os.path.join(project_root, task['output']))
         title = task.get('title', '资料分析知识点')
         
         print(f'正在处理: {task["name"]}')
@@ -595,7 +596,7 @@ def main():
     parser.add_argument('input', nargs='?', help='输入的JS笔记文件路径（可选，不指定则读取配置文件）')
     parser.add_argument('-o', '--output', help='输出的HTML文件路径（可选）')
     parser.add_argument('-t', '--title', default='资料分析知识点', help='PPT标题（默认：资料分析知识点）')
-    parser.add_argument('-c', '--config', default='./config/ppt_config.json', help='配置文件路径（默认：./config/ppt_config.json）')
+    parser.add_argument('-c', '--config', default=None, help='配置文件路径')
     
     args = parser.parse_args()
     
@@ -620,6 +621,9 @@ def main():
         generate_ppt_html(notes, output_path, args.title)
         print('PPT生成完成！')
     else:
+        if args.config is None:
+            script_dir = os.path.dirname(os.path.abspath(__file__))
+            args.config = os.path.join(script_dir, 'ppt_config.json')
         config_path = args.config
         print(f'使用配置文件: {config_path}')
         results = process_config(config_path)
