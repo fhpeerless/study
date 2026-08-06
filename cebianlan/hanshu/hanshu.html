@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>函数图像绘制 - 智能笔记系统</title>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/hanshu.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <a href="https://study.xtwa.org/" class="back-link"><i class="fa fa-arrow-left"></i> 返回首页</a>
+        
+        <div class="header">
+            <h1><i class="fa fa-line-chart"></i> 函数图像绘制器</h1>
+            <p>输入数学表达式，自动生成函数图像。支持高数常见函数：sin, cos, tan, csc, sec, cot, sinh, cosh, tanh, sign, sinc, heaviside等</p>
+            <p>示例：<code>sin(x)</code>、<code>csc(x)</code>、<code>sec(x)</code>、<code>cot(x)</code>、<code>tanh(x)</code>、<code>sign(x)</code>、<code>sinc(x)</code></p>
+        </div>
+        
+        <div class="input-panel">
+            <div class="equation-type-selector">
+                <label>方程类型：</label>
+                <button class="type-btn active" onclick="switchEquationType('expression')" data-type="expression">表达式 y=f(x)</button>
+                <button class="type-btn" onclick="switchEquationType('polar')" data-type="polar">极坐标 r=f(θ)</button>
+                <button class="type-btn" onclick="switchEquationType('parametric')" data-type="parametric">参数方程</button>
+                <button class="type-btn" onclick="switchEquationType('implicit')" data-type="implicit">隐式方程</button>
+            </div>
+            
+            <div class="function-input-group">
+                <div id="expressionInput" class="input-section active">
+                    <div class="input-row">
+                        <label for="functionInput">f(x) = </label>
+                        <input type="text" id="functionInput" placeholder="输入表达式，如 sin(x) 或 x^2" autocomplete="off">
+                        <button id="addFunction" class="btn-primary" onclick="handleAddFunction()"><i class="fa fa-plus"></i> 添加</button>
+                        <button id="drawFunction" class="btn-success" onclick="handleDrawFunction()"><i class="fa fa-play"></i> 绘制</button>
+                    </div>
+                </div>
+                
+                <div id="polarInput" class="input-section">
+                    <div class="input-row">
+                        <label for="polarR">r(θ) = </label>
+                        <input type="text" id="polarR" placeholder="如 1-cos(t) 心形线" autocomplete="off">
+                        <label for="polarThetaMin">θ范围(度)：</label>
+                        <input type="text" id="polarThetaMin" value="0" style="width: 60px;">
+                        <span>至</span>
+                        <input type="text" id="polarThetaMax" value="360" style="width: 80px;">
+                        <button class="btn-primary" onclick="handleAddPolar()"><i class="fa fa-plus"></i> 添加</button>
+                    </div>
+                </div>
+                
+                <div id="parametricInput" class="input-section">
+                    <div class="input-row parametric-row">
+                        <label>x(t) = </label>
+                        <input type="text" id="paramX" placeholder="如 2*cos(t)-cos(2*t)" autocomplete="off">
+                    </div>
+                    <div class="input-row parametric-row">
+                        <label>y(t) = </label>
+                        <input type="text" id="paramY" placeholder="如 2*sin(t)-sin(2*t)" autocomplete="off">
+                    </div>
+                    <div class="input-row parametric-row">
+                        <label>t范围(度)：</label>
+                        <input type="text" id="paramTMin" value="0" style="width: 60px;">
+                        <span>至</span>
+                        <input type="text" id="paramTMax" value="360" style="width: 80px;">
+                        <button class="btn-primary" onclick="handleAddParametric()"><i class="fa fa-plus"></i> 添加</button>
+                    </div>
+                </div>
+                
+                <div id="implicitInput" class="input-section">
+                    <div class="input-row">
+                        <label for="implicitEq">方程：</label>
+                        <input type="text" id="implicitEq" placeholder="如 x^2+y^2=1 圆" autocomplete="off">
+                        <button class="btn-primary" onclick="handleAddImplicit()"><i class="fa fa-plus"></i> 添加</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="function-list-panel">
+                <h3><i class="fa fa-list"></i> 函数列表</h3>
+                <div id="functionList" class="function-list"></div>
+            </div>
+            
+            <div class="quick-functions" id="quickExpression">
+                <span class="quick-label">快速添加：</span>
+                <button class="quick-btn" onclick="setQuickExpr('sin(x)')">sin(x)</button>
+                <button class="quick-btn" onclick="setQuickExpr('cos(x)')">cos(x)</button>
+                <button class="quick-btn" onclick="setQuickExpr('tan(x)')">tan(x)</button>
+                <button class="quick-btn" onclick="setQuickExpr('csc(x)')">csc(x)</button>
+                <button class="quick-btn" onclick="setQuickExpr('sec(x)')">sec(x)</button>
+                <button class="quick-btn" onclick="setQuickExpr('cot(x)')">cot(x)</button>
+                <button class="quick-btn" onclick="setQuickExpr('x^2')">x²</button>
+                <button class="quick-btn" onclick="setQuickExpr('x^3')">x³</button>
+                <button class="quick-btn" onclick="setQuickExpr('sqrt(x)')">√x</button>
+                <button class="quick-btn" onclick="setQuickExpr('log(x)')">ln(x)</button>
+                <button class="quick-btn" onclick="setQuickExpr('exp(x)')">eˣ</button>
+                <button class="quick-btn" onclick="setQuickExpr('1/x')">1/x</button>
+                <button class="quick-btn" onclick="setQuickExpr('abs(x)')">|x|</button>
+                <button class="quick-btn" onclick="setQuickExpr('sign(x)')">sign(x)</button>
+                <button class="quick-btn" onclick="setQuickExpr('sinc(x)')">sinc(x)</button>
+                <button class="quick-btn" onclick="setQuickExpr('heaviside(x)')">H(x)</button>
+                <button class="quick-btn" onclick="setQuickExpr('sinh(x)')">sinh(x)</button>
+                <button class="quick-btn" onclick="setQuickExpr('cosh(x)')">cosh(x)</button>
+                <button class="quick-btn" onclick="setQuickExpr('tanh(x)')">tanh(x)</button>
+            </div>
+            
+            <div class="quick-functions" id="quickPolar" style="display: none;">
+                <span class="quick-label">极坐标曲线：</span>
+                <button class="quick-btn" onclick="setQuickPolar('1-cos(t)', '0', '360')">心形线</button>
+                <button class="quick-btn" onclick="setQuickPolar('1+cos(t)', '0', '360')">心形线(右)</button>
+                <button class="quick-btn" onclick="setQuickPolar('a*(1-cos(t))', '0', '360')">心形线(a)</button>
+                <button class="quick-btn" onclick="setQuickPolar('2*(1+cos(t))', '0', '360')">心形线(大)</button>
+                <button class="quick-btn" onclick="setQuickPolar('t', '0', '1080')">阿基米德螺线</button>
+                <button class="quick-btn" onclick="setQuickPolar('exp(t/5)', '0', '720')">对数螺线</button>
+                <button class="quick-btn" onclick="setQuickPolar('a*(1+2*cos(t))', '0', '360')">蚶线</button>
+                <button class="quick-btn" onclick="setQuickPolar('sin(3*t)', '0', '180')">三叶玫瑰</button>
+                <button class="quick-btn" onclick="setQuickPolar('sin(4*t)', '0', '360')">四叶玫瑰</button>
+                <button class="quick-btn" onclick="setQuickPolar('sin(5*t)', '0', '180')">五叶玫瑰</button>
+                <button class="quick-btn" onclick="setQuickPolar('2*cos(t)-1', '0', '360')">蜗牛线</button>
+                <button class="quick-btn" onclick="setQuickPolar('1+2*sin(t)', '0', '360')"> Limaçon</button>
+            </div>
+            
+            <div class="quick-functions" id="quickParametric" style="display: none;">
+                <span class="quick-label">参数曲线：</span>
+                <button class="quick-btn" onclick="setQuickParametric('cos(t)', 'sin(t)', '0', '360')">圆</button>
+                <button class="quick-btn" onclick="setQuickParametric('2*cos(t)', 'sin(t)', '0', '360')">椭圆</button>
+                <button class="quick-btn" onclick="setQuickParametric('t*cos(t)', 't*sin(t)', '0', '1080')">螺旋线</button>
+                <button class="quick-btn" onclick="setQuickParametric('2*cos(t)-cos(2*t)', '2*sin(t)-sin(2*t)', '0', '360')">心形线</button>
+                <button class="quick-btn" onclick="setQuickParametric('sin(2*t)', 'sin(3*t)', '0', '360')">利萨如图形</button>
+                <button class="quick-btn" onclick="setQuickParametric('sin(t)', 'sin(2*t)', '0', '360')">8字形</button>
+                <button class="quick-btn" onclick="setQuickParametric('cos(t)+t*sin(t)', 'sin(t)-t*cos(t)', '0', '1080')">渐开线</button>
+                <button class="quick-btn" onclick="setQuickParametric('t-sin(t)', '1-cos(t)', '0', '720')">摆线</button>
+                <button class="quick-btn" onclick="setQuickParametric('cos(3*t)', 'sin(2*t)', '0', '360')">蝴蝶曲线</button>
+                <button class="quick-btn" onclick="setQuickParametric('sin(t)*(exp(cos(t))-2*cos(4*t)-sin(t/12)^5)', 'cos(t)*(exp(cos(t))-2*cos(4*t)-sin(t/12)^5)', '0', '2160')">蝴蝶</button>
+            </div>
+            
+            <div class="quick-functions" id="quickImplicit" style="display: none;">
+                <span class="quick-label">隐式方程：</span>
+                <button class="quick-btn" onclick="setQuickImplicit('x^2+y^2-1')">圆</button>
+                <button class="quick-btn" onclick="setQuickImplicit('x^2/4+y^2-1')">椭圆</button>
+                <button class="quick-btn" onclick="setQuickImplicit('x^2-y^2-1')">双曲线</button>
+                <button class="quick-btn" onclick="setQuickImplicit('y-x^2')">抛物线</button>
+                <button class="quick-btn" onclick="setQuickImplicit('(x^2+y^2)^2-2*a*(x^2-y^2)')">双纽线</button>
+                <button class="quick-btn" onclick="setQuickImplicit('(x^2+y^2-1)^3-x^2*y^3')">心形</button>
+                <button class="quick-btn" onclick="setQuickImplicit('(x^2+y^2-a*x)^2-b^2*(x^2+y^2)')">蚶线</button>
+            </div>
+        </div>
+        
+        <div class="control-panel">
+            <div class="control-group">
+                <label>X轴范围：</label>
+                <input type="number" id="xMin" value="-10" step="1">
+                <span>至</span>
+                <input type="number" id="xMax" value="10" step="1">
+            </div>
+            <div class="control-group">
+                <label>Y轴范围：</label>
+                <input type="number" id="yMin" value="-10" step="1">
+                <span>至</span>
+                <input type="number" id="yMax" value="10" step="1">
+            </div>
+            <div class="control-group">
+                <label>采样点数：</label>
+                <input type="number" id="sampleCount" value="500" min="100" max="2000" step="100">
+            </div>
+            <div class="control-group">
+                <button id="applyRange" class="btn-primary" onclick="applyRange()"><i class="fa fa-check"></i> 应用范围</button>
+                <button id="resetView" class="btn-secondary" onclick="resetView()"><i class="fa fa-refresh"></i> 重置视图</button>
+                <button id="clearAll" class="btn-danger" onclick="clearAll()"><i class="fa fa-trash"></i> 清空全部</button>
+                <button id="exportImage" class="btn-info" onclick="exportImage()"><i class="fa fa-download"></i> 导出图片</button>
+                <button id="snapToggle" class="btn-snap" onclick="toggleSnap()"><i class="fa fa-crosshairs"></i> 自动吸附: 关</button>
+            </div>
+        </div>
+        
+        <div class="graph-container">
+            <div id="graph" class="graph"></div>
+            <div class="coordinates" id="coordinates">
+                <span id="coordDisplay">坐标: (0, 0)</span>
+            </div>
+        </div>
+        
+        <div class="help-panel">
+            <h3><i class="fa fa-question-circle"></i> 使用帮助</h3>
+            <div class="help-content">
+                <div class="help-section">
+                    <h4>支持的运算符</h4>
+                    <ul>
+                        <li><code>+</code> 加法</li>
+                        <li><code>-</code> 减法</li>
+                        <li><code>*</code> 乘法（可省略，如 2x）</li>
+                        <li><code>/</code> 除法</li>
+                        <li><code>^</code> 幂运算</li>
+                    </ul>
+                </div>
+                <div class="help-section">
+                    <h4>支持的函数</h4>
+                    <ul>
+                        <li><code>sin(x), cos(x), tan(x)</code> 三角函数</li>
+                        <li><code>csc(x), sec(x), cot(x)</code> 余割、正割、余切</li>
+                        <li><code>asin(x), acos(x), atan(x)</code> 反三角函数</li>
+                        <li><code>acsc(x), asec(x), acot(x)</code> 反余割、反正割、反余切</li>
+                        <li><code>sinh(x), cosh(x), tanh(x)</code> 双曲函数</li>
+                        <li><code>csch(x), sech(x), coth(x)</code> 双曲余割、正割、余切</li>
+                        <li><code>asinh(x), acosh(x), atanh(x)</code> 反双曲函数</li>
+                        <li><code>log(x), log10(x), log2(x)</code> 对数函数</li>
+                        <li><code>exp(x)</code> 指数函数</li>
+                        <li><code>sqrt(x)</code> 平方根</li>
+                        <li><code>abs(x)</code> 绝对值</li>
+                        <li><code>sign(x)</code> 符号函数</li>
+                        <li><code>sinc(x)</code> 辛格函数 sin(x)/x</li>
+                        <li><code>heaviside(x)</code> 阶跃函数</li>
+                        <li><code>floor(x), ceil(x), round(x)</code> 取整</li>
+                        <li><code>pow(x, n)</code> 幂函数</li>
+                        <li><code>frac(x)</code> 小数部分</li>
+                    </ul>
+                </div>
+                <div class="help-section">
+                    <h4>常数</h4>
+                    <ul>
+                        <li><code>pi</code> 圆周率 π ≈ 3.14159</li>
+                        <li><code>e</code> 自然常数 e ≈ 2.71828</li>
+                        <li><code>a, b</code> 参数（默认为1）</li>
+                    </ul>
+                </div>
+                <div class="help-section">
+                    <h4>方程类型</h4>
+                    <ul>
+                        <li><strong>表达式</strong>：y = f(x)</li>
+                        <li><strong>极坐标</strong>：r = f(θ)，使用 t 或 theta，角度范围用度数</li>
+                        <li><strong>参数方程</strong>：x = f(t), y = g(t)，角度范围用度数</li>
+                        <li><strong>隐式方程</strong>：F(x,y) = 0</li>
+                    </ul>
+                </div>
+                <div class="help-section">
+                    <h4>极坐标示例</h4>
+                    <ul>
+                        <li><code>1-cos(t)</code> 心形线 (0°-360°)</li>
+                        <li><code>t</code> 阿基米德螺线</li>
+                        <li><code>sin(3*t)</code> 三叶玫瑰 (0°-180°)</li>
+                        <li><code>exp(t/5)</code> 对数螺线</li>
+                    </ul>
+                </div>
+                <div class="help-section">
+                    <h4>参数方程示例</h4>
+                    <ul>
+                        <li>x=<code>cos(t)</code>, y=<code>sin(t)</code> 圆 (0°-360°)</li>
+                        <li>x=<code>t-sin(t)</code>, y=<code>1-cos(t)</code> 摆线</li>
+                        <li>x=<code>sin(2*t)</code>, y=<code>sin(3*t)</code> 利萨如</li>
+                    </ul>
+                </div>
+                <div class="help-section">
+                    <h4>交互操作</h4>
+                    <ul>
+                        <li>鼠标滚轮：缩放图像</li>
+                        <li>鼠标拖拽：平移图像</li>
+                        <li>双击：重置视图</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>函数图像绘制器 | 智能笔记系统 &copy; 2026</p>
+            <p>基于 D3.js 构建</p>
+        </div>
+    </div>
+
+    <script src="js/hanshu.js"></script>
+
+</body>
+</html>

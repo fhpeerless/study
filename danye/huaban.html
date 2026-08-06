@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>黑板工具 - 智能笔记系统</title>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #2c2c2c;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        .tree-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .tree-header {
+            text-align: left;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #4a4a4a;
+        }
+        .tree-header h1 {
+            font-size: 28px;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+        .tree-header p {
+            color: #a0a0a0;
+            font-size: 14px;
+            margin: 5px 0;
+        }
+        .control-panel {
+            background-color: #3d3d3d;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .tool-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background-color: #4a4a4a;
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 14px;
+        }
+        .tool-status #toolIcon {
+            font-size: 18px;
+            color: #f5f5dc;
+        }
+        .drawing-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .drawing-controls button {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background-color: #8b7355;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .drawing-controls button:hover {
+            background-color: #6b5344;
+        }
+        .drawing-controls button.clear {
+            background-color: #c0392b;
+        }
+        .drawing-controls button.clear:hover {
+            background-color: #a93226;
+        }
+        .drawing-controls button.active {
+            background-color: #d4a574;
+            color: #2c2c2c;
+        }
+        .drawing-controls button.eraser {
+            background-color: #5d6d7e;
+        }
+        .drawing-controls button.eraser:hover {
+            background-color: #4a5a6a;
+        }
+        .drawing-controls button.eraser.active {
+            background-color: #d4a574;
+            color: #2c2c2c;
+        }
+        .tree-visualization {
+            background-color: #1a4a1a;
+            border-radius: 8px;
+            padding: 0;
+            margin-bottom: 30px;
+            min-height: 600px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                inset 0 0 100px rgba(0,0,0,0.3),
+                0 0 0 15px #5d4e37,
+                0 0 0 18px #8b7355,
+                0 10px 30px rgba(0,0,0,0.5);
+        }
+        .blackboard-texture {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background-image: 
+                radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.15) 100%),
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            opacity: 0.3;
+            z-index: 1;
+        }
+        .drawing-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Crect x='10' y='2' width='4' height='18' fill='%23ffffff' rx='1'/%3E%3C/svg%3E") 12 2, crosshair;
+            z-index: 10;
+        }
+        .footer {
+            text-align: center;
+            color: #a0a0a0;
+            font-size: 14px;
+            padding: 20px;
+            border-top: 1px solid #4a4a4a;
+            margin-top: 30px;
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #d4a574;
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .back-link:hover {
+            color: #c49464;
+        }
+        .color-picker {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .color-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 2px solid #4a4a4a;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .color-btn:hover {
+            transform: scale(1.1);
+        }
+        .color-btn.active {
+            border-color: #ffffff;
+            box-shadow: 0 0 8px rgba(255,255,255,0.5);
+        }
+        .color-white { background-color: #ffffff; }
+        .color-yellow { background-color: #ffff99; }
+        .color-pink { background-color: #ffb6c1; }
+        .color-blue { background-color: #87ceeb; }
+        .color-green { background-color: #90ee90; }
+        @media (max-width: 768px) {
+            .control-panel {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .drawing-controls {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="tree-container">
+        <a href="https://study.xtwa.org/" class="back-link"><i class="fa fa-arrow-left"></i> 返回首页</a>
+        
+        <div class="tree-header">
+            <h1>黑板工具</h1>
+                <p>这是一个模拟黑板和粉笔的绘图工具，支持多种颜色粉笔和板擦功能。</p>
+                <p>点击"粉笔"选择颜色后绘制，点击"板擦"擦除内容。</p>
+        </div>
+        
+        <div class="control-panel">
+            <div class="drawing-controls">
+                <button id="drawBtn" title="点击开始绘制，按住鼠标左键绘制">
+                    <i class="fa fa-paint-brush"></i> 粉笔
+                </button>
+                <button id="eraserBtn" class="eraser" title="点击开始擦除，按住鼠标左键擦除">
+                    <i class="fa fa-eraser"></i> 板擦
+                </button>
+                <button id="clearBtn" class="clear" title="清空绘制内容">
+                    <i class="fa fa-trash"></i> 清空
+                </button>
+            </div>
+            <div class="color-picker">
+                <div class="color-btn color-white active" data-color="#ffffff" title="白色粉笔"></div>
+                <div class="color-btn color-yellow" data-color="#ffff99" title="黄色粉笔"></div>
+                <div class="color-btn color-pink" data-color="#ffb6c1" title="粉色粉笔"></div>
+                <div class="color-btn color-blue" data-color="#87ceeb" title="蓝色粉笔"></div>
+                <div class="color-btn color-green" data-color="#90ee90" title="绿色粉笔"></div>
+            </div>
+            <div class="tool-status" id="toolStatus">
+                <span id="toolIcon" class="fa fa-paint-brush"></span>
+                <span id="toolName">当前工具：粉笔</span>
+            </div>
+        </div>
+        
+        <div class="tree-visualization">
+            <div class="blackboard-texture"></div>
+            <canvas id="drawingCanvas" class="drawing-canvas"></canvas>
+        </div>
+        
+        <div class="footer">
+            <p>黑板工具 | 智能笔记系统 &copy; 2026</p>
+            <p>生成时间: 2026-03-25</p>
+        </div>
+    </div>
+    
+    <script>
+        const styleConfig = {"body_bg": "#2c2c2c", "body_color": "#e0e0e0", "card_bg": "#3d3d3d", "card_hover_bg": "#4a4a4a", "primary_color": "#8b7355", "primary_hover": "#6b5344", "root_node_color": "#d4a574", "leaf_node_color": "#90ee90", "text_primary": "#ffffff", "text_secondary": "#a0a0a0", "container_max_width": "1200px", "card_radius": "12px", "btn_radius": "8px", "node_radius": "40px", "node_font_size": "14px", "link_color": "#7c7c94", "link_width": "2px"};
+        
+        let currentTool = 'chalk';
+        let currentColor = '#ffffff';
+        let drawingCanvas, drawingCtx;
+        let lastX = 0, lastY = 0;
+        let points = [];
+        
+        function initDrawingCanvas() {
+            drawingCanvas = document.getElementById('drawingCanvas');
+            drawingCtx = drawingCanvas.getContext('2d');
+            
+            const container = document.querySelector('.tree-visualization');
+            drawingCanvas.width = container.clientWidth;
+            drawingCanvas.height = container.clientHeight;
+            
+            drawingCtx.lineCap = 'round';
+            drawingCtx.lineJoin = 'round';
+        }
+        
+        function updateToolStatus() {
+            const toolIcon = document.getElementById('toolIcon');
+            const toolName = document.getElementById('toolName');
+            
+            if (currentTool === 'chalk') {
+                toolIcon.className = 'fa fa-paint-brush';
+                toolIcon.style.color = currentColor;
+                toolName.textContent = '当前工具：粉笔';
+            } else {
+                toolIcon.className = 'fa fa-eraser';
+                toolIcon.style.color = '#5d6d7e';
+                toolName.textContent = '当前工具：板擦';
+            }
+        }
+        
+        function setChalkMode() {
+            currentTool = 'chalk';
+            
+            const drawBtn = document.getElementById('drawBtn');
+            const eraserBtn = document.getElementById('eraserBtn');
+            
+            drawBtn.classList.add('active');
+            eraserBtn.classList.remove('active');
+            
+            drawingCanvas.style.cursor = 'crosshair';
+            
+            updateToolStatus();
+        }
+        
+        function setEraserMode() {
+            currentTool = 'eraser';
+            
+            const drawBtn = document.getElementById('drawBtn');
+            const eraserBtn = document.getElementById('eraserBtn');
+            
+            drawBtn.classList.remove('active');
+            eraserBtn.classList.add('active');
+            
+            drawingCanvas.style.cursor = 'cell';
+            
+            updateToolStatus();
+        }
+        
+        function clearDrawing() {
+            drawingCtx.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height);
+        }
+        
+        function drawChalkLine(x1, y1, x2, y2, color) {
+            const distance = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
+            const steps = Math.max(Math.ceil(distance / 2), 1);
+            
+            for (let i = 0; i < steps; i++) {
+                const t = i / steps;
+                const x = x1 + (x2 - x1) * t;
+                const y = y1 + (y2 - y1) * t;
+                
+                drawChalkDot(x, y, color);
+            }
+        }
+        
+        function drawChalkDot(x, y, color) {
+            const radius = 2;
+            const density = 0.4;
+            
+            for (let i = 0; i < 8; i++) {
+                const offsetX = (Math.random() - 0.5) * radius * 2;
+                const offsetY = (Math.random() - 0.5) * radius * 2;
+                const dotRadius = Math.random() * 1.5 + 0.5;
+                
+                if (Math.random() < density) {
+                    drawingCtx.beginPath();
+                    drawingCtx.arc(x + offsetX, y + offsetY, dotRadius, 0, Math.PI * 2);
+                    drawingCtx.fillStyle = color;
+                    drawingCtx.globalAlpha = Math.random() * 0.5 + 0.3;
+                    drawingCtx.fill();
+                }
+            }
+            drawingCtx.globalAlpha = 1;
+        }
+        
+        function erase(x, y) {
+            const eraserSize = 30;
+            drawingCtx.save();
+            drawingCtx.beginPath();
+            drawingCtx.arc(x, y, eraserSize, 0, Math.PI * 2);
+            drawingCtx.clip();
+            drawingCtx.clearRect(x - eraserSize, y - eraserSize, eraserSize * 2, eraserSize * 2);
+            drawingCtx.restore();
+        }
+        
+        function handleDrawingStart(e) {
+            if (e.button !== 0) return;
+            
+            e.preventDefault();
+            const rect = drawingCanvas.getBoundingClientRect();
+            lastX = e.clientX - rect.left;
+            lastY = e.clientY - rect.top;
+            points = [{x: lastX, y: lastY}];
+            
+            if (currentTool === 'chalk') {
+                drawChalkDot(lastX, lastY, currentColor);
+            }
+        }
+        
+        function handleDrawingMove(e) {
+            if (e.buttons !== 1) return;
+            
+            e.preventDefault();
+            const rect = drawingCanvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            if (currentTool === 'chalk') {
+                drawChalkLine(lastX, lastY, x, y, currentColor);
+            } else {
+                erase(x, y);
+            }
+            
+            lastX = x;
+            lastY = y;
+        }
+        
+        function handleDrawingEnd(e) {
+            points = [];
+        }
+        
+        function selectColor(color, element) {
+            currentColor = color;
+            document.querySelectorAll('.color-btn').forEach(btn => btn.classList.remove('active'));
+            element.classList.add('active');
+            updateToolStatus();
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            initDrawingCanvas();
+            setChalkMode();
+            
+            document.getElementById('drawBtn').addEventListener('click', setChalkMode);
+            document.getElementById('eraserBtn').addEventListener('click', setEraserMode);
+            document.getElementById('clearBtn').addEventListener('click', clearDrawing);
+            
+            document.querySelectorAll('.color-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    selectColor(this.dataset.color, this);
+                });
+            });
+            
+            drawingCanvas.addEventListener('mousedown', handleDrawingStart);
+            drawingCanvas.addEventListener('mousemove', handleDrawingMove);
+            drawingCanvas.addEventListener('mouseup', handleDrawingEnd);
+            drawingCanvas.addEventListener('mouseleave', handleDrawingEnd);
+            
+            drawingCanvas.addEventListener('touchstart', function(e) {
+                e.preventDefault();
+                
+                const touch = e.touches[0];
+                const rect = drawingCanvas.getBoundingClientRect();
+                lastX = touch.clientX - rect.left;
+                lastY = touch.clientY - rect.top;
+                points = [{x: lastX, y: lastY}];
+                
+                if (currentTool === 'chalk') {
+                    drawChalkDot(lastX, lastY, currentColor);
+                }
+            });
+            
+            drawingCanvas.addEventListener('touchmove', function(e) {
+                e.preventDefault();
+                
+                const touch = e.touches[0];
+                const rect = drawingCanvas.getBoundingClientRect();
+                const x = touch.clientX - rect.left;
+                const y = touch.clientY - rect.top;
+                
+                if (currentTool === 'chalk') {
+                    drawChalkLine(lastX, lastY, x, y, currentColor);
+                } else {
+                    erase(x, y);
+                }
+                
+                lastX = x;
+                lastY = y;
+            });
+            
+            drawingCanvas.addEventListener('touchend', function(e) {
+                points = [];
+            });
+            
+            window.addEventListener('resize', function() {
+                const imageData = drawingCtx.getImageData(0, 0, drawingCanvas.width, drawingCanvas.height);
+                initDrawingCanvas();
+                drawingCtx.putImageData(imageData, 0, 0);
+            });
+        });
+    </script>
+</body>
+</html>

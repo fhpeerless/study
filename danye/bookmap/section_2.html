@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>论坛开发知识体系</title>
+    <!-- 方案1：BootCDN（国内，阿里云节点） -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: "Microsoft YaHei", sans-serif;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+        #tree-container {
+            width: 100%;
+            overflow-x: auto;
+        }
+        svg {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        /* 节点样式优化 */
+        .node rect {
+            rx: 8px;
+            ry: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            stroke: #fff;
+            stroke-width: 2px;
+            /* 固定最小尺寸，确保内边距 */
+            min-width: 120px;
+            min-height: 40px;
+        }
+        /* 层级颜色区分 */
+        .node.level-0 rect { fill: #2563eb; }
+        .node.level-1 rect { fill: #3b82f6; }
+        .node.level-2 rect { fill: #10b981; }
+        .node.level-3 rect { fill: #34d399; }
+        .node.level-4 rect { fill: #f59e0b; }
+        /* 特殊标注样式 */
+        .node.mandatory rect { stroke: #ef4444; } /* 必学内容边框 */
+        .node.optional rect { stroke: #f59e0b; } /* 二选一内容边框 */
+        .node.collapsed rect { fill-opacity: 0.8; }
+        .node rect:hover {
+            transform: scale(1.03);
+        }
+        /* 文本样式，模拟内边距 */
+        .node text {
+            fill: white;
+            font-size: 12px;
+            text-anchor: middle;
+            pointer-events: none;
+            dominant-baseline: middle;
+        }
+        .node .tag {
+            font-size: 10px;
+            fill: #fff;
+            font-weight: bold;
+        }
+        .link {
+            fill: none;
+            stroke: #ccc;
+            stroke-width: 2px;
+        }
+    </style>
+</head>
+<body>
+
+<h3 style="text-align: center; margin-bottom: 20px; color: #2196F3;">柱形图根据D3社区开发</h3>
+<div style="text-align: center; margin-top: 15px;">
+    <a href="https://d3js.org/" target="_blank" style="
+                display: inline-block;
+                padding: 12px 28px;
+                background: linear-gradient(135deg, #4CAF50, #2E7D32);
+                color: white;
+                text-decoration: none;
+                border-radius: 50px;
+                font-weight: bold;
+                font-size: 18px;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+                transition: all 0.4s ease;
+                letter-spacing: 0.5px;
+            ">
+        ✨ 点击访问 D3 官方社区
+    </a>
+    <a href="./frontend-tree/web_ready.html" target="_blank" style="
+                display: inline-block;
+                padding: 12px 28px;
+                background: linear-gradient(135deg, #4CAF50, #2E7D32);
+                color: white;
+                text-decoration: none;
+                border-radius: 50px;
+                font-weight: bold;
+                font-size: 18px;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+                transition: all 0.4s ease;
+                letter-spacing: 0.5px;
+            ">
+        ✨ 点击访问单页树形图
+    </a>
+</div>
+<div id="tree-container"></div>
+
+<script>
+    // 知识体系数据（补充核心功能开发书籍推荐）
+    const data = {
+        name: "论坛开发知识体系",
+        children: [
+            {
+                name: "前端开发",
+                children: [
+                    {
+                        name: "前端基础",
+                        children: [
+                            {
+                                name: "HTML/CSS",
+                                type: "mandatory",
+                                children: [
+                                    { name: "必学：页面结构/布局/响应式", type: "mandatory" },
+                                    { name: "推荐书籍：HTML与CSS权威指南" }
+                                ]
+                            },
+                            {
+                                name: "JavaScript",
+                                type: "mandatory",
+                                children: [
+                                    { name: "必学：语法/DOM/异步/ES6+", type: "mandatory" },
+                                    { name: "推荐书籍：JavaScript高级程序设计" }
+                                ]
+                            },
+                            {
+                                name: "前端框架",
+                                type: "optional",
+                                children: [
+                                    { name: "二选一：Vue.js", type: "optional" },
+                                    { name: "二选一：React", type: "optional" },
+                                    { name: "推荐书籍：Vue.js设计与实现/React学习手册" }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                name: "后端开发",
+                children: [
+                    {
+                        name: "后端语言",
+                        type: "optional",
+                        children: [
+                            { name: "二选一：Node.js", type: "optional" },
+                            { name: "二选一：Python", type: "optional" },
+                            { name: "推荐书籍：深入浅出Node.js/流畅的Python" }
+                        ]
+                    },
+                    {
+                        name: "数据库",
+                        type: "mandatory",
+                        children: [
+                            { name: "必学：MySQL", type: "mandatory" },
+                            { name: "可选：MongoDB", type: "optional" },
+                            { name: "推荐书籍：MySQL必知必会" }
+                        ]
+                    },
+                    {
+                        name: "API设计",
+                        type: "mandatory",
+                        children: [
+                            { name: "必学：RESTful API/JWT认证", type: "mandatory" },
+                            { name: "推荐书籍：RESTful Web APIs" }
+                        ]
+                    }
+                ]
+            },
+            {
+                name: "核心功能开发",
+                type: "mandatory",
+                children: [
+                    {
+                        name: "用户系统",
+                        type: "mandatory",
+                        children: [
+                            { name: "必学：注册/登录/权限管理", type: "mandatory" },
+                            { name: "推荐书籍：用户认证与授权实战" }
+                        ]
+                    },
+                    {
+                        name: "内容系统",
+                        type: "mandatory",
+                        children: [
+                            { name: "必学：帖子CRUD/分类/搜索", type: "mandatory" },
+                            { name: "推荐书籍：内容管理系统开发实战" }
+                        ]
+                    },
+                    {
+                        name: "互动系统",
+                        type: "mandatory",
+                        children: [
+                            { name: "必学：评论/点赞/通知", type: "mandatory" },
+                            { name: "推荐书籍：Web社交功能开发指南" }
+                        ]
+                    }
+                ]
+            },
+            {
+                name: "部署运维",
+                type: "mandatory",
+                children: [
+                    {
+                        name: "Linux与服务器",
+                        type: "mandatory",
+                        children: [
+                            { name: "必学：Linux命令/Nginx配置", type: "mandatory" },
+                            { name: "推荐书籍：Linux命令行与shell脚本编程大全" }
+                        ]
+                    },
+                    {
+                        name: "容器化部署",
+                        type: "optional",
+                        children: [
+                            { name: "可选：Docker/K8s", type: "optional" },
+                            { name: "推荐书籍：Docker实战/Kubernetes in Action" }
+                        ]
+                    },
+                    {
+                        name: "CI/CD",
+                        type: "optional",
+                        children: [
+                            { name: "可选：Git/Jenkins/GitHub Actions", type: "optional" },
+                            { name: "推荐书籍：Git权威指南" }
+                        ]
+                    }
+                ]
+            }
+        ]
+    };
+
+    // 初始化参数 - 增大画布高度以容纳更多间距
+    const width = 1600;
+    const height = 1100; // 进一步增加高度
+    let root;
+
+    // 创建SVG
+    const svg = d3.select("#tree-container")
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .append("g")
+        .attr("transform", "translate(80, 80)");
+
+    // 创建树形布局 - 大幅增加节点间距
+    const treeLayout = d3.tree()
+        .size([height - 160, width - 300])
+        .separation((a, b) => {
+            // 同级节点间距增大到3倍，不同级节点间距1.5倍
+            return a.parent === b.parent ? 3 : 1.5;
+        });
+
+    // 初始化根节点
+    function init() {
+        root = d3.hierarchy(data);
+        root.descendants().forEach(d => {
+            d._children = d.children;
+            if (d.depth > 1) d.children = null; // 默认折叠二级以下节点
+        });
+        update(root);
+    }
+
+    // 更新树形图
+    function update(source) {
+        // 计算布局
+        const treeData = treeLayout(root);
+        const nodes = treeData.descendants();
+        const links = treeData.links();
+
+        // 更新节点位置
+        nodes.forEach(d => {
+            d.y = d.depth * 220; // 横向间距保持不变
+        });
+
+        // 绘制连接线
+        svg.selectAll(".link")
+            .data(links, d => d.target.id)
+            .join(
+                enter => enter.append("path")
+                    .attr("class", "link")
+                    .attr("d", d3.linkHorizontal()
+                        .x(d => d.y)
+                        .y(d => d.x)),
+                update => update.attr("d", d3.linkHorizontal()
+                    .x(d => d.y)
+                    .y(d => d.x)),
+                exit => exit.remove()
+            );
+
+        // 绘制节点
+        const node = svg.selectAll(".node")
+            .data(nodes, d => d.id);
+
+        // 移除旧节点
+        node.exit().remove();
+
+        // 添加新节点
+        const nodeEnter = node.enter()
+            .append("g")
+            .attr("class", d => {
+                let classes = `node level-${d.depth}`;
+                if (d.data.type === "mandatory") classes += " mandatory";
+                if (d.data.type === "optional") classes += " optional";
+                if (d._children && !d.children) classes += " collapsed";
+                return classes;
+            })
+            .attr("transform", d => `translate(${d.y},${d.x})`)
+            .on("click", click);
+
+        // 添加矩形（优化尺寸和内边距）
+        nodeEnter.append("rect")
+            .attr("width", d => {
+                // 根据文本长度计算宽度，加上内边距
+                const textLength = d.data.name.length * 9;
+                return Math.max(textLength, 120) + 20; // +20是左右内边距
+            })
+            .attr("height", d => {
+                // 根据文本行数计算高度，加上内边距
+                const lines = d.data.name.split('\n').length;
+                return Math.max(lines * 20, 40) + 10; // +10是上下内边距
+            })
+            .attr("x", d => {
+                const textLength = d.data.name.length * 9;
+                return -(Math.max(textLength, 120) + 20) / 2;
+            })
+            .attr("y", d => {
+                const lines = d.data.name.split('\n').length;
+                return -(Math.max(lines * 20, 40) + 10) / 2;
+            });
+
+        // 添加文字（居中显示，模拟内边距）
+        nodeEnter.append("text")
+            .text(d => d.data.name)
+            .attr("dy", d => {
+                // 根据矩形高度调整文本位置
+                const lines = d.data.name.split('\n').length;
+                return lines > 1 ? "-0.5em" : "0em";
+            });
+
+        // 为必学/二选一节点添加角标
+        nodeEnter.filter(d => d.data.type === "mandatory")
+            .append("text")
+            .attr("class", "tag")
+            .attr("x", 40)
+            .attr("y", -15)
+            .text("必学");
+
+        nodeEnter.filter(d => d.data.type === "optional")
+            .append("text")
+            .attr("class", "tag")
+            .attr("x", 40)
+            .attr("y", -15)
+            .text("二选一");
+    }
+
+    // 点击节点事件
+    function click(event, d) {
+        // 切换展开/折叠
+        if (d.children) {
+            d._children = d.children;
+            d.children = null;
+        } else {
+            d.children = d._children;
+            d._children = null;
+        }
+        update(d);
+    }
+
+    // 启动初始化
+    init();
+</script>
+</body>
+
+</html>

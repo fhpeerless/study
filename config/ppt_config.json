@@ -1,0 +1,18 @@
+{
+    "ppt_tasks": [
+        {
+            "name": "行测资料分析",
+            "input": "./notes/xingce/chapter5.js",
+            "output": "./ppt/xingce/ziliao.html",
+            "title": "资料分析知识点"
+        }
+    ],
+    "style": {
+        "theme": "black",
+        "width": 1200,
+        "height": 700,
+        "transition": "slide",
+        "background_transition": "fade"
+    },
+    "last_updated": "2026-04-28 22:48:00"
+}

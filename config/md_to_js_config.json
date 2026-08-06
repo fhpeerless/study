@@ -1,0 +1,33 @@
+{
+    "tasks": [
+        {
+            "name": "成语大全合并版",
+            "input": "./md/成语大全_合并版.md",
+            "output": "./md/chapter2.js",
+            "split_level": 2,
+            "options": {
+                "shuiyin": "open",
+                "shuiyin_text": "study.xtwa.org"
+            }
+        },
+        {
+            "name": "成语大全合并完整版",
+            "input": "./md/成语大全_合并完整版.md",
+            "output": "./md/chapter3.js",
+            "split_level": 2,
+            "options": {
+                "shuiyin": "open",
+                "shuiyin_text": "study.xtwa.org"
+            }
+        }
+    ],
+    "description": {
+        "split_level": "按几级标题分割笔记，1表示按一级标题(# )分割，2表示按二级标题(## )分割，以此类推",
+        "input": "输入的Markdown文件的相对路径（相对于项目根目录）",
+        "output": "输出的JS文件的相对路径（相对于项目根目录）",
+        "name": "任务名称，用于日志显示",
+        "options.shuiyin": "水印设置，可选值：open/close",
+        "options.shuiyin_text": "水印文字内容，默认为 study.xtwa.org"
+    },
+    "last_updated": "2026-03-25 08:42:01"
+}

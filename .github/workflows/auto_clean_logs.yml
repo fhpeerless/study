@@ -1,0 +1,23 @@
+name: z_Auto_clean_logs
+
+# 周一、周三、周五、周日 北京时间 09:00 自动清理
+on:
+  schedule:
+    - cron: '0 1 * * 1'  # 周一
+    - cron: '0 1 * * 3'  # 周三
+    - cron: '0 1 * * 5'  # 周五
+    - cron: '0 1 * * 0'  # 周日
+  workflow_dispatch:     # 允许手动触发
+
+jobs:
+  clean-logs:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      - name: Delete old workflow runs
+        # 👇 替换成支持 Node24 的新版本，彻底消除警告
+        uses: Passiverecords/delete-workflow-runs@v0.0.8
+        with:
+          retain_days: 0            # 不按天数限制
+          keep_minimum_runs: 10     # 只保留最近 10 条日志

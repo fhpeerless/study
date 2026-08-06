@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>黑板工具 - 智能笔记系统</title>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/huaban.css">
+</head>
+<body>
+    <div class="sunlight-effect"></div>
+    <div class="shadow-beam">
+        <div class="shadow-1"></div>
+        <div class="shadow-2"></div>
+    </div>
+    <div class="tree-container">
+        <a href="https://study.xtwa.org/" class="back-link"><i class="fa fa-arrow-left"></i> 返回首页</a>
+        
+        <div class="tree-header">
+            <h1>黑板工具</h1>
+                <p>这是一个模拟黑板和粉笔的绘图工具，支持多种颜色粉笔和板擦功能。</p>
+                <p>点击"粉笔"选择颜色后绘制，点击"板擦"擦除内容。</p>
+                <p>快速切换快捷键：<strong>Ctrl+Q</strong> 粉笔 | <strong>Ctrl+M</strong> 板擦 | <strong>Ctrl+Delete</strong> 清空</p>
+                <p>翻页快捷键：<strong>Ctrl+←</strong> 上一页 | <strong>Ctrl+→</strong> 下一页 | <strong>Ctrl+N</strong> 新增页</p>
+        </div>
+        
+        <div class="control-panel">
+            <div class="drawing-controls">
+                <button id="drawBtn" title="点击开始绘制，按住鼠标左键绘制">
+                    <i class="fa fa-paint-brush"></i> 粉笔
+                </button>
+                <button id="eraserBtn" class="eraser" title="点击开始擦除，按住鼠标左键擦除">
+                    <i class="fa fa-eraser"></i> 板擦
+                </button>
+                <button id="clearBtn" class="clear" title="清空绘制内容">
+                    <i class="fa fa-trash"></i> 清空
+                </button>
+                <button id="sunlightBtn" class="sunlight active" title="开启或关闭阳光特效">
+                    <i class="fa fa-sun-o"></i> 阳光特效
+                </button>
+            </div>
+            <div class="color-picker">
+                <div class="color-btn color-white active" data-color="#ffffff" title="白色粉笔"></div>
+                <div class="color-btn color-yellow" data-color="#ffff99" title="黄色粉笔"></div>
+                <div class="color-btn color-pink" data-color="#ffb6c1" title="粉色粉笔"></div>
+                <div class="color-btn color-blue" data-color="#87ceeb" title="蓝色粉笔"></div>
+                <div class="color-btn color-green" data-color="#90ee90" title="绿色粉笔"></div>
+            </div>
+            <div class="tool-status" id="toolStatus">
+                <span id="toolIcon" class="fa fa-paint-brush"></span>
+                <span id="toolName">当前工具：粉笔</span>
+            </div>
+        </div>
+        
+        <div class="category-nav" id="categoryNav">
+            <div class="category-breadcrumb" id="categoryBreadcrumb">
+                <span class="breadcrumb-current">请选择分类</span>
+            </div>
+            <div class="category-selector" id="categorySelector">
+                <select class="category-select" id="level1Select">
+                    <option value="">选择一级分类</option>
+                </select>
+                <select class="category-select" id="level2Select" disabled>
+                    <option value="">选择二级分类</option>
+                </select>
+                <select class="category-select" id="level3Select" disabled>
+                    <option value="">选择三级分类</option>
+                </select>
+                <select class="category-select" id="level4Select" disabled>
+                    <option value="">选择四级分类</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="question-panel" id="questionPanel">
+            <div class="question-header">
+                <div class="question-title" id="questionTitle">加载中...</div>
+                <div class="question-nav">
+                    <button id="prevQuestion" title="上一题"><i class="fa fa-chevron-left"></i> 上一题</button>
+                    <span class="question-counter" id="questionCounter">1 / 1</span>
+                    <button id="nextQuestion" title="下一题">下一题 <i class="fa fa-chevron-right"></i></button>
+                </div>
+            </div>
+            <div class="question-content">
+                <div class="question-body" id="questionBody">
+                    <div class="question-text" id="questionText">正在加载问题内容...</div>
+                    <div class="question-image-container" id="questionImageContainer" style="display: none;"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tree-visualization">
+            <div class="blackboard-texture"></div>
+            <canvas id="drawingCanvas" class="drawing-canvas"></canvas>
+        </div>
+        
+        <div class="page-nav" id="pageNav">
+            <button id="addPageBtn" class="page-btn add-page" title="新增一页">
+                <i class="fa fa-plus"></i> 新增
+            </button>
+            <button id="prevPageBtn" class="page-btn" title="上一页">
+                <i class="fa fa-chevron-left"></i>
+            </button>
+            <span class="page-counter" id="pageCounter">1 / 1</span>
+            <button id="nextPageBtn" class="page-btn" title="下一页">
+                <i class="fa fa-chevron-right"></i>
+            </button>
+            <button id="deletePageBtn" class="page-btn delete-page" title="删除当前页">
+                <i class="fa fa-trash"></i> 删除页
+            </button>
+        </div>
+        
+        <div class="footer">
+            <p>黑板工具 | 智能笔记系统 &copy; 2026 by 风之轻鸿ヾ
+            </p>
+        </div>
+    </div>
+    
+    <div class="image-modal" id="imageModal">
+        <span class="image-modal-close" id="modalClose">&times;</span>
+        <img id="modalImage" src="" alt="放大图片">
+    </div>
+
+    <script src="js/huaban.js"></script>
+    <script src=".../js/content-protection.js"></script>
+</body>
+</html>

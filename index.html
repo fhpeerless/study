@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <!-- 移动端配置：禁止缩放+适配屏幕 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <style>
+ /* 已访问的链接a标签的伪类顺序非常重要，必须遵循"link -> visited -> hover -> active"的顺序 */
+   a.note-header:link { color: brown; }
+   a.note-header:visited { color: orangered; }
+   a.note-header:hover { color: #FF00FF; }
+ a.note-header:active {color: rgb(128,0,32); /* 红色 */}
+    </style>
+   <title>智能笔记系统</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+    <!-- 图标库 -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- KaTeX数学公式渲染 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6715550468575250"
+     crossorigin="anonymous"></script>
+</head>
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id:"3Nl3aeKIo4l68lkl",ck:"3Nl3aeKIo4l68lkl"})</script>
+    
+<body>
+<!-- 侧边导航栏 ---------------------------------------------------------------------------------------------------------->
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <h3>智能笔记系统</h3>
+        <button class="sidebar-close-btn" id="sidebarCloseBtn"><i class="fa fa-times"></i></button>
+    </div>
+    <div class="sidebar-content">
+        <a href="cebianlan/download_centr/download.html" class="sidebar-link"><i class="fa fa-download"></i> 下载中心</a>
+        <a href="./cebianlan/huaban/huaban.html" class="sidebar-link"><i class="fa fa-paint-brush"></i>试题黑板</a>
+         <a href="./cebianlan/hanshu/hanshu.html" class="sidebar-link"><i class="fa fa-paint-brush"></i>函数绘制</a>
+    </div>
+</div>
+
+<!-- 侧边栏遮罩层 -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<div class="note-container">
+    <!-- 顶部导航栏 -->
+    <header class="note-header">
+        <div class="theme-toggle">
+            <div class="header-content">
+                <!-- 汉堡按钮 -->
+                <button class="sidebar-toggle-btn" id="sidebarToggleBtn" title="倒计时"><i class="fa fa-bars"></i></button>
+                
+                <h1>
+                    <i class="fa fa-book"></i> <a href="https://study.xtwa.org" target="_blank ">智能笔记系统</a>
+                </h1>
+                
+                <button id="themeBtn"><i class="fa fa-moon-o"></i></button>
+            </div>
+        </div>
+        
+            <h2 class="subtitle" align="center"><br>点击-> <i class="fa fa-bars"></i> ->下载中心=即可下载， pdf打印版本的笔记<br>各位学子，请随我一同前行，助其在凡尘中，乘风而起，所有笔记免费在线观看!</h2>
+
+        <!-- 顶部学科选择区 -->
+        <section class="subject-section">
+            <!-- 动态生成的学科按钮容器 -->
+            <div class="subject-buttons" id="dynamicSubjectButtons"></div>
+        </section>
+    </header>
+
+    <!-- 主体内容区 -->
+    <main class="note-content">
+        <!-- 中间章节列表区 -->
+        <section class="chapter-section">
+            <h2>选择章节</h2>
+            <div class="chapter-list" id="chapterList">
+                <!-- 章节列表由JS动态生成 -->
+            </div>
+        </section>
+
+        <!-- 右侧笔记内容区（支持横向滚动） -->
+        <section class="note-display-wrapper">
+            <div class="note-display">
+                <div class="note-placeholder" id="notePlaceholder">
+                    <i class="fa fa-file-text-o"></i>
+                    <p>请选择一个章节查看笔记内容</p>
+                </div>
+                <div class="note-content-area" id="noteContentArea">
+                    <!-- 笔记内容由JS动态生成 -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 底部信息 -->
+    <footer class="note-footer">
+        <p>课堂笔记系统5.0 &BY 风之轻鸿; 2025 | 请通过上方分类按钮查看对应学科笔记|<br>学习讨论组点击进入————><a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=qdNV46NI3-Taw8YizWBEqwet50aww0TN&jump_from=webapi&authKey=oI7wtVxHqayL2l+5S3LBcJVnNo5uUHklP/DFMjP59jlUSX0EauGGsDcFok2ifGuZ"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="杨柳疯长学习群" title="杨柳疯长学习群"></a><span id="footerCountdown"></span></p>
+    </footer>
+</div>
+   
+<!-- Markdown解析库 -->
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it@13.0.1/dist/markdown-it.min.js"></script>
+    <!-- KaTeX数学公式支持 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it-texmath/texmath.min.js"></script>
+    <script src="./js/app.js?v=20260118"></script>
+    <script src="./js/countdown.js"></script>
+    <script async src="./js/click-effect.js"></script>
+     <script src="./js/content-protection.js"></script>
+ <!--    <script async src="./js/snow.js"></script>-->
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

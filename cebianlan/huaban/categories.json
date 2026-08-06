@@ -1,0 +1,144 @@
+{
+  "categories": [
+    {
+      "id": "gongkao",
+      "name": "公考",
+      "path": "gongkao",
+      "children": [
+        {
+          "id": "xingce",
+          "name": "行测",
+          "path": "gongkao/xingce",
+          "children": [
+            {
+              "id": "ziliao_fenxi",
+              "name": "资料分析",
+              "path": "gongkao/xingce/ziliao_fenxi",
+              "children": [
+                {
+                  "id": "chapter1",
+                  "name": "26真题106-120",
+                  "path": "gongkao/xingce/ziliao_fenxi/chapter1",
+                  "questions": [
+                    {
+                      "id": 1,
+                      "title": "106-120",
+                      "content": "",
+                      "images": ["images/xingce/ziliaofenxi/ziliao1.jpg", "images/xingce/ziliaofenxi/ziliao2.jpg", "images/xingce/ziliaofenxi/ziliao3.jpg", "images/xingce/ziliaofenxi/ziliao4.jpg", "images/xingce/ziliaofenxi/ziliao5.jpg"]
+                    },
+                    {
+                      "id": 2,
+                      "title": "第一章 问题2",
+                      "content": "某企业2023年营业收入1200万元，比2022年增长20%，求2022年营业收入？",
+                      "images": []
+                    }
+                  ]
+                },
+                {
+                  "id": "chapter2",
+                  "name": "第二章",
+                  "path": "gongkao/xingce/ziliao_fenxi/chapter2",
+                  "questions": [
+                    {
+                      "id": 1,
+                      "title": "第二章 问题1",
+                      "content": "下表是某公司近五年销售额数据，请计算年均增长率。",
+                      "images": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "yuyan_lijie",
+              "name": "言语理解",
+              "path": "gongkao/xingce/yuyan_lijie",
+              "children": [
+                {
+                  "id": "chapter1",
+                  "name": "第一章",
+                  "path": "gongkao/xingce/yuyan_lijie/chapter1",
+                  "questions": [
+                    {
+                      "id": 1,
+                      "title": "第一章 问题1",
+                      "content": "阅读以下文字，选择最恰当的词语填入横线处。",
+                      "images": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "shenlun",
+          "name": "申论",
+          "path": "gongkao/shenlun",
+          "children": [
+            {
+              "id": "guiguo_leida",
+              "name": "归纳概括",
+              "path": "gongkao/shenlun/guiguo_leida",
+              "children": [
+                {
+                  "id": "chapter1",
+                  "name": "第一章",
+                  "path": "gongkao/shenlun/guiguo_leida/chapter1",
+                  "questions": [
+                    {
+                      "id": 1,
+                      "title": "归纳概括练习1",
+                      "content": "阅读给定材料，概括当前农村电商发展面临的主要问题。",
+                      "images": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "kaoyan",
+      "name": "考研",
+      "path": "kaoyan",
+      "children": [
+        {
+          "id": "shuxue",
+          "name": "数学",
+          "path": "kaoyan/shuxue",
+          "children": [
+            {
+              "id": "gaoshu",
+              "name": "高等数学",
+              "path": "kaoyan/shuxue/gaoshu",
+              "children": [
+                {
+                  "id": "chapter1",
+                  "name": "第一章 极限与连续",
+                  "path": "kaoyan/shuxue/gaoshu/chapter1",
+                  "questions": [
+                    {
+                      "id": 1,
+                      "title": "极限问题1",
+                      "content": "计算极限：lim(x→0) (sinx - x) / x³",
+                      "images": []
+                    },
+                    {
+                      "id": 2,
+                      "title": "极限问题2",
+                      "content": "证明：lim(n→∞) (1 + 1/n)^n = e",
+                      "images": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

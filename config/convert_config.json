@@ -1,0 +1,29 @@
+{
+    "global": {
+        "watermark_text": "study.xtwa.org",
+        "watermark_opacity": 0.15
+    },
+    "notes": [
+        {
+            "input": "notes/xingce/chapter1.js",
+            "output": "dayin/xingce/chapter1.html",
+            "title": "行测常识判断知识点",
+            "header_title": "行测常识判断知识点",
+            "subtitle": "study.xtwa.org 智能笔记系统  by 风之轻鸿"
+        },
+        {
+            "input": "md/chapter2.js",
+            "output": "dayin/xingce/chengyu_kong.html",
+            "title": "成语默写打印版",
+            "header_title": "成语默写打印版",
+            "subtitle": "study.xtwa.org 智能笔记系统  by 风之轻鸿"
+        },
+        {
+            "input": "md/chapter3.js",
+            "output": "dayin/xingce/chegnyu_quan.html",
+            "title": "成语带解释版",
+            "header_title": "成语填空高频成语带解释",
+            "subtitle": "study.xtwa.org 智能笔记系统  by 风之轻鸿"
+        }
+    ]
+}

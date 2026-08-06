@@ -1,0 +1,55 @@
+name: Update Download Page
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Generate download.html
+        run: python cebianlan/download_centr/generate_download.py
+      
+      - name: Check for changes
+        id: check_changes
+        run: |
+          if git diff --quiet cebianlan/download_centr/download.html; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Commit and push changes
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add cebianlan/download_centr/download.html
+          git commit -m "auto: update cebianlan/download_centr/download.html"
+          git push
+      
+      - name: Summary
+        run: |
+          echo "### Download Page Update Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Config file**: \`cebianlan/download_centr/download_config.json\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Script file**: \`cebianlan/download_centr/generate_download.py\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Generated file**: \`cebianlan/download_centr/download.html\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Changes committed**: ${{ steps.check_changes.outputs.has_changes }}" >> $GITHUB_STEP_SUMMARY

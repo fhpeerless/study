@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>蓝色星空粒子汇聚文字</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body, html {
+            /* 适配容器引入场景，移除默认的全屏居中 */
+            background: transparent; /* 透明背景，避免和父容器冲突 */
+            overflow: hidden;
+            height: 100%;
+        }
+        
+        #particleContainer {
+            width: 100%;
+            max-width: 100vw; /* 限制最大宽度为视口宽度 */
+            height: 400px; /* 固定高度，匹配引入参数 */
+            position: relative;
+            background: #0f2a47; /* 淡蓝色星空背景 */
+            margin: 0 auto;
+        }
+        
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+            max-width: 100vw; /* 限制最大宽度为视口宽度 */
+            background: #0f2a47;
+        }
+        
+        .countdown {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: rgba(160, 216, 255, 0.9);
+            font-size: 80px; /* 适配400px高度的倒计时文字大小 */
+            font-weight: bold;
+            font-family: 'Arial', sans-serif;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            text-shadow: 0 0 15px rgba(96, 191, 255, 1),
+                         0 0 30px rgba(96, 191, 255, 0.8),
+                         0 0 45px rgba(96, 191, 255, 0.5);
+        }
+        
+        /* 小屏幕适配倒计时文字大小 */
+        @media (max-width: 480px) {
+            .countdown {
+                font-size: 50px;
+            }
+        }
+        
+        .countdown.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div id="particleContainer">
+        <div class="countdown" id="countdown">4</div>
+        <canvas id="particleCanvas"></canvas>
+    </div>
+
+    <script>
+        // 获取容器、画布和上下文
+        const container = document.getElementById('particleContainer');
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        const countdownEl = document.getElementById('countdown');
+        
+        // 基础配置（适配400px高度 - 核心优化：增加粒子数量，确保文字清晰）
+        const config = {
+            particleCount: 4500,      // 大幅增加粒子数量到2000，提高文字密度，特别是复杂汉字
+            particleSize: 2.0,        // 保持大粒子大小，确保单个粒子清晰
+            speedFactor: 0.04,        // 保持较高速度因子，让粒子快速归位
+            text1: "星河入梦，未来可期",        // 第一行文字
+            text2: "--study.xtwa.org-",        // 第二行文字
+            textColor: '#ffff00',     // 亮黄色文字，与蓝色背景对比强烈
+            countdownTime: 4,         // 倒计时秒数
+            starColor: 'rgba(180, 220, 255, 0.9)' // 淡蓝色星空粒子
+        };
+        
+        // 动态文字配置（适配400px高度核心逻辑）
+        let textConfig = {
+            textSize: 0,
+            lineSpacing: 0,
+            centerY: 0
+        };
+        
+        // 粒子数组（提前声明，避免初始化顺序问题）
+        let particles = [];
+        // 目标文字的像素数据
+        let textPixels = [];
+        // 倒计时相关
+        let currentCount = config.countdownTime;
+        let countdownTimer;
+        let animationState = 'countdown'; // countdown | forming | formed
+        
+        // 动态更新文字配置（优化：减小文字大小，适配容器）
+        function updateTextConfig() {
+            // 根据容器高度和宽度计算文字大小，确保在移动端等比缩小
+            const containerHeight = canvas.height;
+            const containerWidth = canvas.width;
+            
+            // 核心修改：根据宽度和高度的最小值计算文字大小，确保在移动端等比缩小
+            const baseSize = Math.min(containerWidth, containerHeight);
+            // 文字大小为基准尺寸的20%，最小20px，最大60px
+            let textSize = Math.max(20, Math.min(60, baseSize * 0.20));
+            
+            // 调整行间距，适配减小后的文字大小
+            const lineSpacing = textSize * 1.0; // 行间距为1.0倍文字大小
+            const totalTextHeight = textSize * 2 + lineSpacing;
+            const centerY = canvas.height / 2 - totalTextHeight / 2 + textSize;
+            
+            // 更新配置
+            textConfig.textSize = textSize;
+            textConfig.lineSpacing = lineSpacing;
+            textConfig.centerY = centerY;
+            
+            // 如果已经在形成文字阶段，重新生成像素数据
+            if (animationState !== 'countdown') {
+                generateTextPixels();
+                assignParticlesToText();
+            }
+        }
+        
+        // 设置画布尺寸为容器大小（核心修改：适配400px高度容器）
+        function resizeCanvas() {
+            // 获取容器的实际尺寸和视口宽度
+            let containerWidth = container.offsetWidth;
+            let containerHeight = container.offsetHeight;
+            const viewportWidth = window.innerWidth;
+            
+            // 核心修复：确保画布尺寸正确，适配iframe环境
+            if (containerWidth === 0) {
+                // 如果容器宽度为0（iframe未完全加载），使用默认值
+                containerWidth = viewportWidth; // 使用视口宽度作为默认值
+                containerHeight = 400; // 默认高度（关键：确保是400px）
+            }
+            
+            // 核心修改：确保画布宽度不超过视口宽度，实现移动端等比缩小
+            containerWidth = Math.min(containerWidth, viewportWidth);
+            // 确保高度不小于400px
+            containerHeight = Math.max(containerHeight, 400);
+            
+            canvas.width = containerWidth;
+            canvas.height = containerHeight;
+            
+            // 核心修改：根据视口宽度动态调整粒子大小，确保在移动端等比缩小
+            // 在小屏幕上减小粒子大小，保持视觉效果
+            if (viewportWidth < 768) {
+                config.particleSize = 1.5; // 小屏幕上使用1.5px粒子
+            } else {
+                config.particleSize = 2.0; // 大屏幕上使用2.0px粒子
+            }
+            
+            // 重新计算文字尺寸和位置
+            updateTextConfig();
+        }
+        
+        // 初始化画布尺寸（核心修复：确保在DOM加载完成后执行）
+        // 先设置默认尺寸，确保文字配置能正确计算
+        const initialWidth = window.innerWidth;
+        canvas.width = initialWidth; // 使用视口宽度作为初始宽度
+        canvas.height = 400;
+        updateTextConfig();
+        
+        // 等待DOM完全加载后再获取实际容器尺寸
+        window.addEventListener('DOMContentLoaded', resizeCanvas);
+        // 监听窗口尺寸变化
+        window.addEventListener('resize', resizeCanvas);
+        
+        // 创建粒子类
+        class Particle {
+            constructor() {
+                // 初始位置（仅在容器内随机分布）
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                // 目标位置
+                this.targetX = this.x;
+                this.targetY = this.y;
+                // 移动速度（优化：增加初始速度，使动画更生动）
+                this.vx = (Math.random() - 0.5) * 2.0;
+                this.vy = (Math.random() - 0.5) * 2.0;
+                // 淡蓝色星空粒子
+                this.color = config.starColor;
+            }
+            
+            // 更新粒子位置
+            update() {
+                const dx = this.targetX - this.x;
+                const dy = this.targetY - this.y;
+                
+                if (animationState === 'countdown') {
+                    // 倒计时阶段：仅在容器内漂浮，边界反弹
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    
+                    // 容器边界反弹（核心修改：不再是窗口边界）
+                    if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                    if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+                } else {
+                    // 形成文字阶段：向目标位置移动
+                    this.x += dx * config.speedFactor;
+                    this.y += dy * config.speedFactor;
+                    
+                    // 到达目标位置后轻微抖动
+                    if (Math.abs(dx) < 1 && Math.abs(dy) < 1) {
+                        this.x += (Math.random() - 0.5) * 0.3;
+                        this.y += (Math.random() - 0.5) * 0.3;
+                    }
+                }
+            }
+            
+            // 绘制粒子
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, config.particleSize, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+            
+            // 设置粒子目标位置
+            setTarget(x, y) {
+                this.targetX = x;
+                this.targetY = y;
+                this.color = config.textColor;
+            }
+        }
+        
+        // 初始化粒子
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < config.particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+        
+        // 生成文字像素数据（优化：确保复杂汉字清晰可见）
+        function generateTextPixels() {
+            textPixels = [];
+            
+            const tempCanvas = document.createElement('canvas');
+            const tempCtx = tempCanvas.getContext('2d');
+            
+            tempCanvas.width = canvas.width;
+            tempCanvas.height = canvas.height;
+            
+            // 核心优化：使用更适合汉字的字体和样式
+            tempCtx.font = `bold ${textConfig.textSize}px Arial`;
+            tempCtx.textAlign = 'center';
+            tempCtx.textBaseline = 'middle';
+            
+            // 绘制两行文字（优化：确保复杂汉字清晰）
+            tempCtx.fillStyle = '#ffffff';
+            
+            // 优化：绘制两次文字，一次主文字，一次轻微偏移，增加复杂汉字的像素密度
+            // 主文字
+            tempCtx.fillText(config.text1, tempCanvas.width / 2, textConfig.centerY);
+            tempCtx.fillText(config.text2, tempCanvas.width / 2, textConfig.centerY + textConfig.lineSpacing);
+            // 轻微偏移1px，增加复杂汉字的像素密度，特别是"梦"字
+            tempCtx.fillText(config.text1, tempCanvas.width / 2 + 1, textConfig.centerY);
+            tempCtx.fillText(config.text2, tempCanvas.width / 2 + 1, textConfig.centerY + textConfig.lineSpacing);
+            
+            // 获取像素数据（优化：确保复杂汉字像素被准确采样）
+            const imageData = tempCtx.getImageData(0, 0, tempCanvas.width, tempCanvas.height);
+            const data = imageData.data;
+            
+            // 优化：降低透明度阈值，确保复杂汉字的所有像素都被采样
+            for (let y = 0; y < tempCanvas.height; y += 1) {
+                for (let x = 0; x < tempCanvas.width; x += 1) {
+                    const index = (y * tempCanvas.width + x) * 4;
+                    // 降低透明度阈值到128，确保复杂汉字"梦"的所有细节都被捕捉
+                    if (data[index + 3] > 128) {
+                        textPixels.push({ x, y });
+                    }
+                }
+            }
+            
+            // 兜底逻辑：避免极端情况文字消失
+            if (textPixels.length === 0) {
+                const centerX = canvas.width / 2;
+                for (let i = 0; i < 1000; i++) {
+                    textPixels.push({
+                        x: centerX + (Math.random() - 0.5) * 200,
+                        y: canvas.height / 2 + (Math.random() - 0.5) * 150
+                    });
+                }
+            }
+        }
+        
+        // 分配粒子到文字像素位置（优化逻辑：确保粒子均匀分布）
+        function assignParticlesToText() {
+            // 如果没有文字像素数据，生成随机点
+            if (textPixels.length === 0) {
+                const centerX = canvas.width / 2;
+                const centerY = canvas.height / 2;
+                
+                for (let i = 0; i < 800; i++) {
+                    textPixels.push({
+                        x: centerX + (Math.random() - 0.5) * 150,
+                        y: centerY + (Math.random() - 0.5) * 100
+                    });
+                }
+            }
+            
+            // 确保粒子均匀分配到文字像素
+            for (let i = 0; i < particles.length; i++) {
+                const pixelIndex = Math.floor((i / particles.length) * textPixels.length);
+                const pixel = textPixels[pixelIndex] || textPixels[0];
+                particles[i].setTarget(pixel.x, pixel.y);
+            }
+            
+            animationState = 'forming';
+        }
+        
+        // 倒计时函数
+        function startCountdown() {
+            countdownEl.textContent = currentCount;
+            countdownEl.classList.add('show');
+            
+            countdownTimer = setInterval(() => {
+                currentCount--;
+                
+                if (currentCount >= 0) {
+                    countdownEl.textContent = currentCount;
+                } else {
+                    clearInterval(countdownTimer);
+                    countdownEl.classList.remove('show');
+                    animationState = 'forming';
+                    generateTextPixels();
+                    assignParticlesToText();
+                }
+            }, 1000);
+        }
+        
+        // 动画循环
+        function animate() {
+            // 半透明背景实现拖影效果（蓝色系）
+            ctx.fillStyle = 'rgba(15, 42, 71, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // 更新并绘制所有粒子
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+            
+            // 检查是否所有粒子都已归位
+            if (animationState === 'forming') {
+                let allArrived = true;
+                let arrivedCount = 0;
+                const totalParticles = particles.length;
+                
+                // 优化检查逻辑：只检查前500个粒子，提高性能
+                const checkCount = Math.min(totalParticles, 500);
+                for (let i = 0; i < checkCount; i++) {
+                    const particle = particles[i];
+                    const dx = particle.targetX - particle.x;
+                    const dy = particle.targetY - particle.y;
+                    if (Math.abs(dx) <= 2 && Math.abs(dy) <= 2) {
+                        arrivedCount++;
+                    } else {
+                        allArrived = false;
+                        break; // 一旦发现未归位粒子，立即退出循环
+                    }
+                }
+                
+                // 当检查的粒子都归位，或大部分粒子已归位（80%），则认为文字已形成
+                if (allArrived || (arrivedCount / checkCount >= 0.8)) {
+                    animationState = 'formed';
+                }
+            }
+            
+            // 持续动画循环
+            requestAnimationFrame(animate);
+        }
+        
+        // 初始化并启动动画
+        function init() {
+            initParticles();
+            startCountdown();
+            animate();
+        }
+        
+        // 页面加载完成后初始化
+        window.addEventListener('load', init);
+    </script>
+</body>
+</html>
