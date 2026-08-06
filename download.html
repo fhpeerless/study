@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>下载中心 - 智能笔记系统</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        html {
+            width: 100vw;
+            height: 100vh;
+        }
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #1e1e2e;
+            color: #e0e0e0;
+        }
+        .download-container {
+            width: 92%;
+            height: 92%;
+            max-width: 1000px;
+            margin: 1vh auto;
+            padding: 40px 20px;
+        }
+        .top-category-nav {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .top-category-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background-color: #2d2d44;
+            color: #a0a0a0;
+            border: 2px solid transparent;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        .top-category-btn:hover {
+            background-color: #3a3a56;
+            color: #ffffff;
+            border-color: #3498db;
+        }
+        .top-category-btn.active {
+            background-color: #3498db;
+            color: #ffffff;
+            border-color: #3498db;
+        }
+        .top-category-btn i {
+            font-size: 18px;
+        }
+        .download-header {
+            text-align: left;
+            margin-bottom: 30px;
+        }
+        .download-header h1 {
+            font-size: 28px;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+        .download-header p {
+            color: #a0a0a0;
+            font-size: 14px;
+        }
+        .category-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .category-tab {
+            padding: 8px 20px;
+            background-color: #2d2d44;
+            color: #a0a0a0;
+            border: none;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .category-tab:hover {
+            background-color: #3a3a56;
+            color: #ffffff;
+        }
+        .category-tab.active {
+            background-color: #3498db;
+            color: #ffffff;
+        }
+        .subcategory-nav {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            padding: 15px;
+            background-color: #2d2d44;
+            border-radius: 10px;
+        }
+        .subcategory-nav-title {
+            font-size: 14px;
+            color: #a0a0a0;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .subcategory-nav-link {
+            padding: 6px 14px;
+            background-color: #3a3a56;
+            color: #a0a0a0;
+            text-decoration: none;
+            border-radius: 15px;
+            font-size: 13px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .subcategory-nav-link:hover {
+            background-color: #3498db;
+            color: #ffffff;
+        }
+        .subcategory-nav-link i {
+            font-size: 12px;
+        }
+        .category-section {
+            margin-bottom: 40px;
+        }
+        .category-title {
+            font-size: 20px;
+            color: #ffffff;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .category-title i {
+            color: #3498db;
+        }
+        .subcategory-section {
+            margin-bottom: 30px;
+            margin-left: 15px;
+            scroll-margin-top: 100px;
+        }
+        .subcategory-title {
+            font-size: 16px;
+            color: #4dabf5;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #3a3a56;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .subcategory-title i {
+            color: #4dabf5;
+            font-size: 14px;
+        }
+        .download-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .download-item {
+            background-color: #2d2d44;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+        }
+        .download-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        .download-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+        .download-item-info {
+            flex: 1;
+        }
+        .download-item-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+        .download-item-meta {
+            display: flex;
+            gap: 20px;
+            font-size: 13px;
+            color: #a0a0a0;
+        }
+        .download-item-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .download-item-meta i {
+            color: #4dabf5;
+        }
+        .download-item-version {
+            display: inline-block;
+            padding: 4px 10px;
+            background-color: #343458;
+            color: #4dabf5;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        .download-item-desc {
+            font-size: 14px;
+            color: #b0b0b0;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+        .download-item-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        .download-btn:hover {
+            background-color: #2980b9;
+        }
+        .download-btn.purchase {
+            background-color: #e74c3c;
+        }
+        .download-btn.purchase:hover {
+            background-color: #c0392b;
+        }
+        .download-btn.secondary {
+            background-color: #95a5a6;
+        }
+        .download-btn.secondary:hover {
+            background-color: #7f8c8d;
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #4dabf5;
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .back-link:hover {
+            color: #3498db;
+        }
+        .no-files {
+            text-align: center;
+            padding: 60px 20px;
+            color: #7f8c8d;
+        }
+        .no-files i {
+            font-size: 48px;
+            margin-bottom: 16px;
+            color: #4a4a6a;
+        }
+        .password-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .password-modal.show {
+            display: flex;
+        }
+        .password-modal-content {
+            background-color: #2d2d44;
+            padding: 30px;
+            border-radius: 16px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        }
+        .password-modal-title {
+            font-size: 20px;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+        .password-modal-title i {
+            color: #4dabf5;
+            margin-right: 8px;
+        }
+        .password-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #3a3a56;
+            border-radius: 8px;
+            background-color: #1e1e2e;
+            color: #ffffff;
+            font-size: 18px;
+            text-align: center;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+        .password-input:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+        .password-input.error {
+            border-color: #e74c3c;
+            animation: shake 0.3s;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        .password-error {
+            color: #e74c3c;
+            font-size: 13px;
+            margin-bottom: 15px;
+            display: none;
+        }
+        .password-error.show {
+            display: block;
+        }
+        .password-modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        .password-modal-btn {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .password-modal-btn.confirm {
+            background-color: #3498db;
+            color: #ffffff;
+        }
+        .password-modal-btn.confirm:hover {
+            background-color: #2980b9;
+        }
+        .password-modal-btn.cancel {
+            background-color: #3a3a56;
+            color: #a0a0a0;
+        }
+        .password-modal-btn.cancel:hover {
+            background-color: #4a4a6a;
+        }
+        @media (max-width: 768px) {
+            .download-item-header {
+                flex-direction: column;
+                gap: 12px;
+            }
+            .download-item-meta {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            .download-item-actions {
+                flex-wrap: wrap;
+            }
+            .subcategory-section {
+                margin-left: 0;
+            }
+            .subcategory-nav {
+                padding: 10px;
+            }
+            .subcategory-nav-title {
+                width: 100%;
+                margin-bottom: 8px;
+            }
+            .top-category-nav {
+                gap: 10px;
+            }
+            .top-category-btn {
+                padding: 10px 18px;
+                font-size: 14px;
+            }
+        }
+    
+    </style>
+</head>
+<body class="dark-mode">
+    <div class="note-container">
+        <header class="note-header">
+            <div class="theme-toggle">
+                <div class="header-content">
+                    <a href="index.html" class="back-link"><i class="fa fa-arrow-left"></i> 返回首页</a>
+                    <h1><i class="fa fa-download"></i> 下载中心</h1>
+                    <button id="themeBtn"><i class="fa fa-sun-o"></i></button>
+                </div>
+            </div>
+        </header>
+
+        <main class="download-container">
+            <div class="top-category-nav">
+                <button class="top-category-btn active" data-top-category="gongkao"><i class="fa fa-graduation-cap"></i> 公考</button>
+                <button class="top-category-btn" data-top-category="media"><i class="fa fa-video-camera"></i> 多媒体资源</button>
+            </div>
+
+            <div class="download-header">
+                <h1>公告</h1>
+                <p>1.这里提供各类学习资源的下载服务，文件会定期更新。</p>
+                <p>2.18r:资料分析和言语理解与表达pdf永久下载权限。>>> 18r:除资料分析和言语理解与表的pdf永久下载权限。>>> 行测合计：36R</p>
+            </div>
+
+            <div class="category-tabs">
+                <button class="category-tab active" data-category="xingce" data-top-category="gongkao">--行测--</button>
+                <button class="category-tab" data-category="shenlun" data-top-category="gongkao">--申论--</button>
+                <button class="category-tab" data-category="media" data-top-category="media">多媒体资源</button>
+            </div>
+
+
+            <div class="subcategory-nav" data-category="xingce" data-top-category="gongkao">
+                <span class="subcategory-nav-title"><i class="fa fa-list"></i> 快速导航：</span>
+                <a href="#subcat-xingce-xingce_ziliao" class="subcategory-nav-link"><i class="fa fa-file-o"></i> 资料分析</a>
+                <a href="#subcat-xingce-xingce_changshi" class="subcategory-nav-link"><i class="fa fa-file-o"></i> 成语填空</a>
+                <a href="#subcat-xingce-xingce_yuyan" class="subcategory-nav-link"><i class="fa fa-file-o"></i> 言语理解</a>
+                <a href="#subcat-xingce-xingce_shuli" class="subcategory-nav-link"><i class="fa fa-file-o"></i> 数量关系</a>
+                <a href="#subcat-xingce-xingce_panduan" class="subcategory-nav-link"><i class="fa fa-file-o"></i> 判断推理</a>
+            </div>
+
+
+            <div class="subcategory-nav" data-category="shenlun" data-top-category="gongkao">
+                <span class="subcategory-nav-title"><i class="fa fa-list"></i> 快速导航：</span>
+                <a href="#subcat-shenlun-shenlun_basic" class="subcategory-nav-link"><i class="fa fa-file-o"></i> 基础教程</a>
+                <a href="#subcat-shenlun-shenlun_examples" class="subcategory-nav-link"><i class="fa fa-file-o"></i> 范文精选</a>
+                <a href="#subcat-shenlun-shenlun_exam" class="subcategory-nav-link"><i class="fa fa-file-o"></i> 真题解析</a>
+            </div>
+
+
+            <div class="subcategory-nav" data-category="media" data-top-category="media">
+                <span class="subcategory-nav-title"><i class="fa fa-list"></i> 快速导航：</span>
+                <a href="#subcat-media-media_video" class="subcategory-nav-link"><i class="fa fa-file-o"></i> 视频课程</a>
+                <a href="#subcat-media-media_audio" class="subcategory-nav-link"><i class="fa fa-file-o"></i> 音频资料</a>
+            </div>
+
+
+            <div class="download-list" id="downloadList">
+
+                <div class="category-section" data-category="xingce" data-top-category="gongkao">
+                    <h2 class="category-title"><i class="fa fa-file-text"></i> 行测资料</h2>
+                    
+                <div class="subcategory-section" id="subcat-xingce-xingce_ziliao">
+                    <h3 class="subcategory-title"><i class="fa fa-folder-o"></i> 资料分析</h3>
+                    
+                    <div class="download-item">
+                        <div class="download-item-header">
+                            <div class="download-item-info">
+                                <div class="download-item-title">资料分析基础笔记</div>
+                                <div class="download-item-meta">
+                                    <span><i class="fa fa-calendar"></i> 更新时间：2026-03-25</span>
+                                    <span><i class="fa fa-file"></i> 大小：9.8 MB</span>
+                                </div>
+                            </div>
+                            <span class="download-item-version">v1.1</span>
+                        </div>
+                        <div class="download-item-desc">
+                            资料分析基础，包含增长率、比重、平均数等解释，抖音示例讲解，购买密钥。
+                        </div>
+                        <div class="download-item-actions">
+                            <button class="download-btn" data-url="enc:MAADESBOWksTR1FcXjIKBwcKWjQVGRs8ARdKGl1dHV88NA4IVhgwABVWNg==" data-password="xingce_ziliao"><i class="fa fa-download"></i> 立即下载</button>
+                            <a href="https://mall.bilibili.com/neul-next/detailuniversal/detail.html?page=detailuniversal_detail&itemsId=40642800&loadingShow=1&noTitleBar=1#noReffer=true&msource=merchant_share" class="download-btn purchase"><i class="fa fa-shopping-cart"></i> 获取下载密钥</a>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="subcategory-section" id="subcat-xingce-xingce_changshi">
+                    <h3 class="subcategory-title"><i class="fa fa-folder-o"></i> 成语填空</h3>
+                    
+                    <div class="download-item">
+                        <div class="download-item-header">
+                            <div class="download-item-info">
+                                <div class="download-item-title">言语理解-成语解释</div>
+                                <div class="download-item-meta">
+                                    <span><i class="fa fa-calendar"></i> 更新时间：2025-03-25</span>
+                                    <span><i class="fa fa-file"></i> 大小：12.8 MB</span>
+                                </div>
+                            </div>
+                            <span class="download-item-version">v1.0</span>
+                        </div>
+                        <div class="download-item-desc">
+                            行测成语填空，真题高频成语解释pdf打印版和不带解释的pdf默写版。
+                        </div>
+                        <div class="download-item-actions">
+                            <button class="download-btn" data-url="enc:MAADESBOWksTR1FcXjIKBwcKWjQVGRs8ARdKGl1dHV8cVxVEVhgyQA8AMQ==" data-password="xingce_ziliao"><i class="fa fa-download"></i> 立即下载</button>
+                            <a href="https://mall.bilibili.com/neul-next/detailuniversal/detail.html?page=detailuniversal_detail&itemsId=40642800&loadingShow=1&noTitleBar=1#noReffer=true&msource=merchant_share" class="download-btn purchase"><i class="fa fa-shopping-cart"></i> 获取下载密钥</a>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="subcategory-section" id="subcat-xingce-xingce_yuyan">
+                    <h3 class="subcategory-title"><i class="fa fa-folder-o"></i> 言语理解</h3>
+                    
+                    <div class="download-item">
+                        <div class="download-item-header">
+                            <div class="download-item-info">
+                                <div class="download-item-title">言语理解技巧手册</div>
+                                <div class="download-item-meta">
+                                    <span><i class="fa fa-calendar"></i> 更新时间：2025-03-11</span>
+                                    <span><i class="fa fa-file"></i> 大小：8.5 MB</span>
+                                </div>
+                            </div>
+                            <span class="download-item-version">v2.0</span>
+                        </div>
+                        <div class="download-item-desc">
+                            言语理解解题技巧，包含选词填空、片段阅读、语句表达等题型。
+                        </div>
+                        <div class="download-item-actions">
+                            <button class="download-btn" data-url="#" data-password=""><i class="fa fa-download"></i> 立即下载</button>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="subcategory-section" id="subcat-xingce-xingce_shuli">
+                    <h3 class="subcategory-title"><i class="fa fa-folder-o"></i> 数量关系</h3>
+                    
+                    <div class="download-item">
+                        <div class="download-item-header">
+                            <div class="download-item-info">
+                                <div class="download-item-title">数量关系解题技巧</div>
+                                <div class="download-item-meta">
+                                    <span><i class="fa fa-calendar"></i> 更新时间：2025-03-08</span>
+                                    <span><i class="fa fa-file"></i> 大小：5.6 MB</span>
+                                </div>
+                            </div>
+                            <span class="download-item-version">v2.1</span>
+                        </div>
+                        <div class="download-item-desc">
+                            数量关系解题技巧与练习题，包含数学运算、数字推理等题型。
+                        </div>
+                        <div class="download-item-actions">
+                            <button class="download-btn" data-url="#" data-password=""><i class="fa fa-download"></i> 立即下载</button>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="subcategory-section" id="subcat-xingce-xingce_panduan">
+                    <h3 class="subcategory-title"><i class="fa fa-folder-o"></i> 判断推理</h3>
+                    
+                    <div class="download-item">
+                        <div class="download-item-header">
+                            <div class="download-item-info">
+                                <div class="download-item-title">判断推理专项训练</div>
+                                <div class="download-item-meta">
+                                    <span><i class="fa fa-calendar"></i> 更新时间：2025-03-05</span>
+                                    <span><i class="fa fa-file"></i> 大小：15.2 MB</span>
+                                </div>
+                            </div>
+                            <span class="download-item-version">v1.8</span>
+                        </div>
+                        <div class="download-item-desc">
+                            判断推理专项训练，包含图形推理、定义判断、类比推理、逻辑判断。
+                        </div>
+                        <div class="download-item-actions">
+                            <button class="download-btn" data-url="#" data-password=""><i class="fa fa-download"></i> 立即下载</button>
+                        </div>
+                    </div>
+
+                </div>
+
+                </div>
+
+
+                <div class="category-section" data-category="shenlun" data-top-category="gongkao">
+                    <h2 class="category-title"><i class="fa fa-edit"></i> 申论资料</h2>
+                    
+                <div class="subcategory-section" id="subcat-shenlun-shenlun_basic">
+                    <h3 class="subcategory-title"><i class="fa fa-folder-o"></i> 基础教程</h3>
+                    
+                    <div class="download-item">
+                        <div class="download-item-header">
+                            <div class="download-item-info">
+                                <div class="download-item-title">申论基础教程</div>
+                                <div class="download-item-meta">
+                                    <span><i class="fa fa-calendar"></i> 更新时间：2025-03-15</span>
+                                    <span><i class="fa fa-file"></i> 大小：45.2 MB</span>
+                                </div>
+                            </div>
+                            <span class="download-item-version">v2.1.0</span>
+                        </div>
+                        <div class="download-item-desc">
+                            申论基础教程，包含申论写作技巧、材料分析方法、答题规范等内容。
+                        </div>
+                        <div class="download-item-actions">
+                            <button class="download-btn" data-url="#" data-password="shenlun"><i class="fa fa-download"></i> 立即下载</button>
+                            <a href="#" class="download-btn purchase"><i class="fa fa-shopping-cart"></i> 暂未开通</a>
+                        </div>
+                    </div>
+
+
+                    <div class="download-item">
+                        <div class="download-item-header">
+                            <div class="download-item-info">
+                                <div class="download-item-title">申论写作规范</div>
+                                <div class="download-item-meta">
+                                    <span><i class="fa fa-calendar"></i> 更新时间：2025-03-10</span>
+                                    <span><i class="fa fa-file"></i> 大小：12.5 MB</span>
+                                </div>
+                            </div>
+                            <span class="download-item-version">v1.2.0</span>
+                        </div>
+                        <div class="download-item-desc">
+                            申论写作规范指南，包含格式要求、字数控制、段落结构等。
+                        </div>
+                        <div class="download-item-actions">
+                            <button class="download-btn" data-url="#" data-password="shenlun"><i class="fa fa-download"></i> 立即下载</button>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="subcategory-section" id="subcat-shenlun-shenlun_examples">
+                    <h3 class="subcategory-title"><i class="fa fa-folder-o"></i> 范文精选</h3>
+                    
+                    <div class="download-item">
+                        <div class="download-item-header">
+                            <div class="download-item-info">
+                                <div class="download-item-title">申论范文精选100篇</div>
+                                <div class="download-item-meta">
+                                    <span><i class="fa fa-calendar"></i> 更新时间：2025-03-10</span>
+                                    <span><i class="fa fa-file"></i> 大小：28.5 MB</span>
+                                </div>
+                            </div>
+                            <span class="download-item-version">v1.5.2</span>
+                        </div>
+                        <div class="download-item-desc">
+                            精选100篇申论范文，涵盖社会、经济、文化等多个领域，附带点评分析。
+                        </div>
+                        <div class="download-item-actions">
+                            <button class="download-btn" data-url="#" data-password=""><i class="fa fa-download"></i> 立即下载</button>
+                            <a href="#" class="download-btn purchase"><i class="fa fa-shopping-cart"></i> 暂未开通</a>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="subcategory-section" id="subcat-shenlun-shenlun_exam">
+                    <h3 class="subcategory-title"><i class="fa fa-folder-o"></i> 真题解析</h3>
+                    
+                    <div class="download-item">
+                        <div class="download-item-header">
+                            <div class="download-item-info">
+                                <div class="download-item-title">历年真题解析</div>
+                                <div class="download-item-meta">
+                                    <span><i class="fa fa-calendar"></i> 更新时间：2025-03-08</span>
+                                    <span><i class="fa fa-file"></i> 大小：68.3 MB</span>
+                                </div>
+                            </div>
+                            <span class="download-item-version">v3.0</span>
+                        </div>
+                        <div class="download-item-desc">
+                            近5年申论真题及详细解析，包含答题思路和评分标准。
+                        </div>
+                        <div class="download-item-actions">
+                            <button class="download-btn" data-url="#" data-password=""><i class="fa fa-download"></i> 立即下载</button>
+                        </div>
+                    </div>
+
+                </div>
+
+                </div>
+
+
+                <div class="category-section" data-category="media" data-top-category="media">
+                    <h2 class="category-title"><i class="fa fa-video-camera"></i> 多媒体资源</h2>
+                    
+                <div class="subcategory-section" id="subcat-media-media_video">
+                    <h3 class="subcategory-title"><i class="fa fa-folder-o"></i> 视频课程</h3>
+                    
+                    <div class="download-item">
+                        <div class="download-item-header">
+                            <div class="download-item-info">
+                                <div class="download-item-title">申论系统视频课程</div>
+                                <div class="download-item-meta">
+                                    <span><i class="fa fa-calendar"></i> 更新时间：2025-03-05</span>
+                                    <span><i class="fa fa-file"></i> 大小：2.3 GB</span>
+                                </div>
+                            </div>
+                            <span class="download-item-version">v1.0</span>
+                        </div>
+                        <div class="download-item-desc">
+                            申论系统视频课程，共30课时，每课时约45分钟，适合初学者。
+                        </div>
+                        <div class="download-item-actions">
+                            <button class="download-btn" data-url="#" data-password=""><i class="fa fa-download"></i> 立即下载</button>
+                            <a href="#" class="download-btn purchase"><i class="fa fa-shopping-cart"></i> 暂未开通</a>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="subcategory-section" id="subcat-media-media_audio">
+                    <h3 class="subcategory-title"><i class="fa fa-folder-o"></i> 音频资料</h3>
+                    
+                    <div class="download-item">
+                        <div class="download-item-header">
+                            <div class="download-item-info">
+                                <div class="download-item-title">行测刷题音频</div>
+                                <div class="download-item-meta">
+                                    <span><i class="fa fa-calendar"></i> 更新时间：2025-02-28</span>
+                                    <span><i class="fa fa-file"></i> 大小：156 MB</span>
+                                </div>
+                            </div>
+                            <span class="download-item-version">v1.2</span>
+                        </div>
+                        <div class="download-item-desc">
+                            行测刷题音频讲解，利用碎片时间学习，提升答题效率。
+                        </div>
+                        <div class="download-item-actions">
+                            <button class="download-btn" data-url="#" data-password=""><i class="fa fa-download"></i> 立即下载</button>
+                        </div>
+                    </div>
+
+                </div>
+
+                </div>
+
+            </div>
+        </main>
+
+        <footer class="note-footer">
+            <p>下载中心 | 智能笔记系统 &copy; 2026<span id="footerCountdown"></span></p>
+        </footer>
+    </div>
+
+    <div class="password-modal" id="passwordModal">
+        <div class="password-modal-content">
+            <h3 class="password-modal-title"><i class="fa fa-lock"></i> 请输入密码</h3>
+            <input type="text" class="password-input" id="passwordInput" maxlength="6" placeholder="请输入6位数字密码">
+            <div class="password-error" id="passwordError">密码错误，请重新输入</div>
+            <div class="password-modal-actions">
+                <button class="password-modal-btn cancel" id="cancelBtn">取消</button>
+                <button class="password-modal-btn confirm" id="confirmBtn">确认下载</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const themeBtn = document.getElementById('themeBtn');
+        const body = document.body;
+        
+        if (localStorage.getItem('darkMode') === 'false') {
+            body.classList.remove('dark-mode');
+            themeBtn.innerHTML = '<i class="fa fa-moon-o"></i>';
+        }
+        
+        themeBtn.addEventListener('click', function() {
+            body.classList.toggle('dark-mode');
+            const isDark = body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isDark);
+            themeBtn.innerHTML = isDark ? '<i class="fa fa-sun-o"></i>' : '<i class="fa fa-moon-o"></i>';
+        });
+
+        document.querySelectorAll('.top-category-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.top-category-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                const topCategoryId = this.dataset.topCategory;
+                
+                document.querySelectorAll('.category-tab').forEach(tab => {
+                    if (tab.dataset.topCategory === topCategoryId) {
+                        tab.style.display = 'block';
+                    } else {
+                        tab.style.display = 'none';
+                        tab.classList.remove('active');
+                    }
+                });
+                
+                const firstTab = document.querySelector('.category-tab[data-top-category="' + topCategoryId + '"]');
+                if (firstTab) {
+                    firstTab.classList.add('active');
+                    const firstCategory = firstTab.dataset.category;
+                    
+                    document.querySelectorAll('.category-section').forEach(section => {
+                        if (section.dataset.category === firstCategory) {
+                            section.style.display = 'block';
+                        } else {
+                            section.style.display = 'none';
+                        }
+                    });
+                    
+                    document.querySelectorAll('.subcategory-nav').forEach(nav => {
+                        if (nav.dataset.category === firstCategory) {
+                            nav.style.display = 'flex';
+                        } else {
+                            nav.style.display = 'none';
+                        }
+                    });
+                }
+            });
+        });
+
+        document.querySelectorAll('.category-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                
+                const category = this.dataset.category;
+                const sections = document.querySelectorAll('.category-section');
+                const navs = document.querySelectorAll('.subcategory-nav');
+                
+                sections.forEach(section => {
+                    if (section.dataset.category === category) {
+                        section.style.display = 'block';
+                    } else {
+                        section.style.display = 'none';
+                    }
+                });
+                
+                navs.forEach(nav => {
+                    if (nav.dataset.category === category) {
+                        nav.style.display = 'flex';
+                    } else {
+                        nav.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        document.querySelectorAll('.category-section').forEach(section => {
+            if (section.dataset.category === 'xingce') {
+                section.style.display = 'block';
+            } else {
+                section.style.display = 'none';
+            }
+        });
+        
+        document.querySelectorAll('.subcategory-nav').forEach(nav => {
+            if (nav.dataset.category === 'xingce') {
+                nav.style.display = 'flex';
+            } else {
+                nav.style.display = 'none';
+            }
+        });
+        
+        document.querySelectorAll('.category-tab').forEach(tab => {
+            if (tab.dataset.topCategory === 'gongkao') {
+                tab.style.display = 'block';
+            } else {
+                tab.style.display = 'none';
+            }
+        });
+
+        let currentDownloadUrl = '';
+        let passwordConfig = {};
+        let currentPasswordPageId = '';
+        
+        const passwordModal = document.getElementById('passwordModal');
+        const passwordInput = document.getElementById('passwordInput');
+        const passwordError = document.getElementById('passwordError');
+        const confirmBtn = document.getElementById('confirmBtn');
+        const cancelBtn = document.getElementById('cancelBtn');
+        
+        const SECRET_KEY = "XtwaStudy2026Secret";
+        
+        function xorDecrypt(data, key) {
+            let result = '';
+            for (let i = 0; i < data.length; i++) {
+                result += String.fromCharCode(data.charCodeAt(i) ^ key.charCodeAt(i % key.length));
+            }
+            return result;
+        }
+        
+        function decodeUrl(encoded) {
+            if (!encoded || encoded === '#') return encoded;
+            if (encoded.startsWith('enc:')) {
+                try {
+                    const base64Decoded = atob(encoded.substring(4));
+                    return xorDecrypt(base64Decoded, SECRET_KEY);
+                } catch (e) {
+                    return encoded;
+                }
+            }
+            return encoded;
+        }
+        
+        async function loadPasswordConfig() {
+            try {
+                const response = await fetch('./config/password_config.json?t=' + Date.now());
+                const config = await response.json();
+                passwordConfig = config.password_pages || {};
+            } catch (error) {
+                console.error('Failed to load password config:', error);
+            }
+        }
+        
+        loadPasswordConfig();
+        
+        function getPasswordForPage(pageId) {
+            if (passwordConfig[pageId]) {
+                return passwordConfig[pageId].current_number || '';
+            }
+            if (passwordConfig['default']) {
+                return passwordConfig['default'].current_number || '';
+            }
+            return '';
+        }
+        
+        function getPasswordPageName(pageId) {
+            if (passwordConfig[pageId]) {
+                return passwordConfig[pageId].name || '密码页面';
+            }
+            if (passwordConfig['default']) {
+                return passwordConfig['default'].name || '默认密码';
+            }
+            return '密码页面';
+        }
+        
+        document.querySelectorAll('.download-btn[data-url]').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                currentDownloadUrl = this.dataset.url;
+                const passwordPageId = this.dataset.password || '';
+                
+                if (passwordPageId && passwordPageId !== 'false') {
+                    currentPasswordPageId = passwordPageId;
+                    const subcategorySection = this.closest('.subcategory-section');
+                    let subcategoryName = '密码';
+                    if (subcategorySection) {
+                        const subcategoryTitle = subcategorySection.querySelector('.subcategory-title');
+                        if (subcategoryTitle) {
+                            subcategoryName = subcategoryTitle.textContent.trim();
+                        }
+                    }
+                    document.querySelector('.password-modal-title').innerHTML = `<i class="fa fa-folder-o"></i> 请输入${subcategoryName}密码`;
+                    passwordModal.classList.add('show');
+                    passwordInput.value = '';
+                    passwordError.classList.remove('show');
+                    passwordInput.classList.remove('error');
+                    passwordInput.focus();
+                } else {
+                    const decodedUrl = decodeUrl(currentDownloadUrl);
+                    if (decodedUrl && decodedUrl !== '#') {
+                        window.open(decodedUrl, '_blank');
+                    } else {
+                        alert('下载链接未配置');
+                    }
+                }
+            });
+        });
+        
+        cancelBtn.addEventListener('click', function() {
+            passwordModal.classList.remove('show');
+            currentDownloadUrl = '';
+        });
+        
+        passwordModal.addEventListener('click', function(e) {
+            if (e.target === passwordModal) {
+                passwordModal.classList.remove('show');
+                currentDownloadUrl = '';
+            }
+        });
+        
+        function verifyPassword(input, pageId) {
+            const correctPassword = getPasswordForPage(pageId);
+            return input === correctPassword;
+        }
+        
+        confirmBtn.addEventListener('click', function() {
+            const inputPassword = passwordInput.value.trim();
+            
+            if (verifyPassword(inputPassword, currentPasswordPageId)) {
+                passwordModal.classList.remove('show');
+                const decodedUrl = decodeUrl(currentDownloadUrl);
+                if (decodedUrl && decodedUrl !== '#') {
+                    window.open(decodedUrl, '_blank');
+                } else {
+                    alert('下载链接未配置');
+                }
+            } else {
+                passwordError.classList.add('show');
+                passwordInput.classList.add('error');
+                setTimeout(() => {
+                    passwordInput.classList.remove('error');
+                }, 300);
+            }
+        });
+        
+        passwordInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                confirmBtn.click();
+            }
+        });
+        
+        passwordInput.addEventListener('input', function() {
+            passwordError.classList.remove('show');
+        });
+    </script>
+    <script src="./js/countdown.js"></script>
+</body>
+</html>
