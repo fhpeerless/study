@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub 密钥配置指南 — 从零开始</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.4.21/vue.global.prod.min.js" onerror="loadFallback()"></script>
+    <script>
+        function loadFallback() {
+            var s = document.createElement('script');
+            s.src = 'https://cdn.staticfile.org/vue/3.4.21/vue.global.prod.min.js';
+            s.onerror = function() {
+                document.body.innerHTML = '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;text-align:center;padding:20px;"><h2 style="color:#e74c3c;">Vue CDN 加载失败</h2><p style="color:#666;margin-top:10px;">请检查网络连接，或用 Chrome 打开此文件</p></div>';
+            };
+            document.head.appendChild(s);
+        }
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #f5f7fa; --card-bg: #ffffff; --text: #2c3e50; --text-secondary: #6c7a89;
+            --primary: #3498db; --primary-dark: #2980b9; --accent: #e74c3c; --success: #27ae60;
+            --warning: #f39c12; --border: #e0e6ed; --code-bg: #1e2a3a; --code-text: #e8e8e8;
+            --shadow: 0 2px 12px rgba(0,0,0,0.08); --radius: 10px;
+        }
+        body.dark { --bg: #1a1d23; --card-bg: #252830; --text: #e0e6ed; --text-secondary: #9ba3af; --border: #3a3f4b; --shadow: 0 2px 12px rgba(0,0,0,0.3); }
+        body { font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); transition: background .3s, color .3s; line-height: 1.7; }
+
+        .header { position: fixed; top: 0; left: 0; right: 0; height: 60px; background: var(--card-bg); box-shadow: var(--shadow); display: flex; align-items: center; justify-content: space-between; padding: 0 24px; z-index: 100; transition: background .3s; }
+        .header-title { font-size: 18px; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 8px; }
+        .header-actions { display: flex; gap: 12px; align-items: center; }
+        .theme-btn { background: none; border: 1px solid var(--border); border-radius: 50%; width: 38px; height: 38px; cursor: pointer; font-size: 18px; color: var(--text); transition: all .3s; display: flex; align-items: center; justify-content: center; }
+        .theme-btn:hover { border-color: var(--primary); color: var(--primary); }
+        .sidebar { position: fixed; top: 60px; left: 0; bottom: 0; width: 260px; background: var(--card-bg); border-right: 1px solid var(--border); overflow-y: auto; padding: 16px 0; transition: background .3s, border .3s; z-index: 50; }
+        .sidebar::-webkit-scrollbar { width: 5px; }
+        .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 5px; }
+        .nav-item { display: flex; align-items: center; gap: 10px; padding: 12px 20px; cursor: pointer; color: var(--text-secondary); font-size: 14px; transition: all .2s; border-left: 3px solid transparent; }
+        .nav-item:hover { background: var(--bg); color: var(--primary); }
+        .nav-item.active { color: var(--primary); border-left-color: var(--primary); background: var(--bg); font-weight: 600; }
+        .nav-icon { font-size: 18px; width: 24px; text-align: center; }
+        .main { margin-left: 260px; margin-top: 60px; padding: 32px 40px; max-width: 900px; }
+        .section { margin-bottom: 48px; }
+        .section-title { font-size: 24px; font-weight: 700; margin-bottom: 20px; color: var(--primary); display: flex; align-items: center; gap: 10px; }
+        .section-title .num { background: var(--primary); color: #fff; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+        .card { background: var(--card-bg); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); margin-bottom: 20px; transition: background .3s; }
+        .card h3 { font-size: 17px; margin-bottom: 12px; color: var(--text); }
+        .card p { margin-bottom: 10px; color: var(--text-secondary); }
+        .code-block { background: var(--code-bg); border-radius: 8px; margin: 12px 0; overflow: hidden; }
+        .code-header { background: rgba(0,0,0,0.3); padding: 8px 16px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: #888; }
+        .copy-btn { background: none; border: none; color: #888; cursor: pointer; font-size: 12px; padding: 4px 8px; border-radius: 4px; transition: all .2s; }
+        .copy-btn:hover { background: rgba(255,255,255,0.1); color: #fff; }
+        .copy-btn.copied { color: var(--success); }
+        .code-content { padding: 14px 16px; overflow-x: auto; }
+        .code-content pre { color: var(--code-text); font-family: 'Consolas', 'Courier New', monospace; font-size: 14px; white-space: pre-wrap; word-break: break-all; }
+        .code-content pre .comment { color: #6a9955; }
+        .code-content pre .cmd { color: #569cd6; }
+        .code-content pre .flag { color: #ce9178; }
+        .code-content pre .str { color: #ce9178; }
+        .code-content pre .var { color: #4ec9b0; }
+        .tip { border-left: 4px solid var(--warning); background: rgba(243,156,18,0.08); padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 14px 0; }
+        .tip-warn { border-left-color: var(--accent); background: rgba(231,76,60,0.08); }
+        .tip-success { border-left-color: var(--success); background: rgba(39,174,96,0.08); }
+        .tip-title { font-weight: 700; margin-bottom: 6px; font-size: 14px; }
+        .table-wrap { overflow-x: auto; margin: 14px 0; }
+        table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        th { background: var(--primary); color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; }
+        td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--text-secondary); }
+        tr:hover td { background: var(--bg); }
+        .badge { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; }
+        .badge-blue { background: rgba(52,152,219,0.15); color: var(--primary); }
+        .badge-green { background: rgba(39,174,96,0.15); color: var(--success); }
+        .badge-red { background: rgba(231,76,60,0.15); color: var(--accent); }
+        .badge-orange { background: rgba(243,156,18,0.15); color: var(--warning); }
+        .step-list { counter-reset: step; margin: 16px 0; }
+        .step-item { position: relative; padding-left: 44px; margin-bottom: 20px; min-height: 32px; }
+        .step-item::before { counter-increment: step; content: counter(step); position: absolute; left: 0; top: 0; width: 32px; height: 32px; background: var(--primary); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; }
+        .step-item h4 { font-size: 15px; margin-bottom: 6px; color: var(--text); }
+        .menu-toggle { display: none; }
+        @media (max-width: 768px) {
+            .sidebar { transform: translateX(-100%); transition: transform .3s; }
+            .sidebar.open { transform: translateX(0); }
+            .main { margin-left: 0; padding: 20px 16px; }
+            .menu-toggle { display: flex; }
+        }
+        .menu-toggle { background: none; border: 1px solid var(--border); border-radius: 8px; width: 38px; height: 38px; cursor: pointer; align-items: center; justify-content: center; color: var(--text); font-size: 18px; }
+        .flow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 20px 0; }
+        .flow-step { background: var(--primary); color: #fff; padding: 10px 20px; border-radius: 8px; font-size: 14px; font-weight: 600; text-align: center; }
+        .flow-step.alt { background: var(--success); }
+        .flow-arrow { color: var(--text-secondary); font-size: 20px; }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="header">
+        <div style="display:flex;align-items:center;gap:12px;">
+            <button class="menu-toggle" @click="sidebarOpen = !sidebarOpen">☰</button>
+            <div class="header-title"><span>🔑</span><span>GitHub 密钥配置指南</span></div>
+        </div>
+        <div class="header-actions">
+            <button class="theme-btn" @click="toggleTheme">{{ isDark ? '☀️' : '🌙' }}</button>
+        </div>
+    </div>
+
+    <div class="sidebar" :class="{ open: sidebarOpen }">
+        <div v-for="(item, i) in nav" :key="i" class="nav-item" :class="{ active: activeSection === i }" @click="scrollTo(i)">
+            <span class="nav-icon">{{ item.icon }}</span>
+            <span>{{ item.title }}</span>
+        </div>
+    </div>
+
+    <div class="main" @click="sidebarOpen = false">
+        <!-- 1. 为什么需要密钥 -->
+        <div class="section" :id="'sec-0'">
+            <div class="section-title"><span class="num">1</span> 为什么需要配置密钥？</div>
+            <div class="card">
+                <p><strong>2021 年 8 月起，GitHub 不再支持密码推送。</strong> 必须使用以下方式之一认证身份：</p>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>认证方式</th><th>特点</th><th>适合场景</th></tr></thead>
+                        <tbody>
+                            <tr><td><span class="badge badge-blue">Token</span> Personal Access Token</td><td>用 token 代替密码，有过期时间</td><td>HTTPS 方式推送</td></tr>
+                            <tr><td><span class="badge badge-green">SSH</span> SSH 密钥</td><td>配置一次后免密推送</td><td>SSH 方式推送（推荐）</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tip tip-warn">
+                    <div class="tip-title">⚠️ 如果不配置</div>
+                    <p>git push 时会提示输入用户名和密码，但输入 GitHub 账号密码会报错：<code style="background:var(--bg);padding:2px 6px;border-radius:4px;">Authentication failed</code></p>
+                </div>
+            </div>
+            <div class="card">
+                <h3>两种方式对比</h3>
+                <div class="flow" style="justify-content:center;">
+                    <div class="flow-step">HTTPS + Token</div>
+                    <span class="flow-arrow">vs</span>
+                    <div class="flow-step alt">SSH 密钥</div>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>对比项</th><th>HTTPS + Token</th><th>SSH 密钥</th></tr></thead>
+                        <tbody>
+                            <tr><td>远程地址格式</td><td>https://github.com/...</td><td>git@github.com:...</td></tr>
+                            <tr><td>需要输入密码</td><td>首次需要（可缓存）</td><td>完全免密</td></tr>
+                            <tr><td>配置复杂度</td><td>简单</td><td>稍复杂（一次配置）</td></tr>
+                            <tr><td>安全性</td><td>token 有过期时间</td><td>密钥不过期</td></tr>
+                            <tr><td>推荐度</td><td>⭐⭐⭐</td><td>⭐⭐⭐⭐⭐</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. 方式一：Token -->
+        <div class="section" :id="'sec-1'">
+            <div class="section-title"><span class="num">2</span> 方式一：配置 Personal Access Token</div>
+            <div class="card">
+                <h3>第步：在 GitHub 上生成 Token</h3>
+                <div class="step-list">
+                    <div class="step-item">
+                        <h4>登录 GitHub → 进入 Settings</h4>
+                        <p>点击右上角头像 → <strong>Settings</strong></p>
+                    </div>
+                    <div class="step-item">
+                        <h4>进入 Developer settings</h4>
+                        <p>左侧菜单最底部 → <strong>Developer settings</strong></p>
+                    </div>
+                    <div class="step-item">
+                        <h4>选择 Tokens (classic)</h4>
+                        <p>左侧菜单 → <strong>Personal access tokens</strong> → <strong>Tokens (classic)</strong></p>
+                    </div>
+                    <div class="step-item">
+                        <h4>点击 Generate new token (classic)</h4>
+                        <p>填写 Note（备注名，如 "我的电脑"）→ 选择 Expiration（过期时间，建议 90 天或 No expiration）</p>
+                    </div>
+                    <div class="step-item">
+                        <h4>勾选权限范围</h4>
+                        <p>勾选 <strong>repo</strong>（完整仓库访问）→ 这是最重要的权限</p>
+                        <div class="tip tip-warn"><div class="tip-title">⚠️ 注意</div><p>如果不勾选 repo，将无法 push 代码！</p></div>
+                    </div>
+                    <div class="step-item">
+                        <h4>点击 Generate token → 立即复制</h4>
+                        <p>Token 只显示一次，务必立即复制保存！页面关闭后无法再看到。</p>
+                        <div class="tip tip-warn"><div class="tip-title">⚠️ 重要</div><p>Token 类似密码，不要泄露给他人，不要提交到 Git 仓库！</p></div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <h3>第步：使用 Token 推送</h3>
+                <p>方法 A：推送时输入（首次会提示）</p>
+                <div class="code-block">
+                    <div class="code-header"><span>首次推送</span><button class="copy-btn" :class="{ copied: copiedIdx === 'push-token' }" @click="copyCode('push-token')">{{ copiedIdx === 'push-token' ? '✓ 已复制' : '复制' }}</button></div>
+                    <div class="code-content"><pre><span class="comment"># 推送时会提示输入</span>
+<span class="cmd">git</span> push
+<span class="comment"># Username: 输入你的 GitHub 用户名</span>
+<span class="comment"># Password: 粘贴刚才复制的 Token（不是账号密码！）</span></pre></div>
+                </div>
+                <p>方法 B：把 Token 嵌入远程 URL（方便但要注意安全）</p>
+                <div class="code-block">
+                    <div class="code-header"><span>Token 嵌入 URL</span><button class="copy-btn" :class="{ copied: copiedIdx === 'embed-token' }" @click="copyCode('embed-token')">{{ copiedIdx === 'embed-token' ? '✓ 已复制' : '复制' }}</button></div>
+                    <div class="code-content"><pre><span class="comment"># 格式：https://git:TOKEN@github.com/用户名/仓库名.git</span>
+<span class="cmd">git</span> remote set-url origin https://git:<span class="var">你的Token</span>@github.com/<span class="var">用户名</span>/<span class="var">仓库名</span>.git
+
+<span class="comment"># 之后 git push 就不需要再输密码了</span>
+<span class="cmd">git</span> push</pre></div>
+                </div>
+                <p>方法 C：缓存凭据（推荐，安全且方便）</p>
+                <div class="code-block">
+                    <div class="code-header"><span>缓存 Token</span><button class="copy-btn" :class="{ copied: copiedIdx === 'cache-token' }" @click="copyCode('cache-token')">{{ copiedIdx === 'cache-token' ? '✓ 已复制' : '复制' }}</button></div>
+                    <div class="code-content"><pre><span class="comment"># Windows 缓存（永久保存，除非手动清除）</span>
+<span class="cmd">git</span> config <span class="flag">--global</span> credential.helper manager
+
+<span class="comment"># 或临时保存 1 小时</span>
+<span class="cmd">git</span> config <span class="flag">--global</span> credential.helper <span class="str">"cache --timeout=3600"</span>
+
+<span class="comment"># 首次 push 输入用户名和 Token 后，之后自动填充</span></pre></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. 方式二：SSH -->
+        <div class="section" :id="'sec-2'">
+            <div class="section-title"><span class="num">3</span> 方式二：配置 SSH 密钥（推荐）</div>
+            <div class="card">
+                <h3>第步：检查是否已有 SSH 密钥</h3>
+                <div class="code-block">
+                    <div class="code-header"><span>检查现有密钥</span><button class="copy-btn" :class="{ copied: copiedIdx === 'check-ssh' }" @click="copyCode('check-ssh')">{{ copiedIdx === 'check-ssh' ? '✓ 已复制' : '复制' }}</button></div>
+                    <div class="code-content"><pre><span class="comment"># 检查是否有现有密钥文件</span>
+ls ~/.ssh
+
+<span class="comment"># 如果显示 id_ed25519 和 id_ed25519.pub 说明已有密钥</span>
+<span class="comment"># 如果显示 "No such file" 说明需要生成新密钥</span></pre></div>
+                </div>
+            </div>
+            <div class="card">
+                <h3>第步：生成 SSH 密钥</h3>
+                <div class="code-block">
+                    <div class="code-header"><span>生成密钥（推荐 ed25519）</span><button class="copy-btn" :class="{ copied: copiedIdx === 'gen-ssh' }" @click="copyCode('gen-ssh')">{{ copiedIdx === 'gen-ssh' ? '✓ 已复制' : '复制' }}</button></div>
+                    <div class="code-content"><pre><span class="comment"># 生成 ed25519 类型密钥（推荐，更安全更快）</span>
+<span class="cmd">ssh-keygen</span> <span class="flag">-t</span> ed25519 <span class="flag">-C</span> <span class="str">"你的邮箱@example.com"</span>
+
+<span class="comment"># 一路回车即可（默认路径、空密码）</span>
+<span class="comment"># 出现提示时：</span>
+<span class="comment"># Enter file in which to save key: 直接回车（默认路径）</span>
+<span class="comment"># Enter passphrase: 直接回车（不设密码，方便日常使用）</span>
+<span class="comment"># Enter same passphrase again: 直接回车</span></pre></div>
+                </div>
+                <div class="tip">
+                    <div class="tip-title">💡 老系统不支持 ed25519？</div>
+                    <p>用 RSA 替代：<code style="background:var(--bg);padding:2px 6px;border-radius:4px;">ssh-keygen -t rsa -b 4096 -C "邮箱"</code></p>
+                </div>
+            </div>
+            <div class="card">
+                <h3>第步：启动 SSH 代理并添加密钥</h3>
+                <div class="code-block">
+                    <div class="code-header"><span>启动 ssh-agent</span><button class="copy-btn" :class="{ copied: copiedIdx === 'ssh-agent' }" @click="copyCode('ssh-agent')">{{ copiedIdx === 'ssh-agent' ? '✓ 已复制' : '复制' }}</button></div>
+                    <div class="code-content"><pre><span class="comment"># 启动 SSH 代理</span>
+<span class="cmd">eval</span> <span class="str">"$(ssh-agent -s)"</span>
+
+<span class="comment"># 将私钥添加到代理</span>
+<span class="cmd">ssh-add</span> ~/.ssh/id_ed25519</pre></div>
+                </div>
+            </div>
+            <div class="card">
+                <h3>第步：复制公钥</h3>
+                <div class="code-block">
+                    <div class="code-header"><span>查看并复制公钥</span><button class="copy-btn" :class="{ copied: copiedIdx === 'copy-pub' }" @click="copyCode('copy-pub')">{{ copiedIdx === 'copy-pub' ? '✓ 已复制' : '复制' }}</button></div>
+                    <div class="code-content"><pre><span class="comment"># 显示公钥内容，全部复制</span>
+<span class="cmd">cat</span> ~/.ssh/id_ed25519.pub
+
+<span class="comment"># Windows 也可用 clip 命令直接复制到剪贴板</span>
+<span class="cmd">cat</span> ~/.ssh/id_ed25519.pub | clip
+
+<span class="comment"># 公钥内容类似：</span>
+<span class="comment"># ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAI... 你的邮箱@example.com</span></pre></div>
+                </div>
+                <div class="tip tip-warn">
+                    <div class="tip-title">⚠️ 注意区分</div>
+                    <p><strong>私钥</strong> (id_ed25519)：绝对不能分享，留在本地</p>
+                    <p><strong>公钥</strong> (id_ed25519.pub)：需要添加到 GitHub</p>
+                </div>
+            </div>
+            <div class="card">
+                <h3>第步：将公钥添加到 GitHub</h3>
+                <div class="step-list">
+                    <div class="step-item">
+                        <h4>登录 GitHub → Settings</h4>
+                        <p>点击右上角头像 → <strong>Settings</strong></p>
+                    </div>
+                    <div class="step-item">
+                        <h4>进入 SSH and GPG keys</h4>
+                        <p>左侧菜单 → <strong>SSH and GPG keys</strong></p>
+                    </div>
+                    <div class="step-item">
+                        <h4>点击 New SSH key</h4>
+                        <p>右上角绿色按钮 → <strong>New SSH key</strong></p>
+                    </div>
+                    <div class="step-item">
+                        <h4>填写信息</h4>
+                        <p><strong>Title</strong>：备注名（如 "我的电脑"）</p>
+                        <p><strong>Key type</strong>：Authentication Key</p>
+                        <p><strong>Key</strong>：粘贴刚才复制的公钥内容</p>
+                    </div>
+                    <div class="step-item">
+                        <h4>点击 Add SSH key</h4>
+                        <p>可能需要输入 GitHub 密码确认</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <h3>第步：测试 SSH 连接</h3>
+                <div class="code-block">
+                    <div class="code-header"><span>测试连接</span><button class="copy-btn" :class="{ copied: copiedIdx === 'test-ssh' }" @click="copyCode('test-ssh')">{{ copiedIdx === 'test-ssh' ? '✓ 已复制' : '复制' }}</button></div>
+                    <div class="code-content"><pre><span class="comment"># 测试 SSH 连接 GitHub</span>
+<span class="cmd">ssh</span> <span class="flag">-T</span> git@github.com
+
+<span class="comment"># 第一次会提示是否信任，输入 yes 回车</span>
+<span class="comment"># 成功后会显示：</span>
+<span class="comment"># Hi 用户名! You've successfully authenticated, but GitHub does not provide shell access.</span></pre></div>
+                </div>
+                <div class="tip tip-success">
+                    <div class="tip-title">✅ 成功标志</div>
+                    <p>看到 "Hi 用户名! You've successfully authenticated" 就说明 SSH 配置成功！</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. 关联远程仓库 -->
+        <div class="section" :id="'sec-3'">
+            <div class="section-title"><span class="num">4</span> 关联远程仓库</div>
+            <div class="card">
+                <h3>根据认证方式选择远程地址</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>认证方式</th><th>远程地址格式</th></tr></thead>
+                        <tbody>
+                            <tr><td><span class="badge badge-blue">HTTPS + Token</span></td><td>https://github.com/用户名/仓库名.git</td></tr>
+                            <tr><td><span class="badge badge-green">SSH 密钥</span></td><td>git@github.com:用户名/仓库名.git</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card">
+                <h3>场景 A：新项目首次关联远程</h3>
+                <div class="code-block">
+                    <div class="code-header"><span>本地已有项目 → 关联远程</span><button class="copy-btn" :class="{ copied: copiedIdx === 'new-repo' }" @click="copyCode('new-repo')">{{ copiedIdx === 'new-repo' ? '✓ 已复制' : '复制' }}</button></div>
+                    <div class="code-content"><pre><span class="comment"># 1. 进入项目目录，初始化 Git</span>
+<span class="cmd">cd</span> my-project
+<span class="cmd">git</span> init
+
+<span class="comment"># 2. 添加文件并首次提交</span>
+<span class="cmd">git</span> add .
+<span class="cmd">git</span> commit <span class="flag">-m</span> <span class="str">"初始提交"</span>
+
+<span class="comment"># 3. 关联远程仓库（二选一）</span>
+<span class="comment"># SSH 方式（推荐）</span>
+<span class="cmd">git</span> remote add origin git@github.com:<span class="var">用户名</span>/<span class="var">仓库名</span>.git
+<span class="comment"># 或 HTTPS 方式</span>
+<span class="cmd">git</span> remote add origin https://github.com/<span class="var">用户名</span>/<span class="var">仓库名</span>.git
+
+<span class="comment"># 4. 首次推送（-u 设置上游关联）</span>
+<span class="cmd">git</span> push <span class="flag">-u</span> origin main</pre></div>
+                </div>
+            </div>
+            <div class="card">
+                <h3>场景 B：克隆已有项目</h3>
+                <div class="code-block">
+                    <div class="code-header"><span>从远程克隆到本地</span><button class="copy-btn" :class="{ copied: copiedIdx === 'clone-repo' }" @click="copyCode('clone-repo')">{{ copiedIdx === 'clone-repo' ? '✓ 已复制' : '复制' }}</button></div>
+                    <div class="code-content"><pre><span class="comment"># SSH 方式（推荐，配置好密钥后免密）</span>
+<span class="cmd">git</span> clone git@github.com:<span class="var">用户名</span>/<span class="var">仓库名</span>.git
+
+<span class="comment"># 或 HTTPS 方式</span>
+<span class="cmd">git</span> clone https://github.com/<span class="var">用户名</span>/<span class="var">仓库名</span>.git
+
+<span class="comment"># 克隆后自动关联远程，直接 git push 即可</span></pre></div>
+                </div>
+            </div>
+            <div class="card">
+                <h3>场景 C：切换认证方式</h3>
+                <div class="code-block">
+                    <div class="code-header"><span>从 HTTPS 切换到 SSH（或反过来）</span><button class="copy-btn" :class="{ copied: copiedIdx === 'switch-remote' }" @click="copyCode('switch-remote')">{{ copiedIdx === 'switch-remote' ? '✓ 已复制' : '复制' }}</button></div>
+                    <div class="code-content"><pre><span class="comment"># 查看当前远程地址</span>
+<span class="cmd">git</span> remote <span class="flag">-v</span>
+
+<span class="comment"># 切换到 SSH 方式</span>
+<span class="cmd">git</span> remote set-url origin git@github.com:<span class="var">用户名</span>/<span class="var">仓库名</span>.git
+
+<span class="comment"># 切换到 HTTPS 方式</span>
+<span class="cmd">git</span> remote set-url origin https://github.com/<span class="var">用户名</span>/<span class="var">仓库名</span>.git</pre></div>
+                </div>
+            </div>
+            <div class="card">
+                <h3>场景 D：本地空目录 + 远程有文件 + Token 认证（重点）</h3>
+                <p>这是最常见的场景：本地文件夹是空的，GitHub 仓库已有内容，已有 Token，想绑定后正常使用 git add / commit / push。</p>
+                <div class="tip tip-warn">
+                    <div class="tip-title">⚠️ 关键点</div>
+                    <p>本地空目录直接 git init 后关联远程还不够——必须先 <strong>pull</strong> 拉取远程文件到本地，否则本地没有远程的历史记录，push 时会冲突！</p>
+                </div>
+                <h3 style="margin-top:20px;">三个层次的理解：init / remote add / pull 各做什么？</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>操作</th><th>作用</th><th>比喻</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>git init</code></td><td>把当前目录变成 Git 仓库（创建 .git 文件夹）</td><td>开了一家店</td></tr>
+                            <tr><td><code>git remote add origin URL</code></td><td>记录远程地址（保存在 .git/config 里），只是"通讯录"记录</td><td>记下总部的地址</td></tr>
+                            <tr><td><code>git pull</code> / <code>git push -u</code></td><td>真正拉取数据 / 建立分支关联</td><td>和总部对接上业务</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tip">
+                    <div class="tip-title">💡 所以完整的"绑定"需要三步</div>
+                    <p>1. <code style="background:var(--bg);padding:2px 6px;border-radius:4px;">git init</code> — 当前目录变成 Git 仓库</p>
+                    <p>2. <code style="background:var(--bg);padding:2px 6px;border-radius:4px;">git remote add origin URL</code> — 记录远程地址（只是个"通讯录"）</p>
+                    <p>3. <code style="background:var(--bg);padding:2px 6px;border-radius:4px;">git pull origin main</code> — 真正从远程拉取数据，建立关联</p>
+                </div>
+                <div class="tip tip-warn">
+                    <div class="tip-title">⚠️ 如果不执行 git init 直接 git remote add</div>
+                    <p>会报错 <code style="background:var(--bg);padding:2px 6px;border-radius:4px;">fatal: not a git repository</code> —— 因为还没有 .git 文件夹，Git 不知道往哪里保存这个远程地址。</p>
+                </div>
+                <div class="code-block">
+                    <div class="code-header"><span>完整操作流程</span><button class="copy-btn" :class="{ copied: copiedIdx === 'empty-local' }" @click="copyCode('empty-local')">{{ copiedIdx === 'empty-local' ? '✓ 已复制' : '复制' }}</button></div>
+                    <div class="code-content"><pre><span class="comment"># ====== 第步：进入空目录，初始化 Git ======</span>
+<span class="cmd">cd</span> E:\项目路径\my-project
+<span class="cmd">git</span> init <span class="comment"># 把当前目录变成 Git 仓库（创建 .git 文件夹）</span>
+
+<span class="comment"># ====== 第步：用 Token 关联远程仓库 ======</span>
+<span class="comment"># 格式：https://git:TOKEN@github.com/用户名/仓库名.git</span>
+<span class="comment"># 把 你的Token、用户名、仓库名 替换成实际值</span>
+<span class="cmd">git</span> remote add origin https://git:<span class="var">你的Token</span>@github.com/<span class="var">用户名</span>/<span class="var">仓库名</span>.git
+
+<span class="comment"># ====== 第步：拉取远程文件到本地 ======</span>
+<span class="comment"># 这一步会把远程仓库的所有文件下载到本地目录</span>
+<span class="cmd">git</span> pull origin main
+
+<span class="comment"># 如果远程分支是 master，用：git pull origin master</span>
+<span class="comment"># 如果报错 refusing to merge unrelated histories，加参数：</span>
+<span class="comment"># git pull origin main --allow-unrelated-histories</span>
+
+<span class="comment"># ====== 第步：设置上游关联（以后直接 git push 即可）======</span>
+<span class="cmd">git</span> branch <span class="flag">--set-upstream-to</span>=origin/main main
+<span class="comment"># 如果本地分支是 master：</span>
+<span class="comment"># git branch --set-upstream-to=origin/master master</span>
+
+<span class="comment"># ====== 第步：验证绑定成功 ======</span>
+<span class="cmd">git</span> remote <span class="flag">-v</span>     <span class="comment"># 查看远程地址</span>
+<span class="cmd">git</span> status      <span class="comment"># 应显示 On branch main, up to date</span>
+<span class="cmd">ls</span>              <span class="comment"># 应能看到远程仓库的文件</span>
+
+<span class="comment"># ====== 现在可以正常使用 git 操作了！ ======</span>
+<span class="comment"># 修改文件后：</span>
+<span class="cmd">git</span> add .       <span class="comment"># 添加修改到暂存区（现在生效了！）</span>
+<span class="cmd">git</span> commit <span class="flag">-m</span> <span class="str">"你的提交说明"</span>
+<span class="cmd">git</span> push        <span class="comment"># 推送到远程</span></pre></div>
+                </div>
+            </div>
+            <div class="card">
+                <h3>场景 D 补充：不想暴露 Token 在 remote URL 中？</h3>
+                <p>用普通 HTTPS 地址关联，配合凭据缓存，Token 会安全存储：</p>
+                <div class="code-block">
+                    <div class="code-header"><span>安全方式（Token 不留在 URL）</span><button class="copy-btn" :class="{ copied: copiedIdx === 'safe-token' }" @click="copyCode('safe-token')">{{ copiedIdx === 'safe-token' ? '✓ 已复制' : '复制' }}</button></div>
+                    <div class="code-content"><pre><span class="comment"># 1. 用普通 HTTPS 地址关联（不含 Token）</span>
+<span class="cmd">git</span> remote add origin https://github.com/<span class="var">用户名</span>/<span class="var">仓库名</span>.git
+
+<span class="comment"># 2. 设置凭据缓存（Windows 用 manager）</span>
+<span class="cmd">git</span> config <span class="flag">--global</span> credential.helper manager
+
+<span class="comment"># 3. 拉取远程文件</span>
+<span class="cmd">git</span> pull origin main
+
+<span class="comment"># 4. 首次 pull/push 会弹出输入框：</span>
+<span class="comment">#    Username: 输入 GitHub 用户名</span>
+<span class="comment">#    Password: 粘贴 Token（不是账号密码）</span>
+<span class="comment"># 输入一次后，Windows 会记住凭据，以后免输入</span>
+
+<span class="comment"># 5. 设置上游后正常操作</span>
+<span class="cmd">git</span> branch <span class="flag">--set-upstream-to</span>=origin/main main
+<span class="cmd">git</span> add .
+<span class="cmd">git</span> commit <span class="flag">-m</span> <span class="str">"提交说明"</span>
+<span class="cmd">git</span> push</pre></div>
+                </div>
+                <div class="tip tip-success">
+                    <div class="tip-title">✅ 两种方式对比</div>
+                    <p><strong>Token 嵌入 URL</strong>：简单直接，但 token 明文存储在 .git/config 中（可用 <code style="background:var(--bg);padding:2px 6px;border-radius:4px;">git remote -v</code> 看到）</p>
+                    <p><strong>凭据缓存方式</strong>：更安全，Token 存在 Windows 凭据管理器中，不在 git 配置里暴露</p>
+                </div>
+            </div>
+            <div class="card">
+                <h3>场景 D 流程图</h3>
+                <div class="flow" style="justify-content:center;">
+                    <div class="flow-step">本地空目录</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step">git init</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step alt">关联远程+Token</div>
+                </div>
+                <div class="flow" style="justify-content:center;">
+                    <div class="flow-step alt">git pull origin main</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step">本地获得远程文件</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step alt">设置上游关联</div>
+                </div>
+                <div class="flow" style="justify-content:center;">
+                    <div class="flow-step alt">git add .</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step">git commit</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step alt">git push</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. Git 全局配置 -->
+        <div class="section" :id="'sec-4'">
+            <div class="section-title"><span class="num">5</span> Git 全局配置（首次必做）</div>
+            <div class="card">
+                <h3>配置用户名和邮箱</h3>
+                <p>每次 commit 都会记录这些信息，必须配置：</p>
+                <div class="code-block">
+                    <div class="code-header"><span>全局配置</span><button class="copy-btn" :class="{ copied: copiedIdx === 'git-config' }" @click="copyCode('git-config')">{{ copiedIdx === 'git-config' ? '✓ 已复制' : '复制' }}</button></div>
+                    <div class="code-content"><pre><span class="cmd">git</span> config <span class="flag">--global</span> user.name <span class="str">"你的名字"</span>
+<span class="cmd">git</span> config <span class="flag">--global</span> user.email <span class="str">"你的邮箱@example.com"</span></pre></div>
+                </div>
+                <div class="tip">
+                    <div class="tip-title">💡 邮箱建议</div>
+                    <p>用 GitHub 注册邮箱，这样提交记录会关联到你的 GitHub 账号</p>
+                </div>
+            </div>
+            <div class="card">
+                <h3>其他实用配置</h3>
+                <div class="code-block">
+                    <div class="code-content"><pre><span class="comment"># 设置默认分支名为 main（新版规范）</span>
+<span class="cmd">git</span> config <span class="flag">--global</span> init.defaultBranch main
+
+<span class="comment"># 设置中文文件名正常显示</span>
+<span class="cmd">git</span> config <span class="flag">--global</span> core.quotepath false
+
+<span class="comment"># 设置默认编辑器（可选）</span>
+<span class="cmd">git</span> config <span class="flag">--global</span> core.editor <span class="str">"code --wait"</span>
+
+<span class="comment"># 查看所有配置</span>
+<span class="cmd">git</span> config <span class="flag">--list</span></pre></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. 验证配置 -->
+        <div class="section" :id="'sec-5'">
+            <div class="section-title"><span class="num">6</span> 验证配置是否成功</div>
+            <div class="card">
+                <h3>验证清单</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>检查项</th><th>命令</th><th>成功标志</th></tr></thead>
+                        <tbody>
+                            <tr><td>用户名邮箱</td><td><code>git config user.name</code></td><td>显示你的名字</td></tr>
+                            <tr><td>SSH 连接</td><td><code>ssh -T git@github.com</code></td><td>Hi 用户名!</td></tr>
+                            <tr><td>远程地址</td><td><code>git remote -v</code></td><td>显示正确的地址</td></tr>
+                            <tr><td>推送测试</td><td><code>git push</code></td><td>不提示输密码</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card">
+                <h3>常见问题排查</h3>
+                <div class="tip tip-warn">
+                    <div class="tip-title">问题1：Permission denied (publickey)</div>
+                    <p>SSH 密钥未正确配置。检查：</p>
+                    <p>1. 公钥是否已添加到 GitHub</p>
+                    <p>2. 远程地址是否为 SSH 格式（git@github.com:...）</p>
+                    <p>3. 运行 <code style="background:var(--bg);padding:2px 6px;border-radius:4px;">ssh -T git@github.com</code> 测试</p>
+                </div>
+                <div class="tip tip-warn">
+                    <div class="tip-title">问题2：Authentication failed</div>
+                    <p>Token 认证失败。检查：</p>
+                    <p>1. Token 是否过期（GitHub Settings 重新生成）</p>
+                    <p>2. Token 是否勾选了 repo 权限</p>
+                    <p>3. 是否用的 Token 而非账号密码</p>
+                </div>
+                <div class="tip tip-warn">
+                    <div class="tip-title">问题3：fatal: not a git repository</div>
+                    <p>当前目录不是 Git 仓库。需要 <code style="background:var(--bg);padding:2px 6px;border-radius:4px;">cd</code> 进入项目目录，或运行 <code style="background:var(--bg);padding:2px 6px;border-radius:4px;">git init</code> 初始化</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. 完整流程速查 -->
+        <div class="section" :id="'sec-6'">
+            <div class="section-title"><span class="num">7</span> 完整流程速查卡</div>
+            <div class="card">
+                <h3>SSH 方式（推荐）完整流程</h3>
+                <div class="code-block">
+                    <div class="code-content"><pre><span class="comment">┌──────────────────────────────────────────────────┐</span>
+<span class="comment">│     SSH 密钥配置完整流程（一次性操作）             │</span>
+<span class="comment">├──────────────────────────────────────────────────┤</span>
+<span class="comment">│</span>
+<span class="comment">│  1. 配置 Git 身份</span>
+<span class="comment">│     git config --global user.name "你的名字"</span>
+<span class="comment">│     git config --global user.email "邮箱"</span>
+<span class="comment">│</span>
+<span class="comment">│  2. 生成 SSH 密钥</span>
+<span class="comment">│     ssh-keygen -t ed25519 -C "邮箱"</span>
+<span class="comment">│     （一路回车）</span>
+<span class="comment">│</span>
+<span class="comment">│  3. 启动代理并添加密钥</span>
+<span class="comment">│     eval "$(ssh-agent -s)"</span>
+<span class="comment">│     ssh-add ~/.ssh/id_ed25519</span>
+<span class="comment">│</span>
+<span class="comment">│  4. 复制公钥</span>
+<span class="comment">│     cat ~/.ssh/id_ed25519.pub</span>
+<span class="comment">│</span>
+<span class="comment">│  5. 添加到 GitHub</span>
+<span class="comment">│     GitHub → Settings → SSH and GPG keys</span>
+<span class="comment">│     → New SSH key → 粘贴公钥</span>
+<span class="comment">│</span>
+<span class="comment">│  6. 测试连接</span>
+<span class="comment">│     ssh -T git@github.com</span>
+<span class="comment">│</span>
+<span class="comment">│  7. 关联远程仓库</span>
+<span class="comment">│     git remote add origin git@github.com:用户名/仓库名.git</span>
+<span class="comment">│</span>
+<span class="comment">│  8. 推送！</span>
+<span class="comment">│     git push -u origin main</span>
+<span class="comment">│</span>
+<span class="comment">└──────────────────────────────────────────────────┘</span></pre></div>
+                </div>
+            </div>
+            <div class="card" style="text-align:center;">
+                <p style="font-size:16px;color:var(--primary);font-weight:600;">🎉 配置完成！之后只需 git push 即可推送</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+const { createApp } = Vue;
+createApp({
+    data() {
+        return {
+            isDark: false,
+            sidebarOpen: false,
+            activeSection: 0,
+            copiedIdx: null,
+            nav: [
+                { icon: '🔑', title: '为什么需要密钥' },
+                { icon: '🎫', title: '方式一：Token 配置' },
+                { icon: '🔐', title: '方式二：SSH 密钥（推荐）' },
+                { icon: '🔗', title: '关联远程仓库' },
+                { icon: '⚙️', title: 'Git 全局配置' },
+                { icon: '✅', title: '验证与排查' },
+                { icon: '📋', title: '完整流程速查' },
+            ],
+            codeSnippets: {
+                'push-token': 'git push\n# Username: 你的GitHub用户名\n# Password: 粘贴Token',
+                'embed-token': 'git remote set-url origin https://git:你的Token@github.com/用户名/仓库名.git\ngit push',
+                'cache-token': 'git config --global credential.helper manager\n# 或临时缓存1小时\n# git config --global credential.helper "cache --timeout=3600"',
+                'check-ssh': 'ls ~/.ssh\n# 有 id_ed25519 和 id_ed25519.pub 说明已配置',
+                'gen-ssh': 'ssh-keygen -t ed25519 -C "你的邮箱@example.com"\n# 一路回车即可',
+                'ssh-agent': 'eval "$(ssh-agent -s)"\nssh-add ~/.ssh/id_ed25519',
+                'copy-pub': 'cat ~/.ssh/id_ed25519.pub\n# Windows可用: cat ~/.ssh/id_ed25519.pub | clip',
+                'test-ssh': 'ssh -T git@github.com\n# 输入 yes 确认\n# 成功显示: Hi 用户名!',
+                'new-repo': 'cd my-project\ngit init\ngit add .\ngit commit -m "初始提交"\ngit remote add origin git@github.com:用户名/仓库名.git\ngit push -u origin main',
+                'clone-repo': 'git clone git@github.com:用户名/仓库名.git\n# 或 HTTPS: git clone https://github.com/用户名/仓库名.git',
+                'switch-remote': 'git remote -v\n# 切换到SSH\ngit remote set-url origin git@github.com:用户名/仓库名.git\n# 切换到HTTPS\ngit remote set-url origin https://github.com/用户名/仓库名.git',
+                'git-config': 'git config --global user.name "你的名字"\ngit config --global user.email "你的邮箱@example.com"',
+                'empty-local': 'cd E:\\项目路径\\my-project\ngit init\ngit remote add origin https://git:你的Token@github.com/用户名/仓库名.git\ngit pull origin main\ngit branch --set-upstream-to=origin/main main\ngit remote -v\ngit status\n# 现在可以正常操作了\ngit add .\ngit commit -m "提交说明"\ngit push',
+                'safe-token': 'git remote add origin https://github.com/用户名/仓库名.git\ngit config --global credential.helper manager\ngit pull origin main\n# 首次输入用户名和Token\n# 之后免输入\ngit branch --set-upstream-to=origin/main main\ngit add .\ngit commit -m "提交说明"\ngit push',
+            }
+        };
+    },
+    mounted() {
+        window.addEventListener('scroll', this.updateActive);
+        if (localStorage.getItem('gitkey-theme') === 'dark') {
+            this.isDark = true;
+            document.body.classList.add('dark');
+        }
+    },
+    beforeUnmount() {
+        window.removeEventListener('scroll', this.updateActive);
+    },
+    methods: {
+        toggleTheme() {
+            this.isDark = !this.isDark;
+            document.body.classList.toggle('dark', this.isDark);
+            localStorage.setItem('gitkey-theme', this.isDark ? 'dark' : 'light');
+        },
+        scrollTo(i) {
+            this.activeSection = i;
+            this.sidebarOpen = false;
+            const el = document.getElementById('sec-' + i);
+            if (el) {
+                window.scrollTo({ top: el.offsetTop - 80, behavior: 'smooth' });
+            }
+        },
+        updateActive() {
+            for (let i = this.nav.length - 1; i >= 0; i--) {
+                const el = document.getElementById('sec-' + i);
+                if (el && el.offsetTop - 120 <= window.scrollY) {
+                    this.activeSection = i;
+                    break;
+                }
+            }
+        },
+        copyCode(idx) {
+            var text = this.codeSnippets[idx] || '';
+            navigator.clipboard.writeText(text).then(() => {
+                this.copiedIdx = idx;
+                setTimeout(() => { this.copiedIdx = null; }, 2000);
+            });
+        }
+    }
+}).mount('#app');
+</script>
+</body>
+</html>
