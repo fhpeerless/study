@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git 零基础入门指南</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.4.21/vue.global.prod.min.js" onerror="loadFallback()"></script>
+    <script>
+        function loadFallback() {
+            var s = document.createElement('script');
+            s.src = 'https://cdn.staticfile.org/vue/3.4.21/vue.global.prod.min.js';
+            s.onerror = function() {
+                document.body.innerHTML = '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;text-align:center;padding:20px;">'
+                    + '<h2 style="color:#e74c3c;">Vue CDN 加载失败</h2>'
+                    + '<p style="color:#666;margin-top:10px;">请检查网络连接，或用浏览器直接打开此文件</p>'
+                    + '<p style="color:#999;margin-top:5px;">WebStorm 内置预览可能无法加载外部 CDN，建议用 Chrome 打开</p>'
+                    + '</div>';
+            };
+            document.head.appendChild(s);
+        }
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #f5f7fa;
+            --card-bg: #ffffff;
+            --text: #2c3e50;
+            --text-secondary: #6c7a89;
+            --primary: #3498db;
+            --primary-dark: #2980b9;
+            --accent: #e74c3c;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --border: #e0e6ed;
+            --code-bg: #1e2a3a;
+            --code-text: #e8e8e8;
+            --shadow: 0 2px 12px rgba(0,0,0,0.08);
+            --radius: 10px;
+        }
+
+        body.dark {
+            --bg: #1a1d23;
+            --card-bg: #252830;
+            --text: #e0e6ed;
+            --text-secondary: #9ba3af;
+            --border: #3a3f4b;
+            --shadow: 0 2px 12px rgba(0,0,0,0.3);
+        }
+
+        body { font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); transition: background .3s, color .3s; line-height: 1.7; }
+
+        /* 顶部导航 */
+        .header {
+            position: fixed; top: 0; left: 0; right: 0; height: 60px;
+            background: var(--card-bg); box-shadow: var(--shadow);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 24px; z-index: 100; transition: background .3s;
+        }
+        .header-title { font-size: 18px; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 8px; }
+        .header-actions { display: flex; gap: 12px; align-items: center; }
+        .theme-btn { background: none; border: 1px solid var(--border); border-radius: 50%; width: 38px; height: 38px; cursor: pointer; font-size: 18px; color: var(--text); transition: all .3s; display: flex; align-items: center; justify-content: center; }
+        .theme-btn:hover { border-color: var(--primary); color: var(--primary); }
+
+        /* 侧边栏 */
+        .sidebar {
+            position: fixed; top: 60px; left: 0; bottom: 0; width: 240px;
+            background: var(--card-bg); border-right: 1px solid var(--border);
+            overflow-y: auto; padding: 16px 0; transition: background .3s, border .3s;
+            z-index: 50;
+        }
+        .sidebar::-webkit-scrollbar { width: 5px; }
+        .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 5px; }
+
+        .nav-item {
+            display: flex; align-items: center; gap: 10px;
+            padding: 12px 20px; cursor: pointer; color: var(--text-secondary);
+            font-size: 14px; transition: all .2s; border-left: 3px solid transparent;
+        }
+        .nav-item:hover { background: var(--bg); color: var(--primary); }
+        .nav-item.active { color: var(--primary); border-left-color: var(--primary); background: var(--bg); font-weight: 600; }
+        .nav-icon { font-size: 18px; width: 24px; text-align: center; }
+
+        /* 主内容区 */
+        .main { margin-left: 240px; margin-top: 60px; padding: 32px 40px; max-width: 900px; }
+        .section { margin-bottom: 48px; }
+        .section-title { font-size: 26px; font-weight: 700; margin-bottom: 20px; color: var(--primary); display: flex; align-items: center; gap: 10px; }
+        .section-title .num {
+            background: var(--primary); color: #fff; width: 36px; height: 36px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px;
+        }
+
+        .card { background: var(--card-bg); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); margin-bottom: 20px; transition: background .3s; }
+        .card h3 { font-size: 18px; margin-bottom: 12px; color: var(--text); }
+        .card p { margin-bottom: 10px; color: var(--text-secondary); }
+
+        /* 代码块 */
+        .code-block {
+            background: var(--code-bg); border-radius: 8px; margin: 12px 0; overflow: hidden;
+        }
+        .code-header {
+            background: rgba(0,0,0,0.3); padding: 8px 16px; display: flex; justify-content: space-between;
+            align-items: center; font-size: 12px; color: #888;
+        }
+        .copy-btn {
+            background: none; border: none; color: #888; cursor: pointer; font-size: 12px; padding: 4px 8px;
+            border-radius: 4px; transition: all .2s;
+        }
+        .copy-btn:hover { background: rgba(255,255,255,0.1); color: #fff; }
+        .copy-btn.copied { color: var(--success); }
+        .code-content { padding: 14px 16px; overflow-x: auto; }
+        .code-content pre { color: var(--code-text); font-family: 'Consolas', 'Courier New', monospace; font-size: 14px; white-space: pre-wrap; word-break: break-all; }
+        .code-content pre .comment { color: #6a9955; }
+        .code-content pre .cmd { color: #569cd6; }
+        .code-content pre .flag { color: #ce9178; }
+        .code-content pre .str { color: #ce9178; }
+
+        /* 提示框 */
+        .tip { border-left: 4px solid var(--warning); background: rgba(243,156,18,0.08); padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 14px 0; }
+        .tip-warn { border-left-color: var(--accent); background: rgba(231,76,60,0.08); }
+        .tip-success { border-left-color: var(--success); background: rgba(39,174,96,0.08); }
+        .tip-title { font-weight: 700; margin-bottom: 6px; font-size: 14px; }
+
+        /* 流程图 */
+        .flow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 20px 0; }
+        .flow-step {
+            background: var(--primary); color: #fff; padding: 10px 20px; border-radius: 8px;
+            font-size: 14px; font-weight: 600; text-align: center; min-width: 80px;
+        }
+        .flow-step.work { background: var(--warning); }
+        .flow-step.stage { background: var(--success); }
+        .flow-step.repo { background: var(--accent); }
+        .flow-arrow { color: var(--text-secondary); font-size: 20px; }
+
+        /* 表格 */
+        .table-wrap { overflow-x: auto; margin: 14px 0; }
+        table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        th { background: var(--primary); color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; }
+        td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--text-secondary); }
+        tr:hover td { background: var(--bg); }
+        td code { background: var(--bg); padding: 2px 6px; border-radius: 4px; font-family: monospace; color: var(--accent); }
+
+        /* 折叠面板 */
+        .collapse-item { border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px; overflow: hidden; }
+        .collapse-header { padding: 14px 18px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; background: var(--card-bg); font-weight: 600; transition: background .2s; }
+        .collapse-header:hover { background: var(--bg); }
+        .collapse-arrow { transition: transform .3s; }
+        .collapse-arrow.open { transform: rotate(180deg); }
+        .collapse-body { padding: 0 18px; max-height: 0; overflow: hidden; transition: max-height .3s ease, padding .3s; }
+        .collapse-body.open { padding: 14px 18px; max-height: 600px; }
+
+        /* 徽章 */
+        .badge { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; }
+        .badge-blue { background: rgba(52,152,219,0.15); color: var(--primary); }
+        .badge-green { background: rgba(39,174,96,0.15); color: var(--success); }
+        .badge-red { background: rgba(231,76,60,0.15); color: var(--accent); }
+        .badge-orange { background: rgba(243,156,18,0.15); color: var(--warning); }
+
+        /* 移动端 */
+        .menu-toggle { display: none; }
+        @media (max-width: 768px) {
+            .sidebar { transform: translateX(-100%); transition: transform .3s; }
+            .sidebar.open { transform: translateX(0); }
+            .main { margin-left: 0; padding: 20px 16px; }
+            .menu-toggle { display: flex; }
+        }
+        .menu-toggle { background: none; border: 1px solid var(--border); border-radius: 8px; width: 38px; height: 38px; cursor: pointer; align-items: center; justify-content: center; color: var(--text); font-size: 18px; }
+    </style>
+</head>
+<body>
+<div id="app">
+    <!-- 顶部导航 -->
+    <div class="header">
+        <div style="display:flex;align-items:center;gap:12px;">
+            <button class="menu-toggle" @click="sidebarOpen = !sidebarOpen">☰</button>
+            <div class="header-title">
+                <span>🔧</span>
+                <span>Git 零基础入门指南</span>
+            </div>
+        </div>
+        <div class="header-actions">
+            <button class="theme-btn" @click="toggleTheme">{{ isDark ? '☀️' : '🌙' }}</button>
+        </div>
+    </div>
+
+    <!-- 侧边栏 -->
+    <div class="sidebar" :class="{ open: sidebarOpen }">
+        <div v-for="(item, i) in nav" :key="i"
+             class="nav-item" :class="{ active: activeSection === i }"
+             @click="scrollTo(i)">
+            <span class="nav-icon">{{ item.icon }}</span>
+            <span>{{ item.title }}</span>
+        </div>
+    </div>
+
+    <!-- 主内容 -->
+    <div class="main" @click="sidebarOpen = false">
+        <!-- 1. 什么是 Git -->
+        <div class="section" :id="'sec-0'">
+            <div class="section-title"><span class="num">1</span> 什么是 Git？</div>
+            <div class="card">
+                <p><strong>Git</strong> 是一个 <span class="badge badge-blue">分布式版本控制系统</span>，用于追踪文件的变化，协作管理代码。</p>
+                <p>简单来说，它就像一个 <strong>"超级存档系统"</strong>，让你：</p>
+                <div style="margin:12px 0;padding-left:20px;">
+                    <p>✅ 随时回退到之前的版本（后悔药）</p>
+                    <p>✅ 多人同时开发互不干扰</p>
+                    <p>✅ 记录每次修改的内容和原因</p>
+                    <p>✅ 安全地尝试新功能，不影响主线</p>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Git vs GitHub 的区别</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>对比项</th><th>Git</th><th>GitHub</th></tr></thead>
+                        <tbody>
+                            <tr><td>是什么</td><td>版本控制工具（软件）</td><td>代码托管平台（网站）</td></tr>
+                            <tr><td>运行在</td><td>你的电脑上（本地）</td><td>云端（远程）</td></tr>
+                            <tr><td>需要安装吗</td><td>需要下载安装</td><td>注册账号即可</td></tr>
+                            <tr><td>类似平台</td><td>—</td><td>Gitee、GitLab、Bitbucket</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. 安装与配置 -->
+        <div class="section" :id="'sec-1'">
+            <div class="section-title"><span class="num">2</span> 安装与配置</div>
+            <div class="card">
+                <h3>安装 Git</h3>
+                <p><span class="badge badge-blue">Windows</span> 访问 <a href="https://git-scm.com/download/win" target="_blank" style="color:var(--primary);">git-scm.com</a> 下载安装包，一路下一步即可</p>
+                <p><span class="badge badge-green">Mac</span> 终端输入 <code style="background:var(--bg);padding:2px 6px;border-radius:4px;">brew install git</code></p>
+                <p><span class="badge badge-orange">Linux</span> 终端输入 <code style="background:var(--bg);padding:2px 6px;border-radius:4px;">sudo apt install git</code></p>
+            </div>
+            <div class="card">
+                <h3>首次使用必须配置</h3>
+                <p>安装完成后，告诉 Git 你是谁（每次提交都会记录这些信息）：</p>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>终端 / Git Bash</span>
+                        <button class="copy-btn" :class="{ copied: copiedIdx === 'config' }" @click="copyCode('config')">{{ copiedIdx === 'config' ? '✓ 已复制' : '复制' }}</button>
+                    </div>
+                    <div class="code-content"><pre><span class="cmd">git</span> config <span class="flag">--global</span> user.name <span class="str">"你的名字"</span>
+<span class="cmd">git</span> config <span class="flag">--global</span> user.email <span class="str">"你的邮箱@example.com"</span></pre></div>
+                </div>
+                <div class="tip tip-success">
+                    <div class="tip-title">✅ 验证配置</div>
+                    <p>输入 <code style="background:var(--bg);padding:2px 6px;border-radius:4px;">git config --list</code> 可查看所有配置</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. 核心概念 -->
+        <div class="section" :id="'sec-2'">
+            <div class="section-title"><span class="num">3</span> 核心概念：三大区域</div>
+            <div class="card">
+                <p>Git 有三个重要的工作区域，理解它们是学好 Git 的关键：</p>
+                <div class="flow" style="justify-content: center; margin-top:24px;">
+                    <div class="flow-step work">工作区<br><small>Working Directory</small></div>
+                    <span class="flow-arrow">→ git add →</span>
+                    <div class="flow-step stage">暂存区<br><small>Staging Area</small></div>
+                    <span class="flow-arrow">→ git commit →</span>
+                    <div class="flow-step repo">版本库<br><small>Repository</small></div>
+                </div>
+                <div style="margin-top:20px;">
+                    <p>📦 <strong>工作区</strong>：你正在编辑的文件目录（你看到的文件夹）</p>
+                    <p>📋 <strong>暂存区</strong>：准备提交但还没提交的文件（"购物车"）</p>
+                    <p>🗄️ <strong>版本库</strong>：已提交保存的快照记录（"已下单"）</p>
+                </div>
+            </div>
+            <div class="card">
+                <h3>生活类比：网上购物</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>Git 区域</th><th>购物类比</th><th>操作</th></tr></thead>
+                        <tbody>
+                            <tr><td>工作区</td><td>在商场挑选商品</td><td>修改文件</td></tr>
+                            <tr><td>暂存区</td><td>加入购物车</td><td><code>git add</code></td></tr>
+                            <tr><td>版本库</td><td>下单结算</td><td><code>git commit</code></td></tr>
+                            <tr><td>远程仓库</td><td>送货到家</td><td><code>git push</code></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. 基本操作 -->
+        <div class="section" :id="'sec-3'">
+            <div class="section-title"><span class="num">4</span> 基本操作流程</div>
+
+            <div class="card">
+                <h3>创建仓库</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>方式一：新建项目</span>
+                        <button class="copy-btn" :class="{ copied: copiedIdx === 'init' }" @click="copyCode('init')">{{ copiedIdx === 'init' ? '✓ 已复制' : '复制' }}</button>
+                    </div>
+                    <div class="code-content"><pre><span class="comment"># 创建项目目录</span>
+mkdir my-project
+<span class="comment"># 进入目录</span>
+cd my-project
+<span class="comment"># 初始化 Git 仓库</span>
+<span class="cmd">git</span> init</pre></div>
+                </div>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>方式二：克隆远程仓库</span>
+                        <button class="copy-btn" :class="{ copied: copiedIdx === 'clone' }" @click="copyCode('clone')">{{ copiedIdx === 'clone' ? '✓ 已复制' : '复制' }}</button>
+                    </div>
+                    <div class="code-content"><pre><span class="cmd">git</span> clone https://github.com/用户名/仓库名.git</pre></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>日常操作四步走</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>标准工作流</span>
+                        <button class="copy-btn" :class="{ copied: copiedIdx === 'workflow' }" @click="copyCode('workflow')">{{ copiedIdx === 'workflow' ? '✓ 已复制' : '复制' }}</button>
+                    </div>
+                    <div class="code-content"><pre><span class="comment"># 1. 查看文件状态（哪些文件被修改了）</span>
+<span class="cmd">git</span> status
+
+<span class="comment"># 2. 将所有修改加入暂存区（注意 add 和 . 之间有空格）</span>
+<span class="cmd">git</span> add .
+
+<span class="comment"># 3. 将暂存区的文件提交到版本库</span>
+<span class="cmd">git</span> commit <span class="flag">-m</span> <span class="str">"提交说明：简单描述做了什么"</span>
+
+<span class="comment"># 4. 将本地提交推送到远程仓库</span>
+<span class="cmd">git</span> push</pre></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>查看状态与历史</h3>
+                <div class="code-block">
+                    <div class="code-content"><pre><span class="comment"># 查看当前状态（最常用的命令）</span>
+<span class="cmd">git</span> status
+
+<span class="comment"># 查看提交历史记录</span>
+<span class="cmd">git</span> log <span class="flag">--oneline</span> <span class="flag">--graph</span>
+
+<span class="comment"># 查看文件具体修改了什么</span>
+<span class="cmd">git</span> diff</pre></div>
+                </div>
+                <div class="tip">
+                    <div class="tip-title">💡 小贴士</div>
+                    <p><code style="background:var(--bg);padding:2px 6px;border-radius:4px;">git status</code> 是你最好的朋友，随时用它查看当前状态！</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. 常用命令速查 -->
+        <div class="section" :id="'sec-4'">
+            <div class="section-title"><span class="num">5</span> 常用命令速查表</div>
+            <div class="card">
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>命令</th><th>作用</th><th>使用场景</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>git init</code></td><td>初始化仓库</td><td>新项目开始</td></tr>
+                            <tr><td><code>git clone &lt;url&gt;</code></td><td>克隆远程仓库</td><td>获取已有项目</td></tr>
+                            <tr><td><code>git status</code></td><td>查看文件状态</td><td>随时查看</td></tr>
+                            <tr><td><code>git add .</code></td><td>添加所有修改到暂存区</td><td>提交前</td></tr>
+                            <tr><td><code>git add &lt;file&gt;</code></td><td>添加指定文件</td><td>只提交部分文件</td></tr>
+                            <tr><td><code>git commit -m "msg"</code></td><td>提交到版本库</td><td>保存快照</td></tr>
+                            <tr><td><code>git push</code></td><td>推送到远程</td><td>分享代码</td></tr>
+                            <tr><td><code>git pull</code></td><td>拉取远程更新</td><td>获取他人代码</td></tr>
+                            <tr><td><code>git log</code></td><td>查看提交历史</td><td>回顾变更</td></tr>
+                            <tr><td><code>git diff</code></td><td>查看修改内容</td><td>检查改动</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. 分支管理 -->
+        <div class="section" :id="'sec-5'">
+            <div class="section-title"><span class="num">6</span> 分支管理</div>
+            <div class="card">
+                <p>分支是 Git 最强大的功能。<strong>分支</strong>就像平行宇宙，你可以在不影响主线的情况下尝试新东西。</p>
+                <div class="flow" style="justify-content: center; margin: 20px 0;">
+                    <div class="flow-step">main 主线</div>
+                    <span class="flow-arrow">━</span>
+                    <span class="flow-arrow">━</span>
+                    <span class="flow-arrow">━</span>
+                    <span class="flow-arrow">━</span>
+                    <div class="flow-step work">feature 新功能</div>
+                </div>
+            </div>
+            <div class="card">
+                <h3>分支操作命令</h3>
+                <div class="code-block">
+                    <div class="code-content"><pre><span class="comment"># 查看所有分支（* 号表示当前所在分支）</span>
+<span class="cmd">git</span> branch
+
+<span class="comment"># 创建新分支</span>
+<span class="cmd">git</span> branch feature-login
+
+<span class="comment"># 切换到指定分支</span>
+<span class="cmd">git</span> checkout feature-login
+<span class="comment"># 或用新语法（推荐）</span>
+<span class="cmd">git</span> switch feature-login
+
+<span class="comment"># 创建并切换（快捷方式）</span>
+<span class="cmd">git</span> checkout <span class="flag">-b</span> feature-login
+<span class="comment"># 或</span>
+<span class="cmd">git</span> switch <span class="flag">-c</span> feature-login
+
+<span class="comment"># 将指定分支合并到当前分支</span>
+<span class="cmd">git</span> merge feature-login
+
+<span class="comment"># 删除已合并的分支</span>
+<span class="cmd">git</span> branch <span class="flag">-d</span> feature-login</pre></div>
+                </div>
+            </div>
+            <div class="card">
+                <h3>分支工作流程</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>团队协作标准流程</span>
+                        <button class="copy-btn" :class="{ copied: copiedIdx === 'branch-flow' }" @click="copyCode('branch-flow')">{{ copiedIdx === 'branch-flow' ? '✓ 已复制' : '复制' }}</button>
+                    </div>
+                    <div class="code-content"><pre><span class="comment"># 1. 从 main 创建并切换到新分支</span>
+<span class="cmd">git</span> checkout <span class="flag">-b</span> my-feature
+
+<span class="comment"># 2. 开发修改文件后，提交</span>
+<span class="cmd">git</span> add .
+<span class="cmd">git</span> commit <span class="flag">-m</span> <span class="str">"完成功能开发"</span>
+
+<span class="comment"># 3. 切回 main 并拉取最新代码</span>
+<span class="cmd">git</span> checkout main
+<span class="cmd">git</span> pull
+
+<span class="comment"># 4. 合并你的分支到 main</span>
+<span class="cmd">git</span> merge my-feature
+
+<span class="comment"># 5. 推送到远程</span>
+<span class="cmd">git</span> push
+
+<span class="comment"># 6. 删除临时分支</span>
+<span class="cmd">git</span> branch <span class="flag">-d</span> my-feature</pre></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. 远程仓库 -->
+        <div class="section" :id="'sec-6'">
+            <div class="section-title"><span class="num">7</span> 远程仓库操作</div>
+            <div class="card">
+                <h3>关联远程仓库</h3>
+                <div class="code-block">
+                    <div class="code-content"><pre><span class="comment"># 添加远程仓库（origin 是远程仓库的别名）</span>
+<span class="cmd">git</span> remote add origin https://github.com/用户名/仓库名.git
+
+<span class="comment"># 查看已关联的远程仓库</span>
+<span class="cmd">git</span> remote <span class="flag">-v</span>
+
+<span class="comment"># 首次推送（-u 设置上游关联，以后直接 git push 即可）</span>
+<span class="cmd">git</span> push <span class="flag">-u</span> origin main</pre></div>
+                </div>
+            </div>
+            <div class="card">
+                <h3>推送与拉取</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>命令</th><th>作用</th><th>比喻</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>git push</code></td><td>本地 → 远程</td><td>上传代码</td></tr>
+                            <tr><td><code>git pull</code></td><td>远程 → 本地</td><td>下载代码</td></tr>
+                            <tr><td><code>git fetch</code></td><td>获取远程更新（不合并）</td><td>看看有什么新东西</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tip tip-warn">
+                    <div class="tip-title">⚠️ 重要提醒</div>
+                    <p>每天开始工作前，先 <code style="background:var(--bg);padding:2px 6px;border-radius:4px;">git pull</code> 拉取最新代码！</p>
+                    <p>每次结束工作前，记得 <code style="background:var(--bg);padding:2px 6px;border-radius:4px;">git push</code> 推送你的代码！</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 8. 常见场景 -->
+        <div class="section" :id="'sec-7'">
+            <div class="section-title"><span class="num">8</span> 常见场景解决方案</div>
+
+            <div v-for="(item, i) in faq" :key="i" class="collapse-item">
+                <div class="collapse-header" @click="toggleFaq(i)">
+                    <span>{{ item.q }}</span>
+                    <span class="collapse-arrow" :class="{ open: faqOpen === i }">▼</span>
+                </div>
+                <div class="collapse-body" :class="{ open: faqOpen === i }">
+                    <p style="margin-bottom:10px;">{{ item.a }}</p>
+                    <div class="code-block">
+                        <div class="code-content"><pre v-html="item.code"></pre></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 9. 撤销操作 -->
+        <div class="section" :id="'sec-8'">
+            <div class="section-title"><span class="num">9</span> 撤销操作（后悔药）</div>
+            <div class="card">
+                <h3>不同阶段的撤销</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>阶段</th><th>命令</th><th>效果</th></tr></thead>
+                        <tbody>
+                            <tr><td>工作区修改了，还没 add</td><td><code>git checkout -- &lt;file&gt;</code></td><td>丢弃修改</td></tr>
+                            <tr><td>已经 add，还没 commit</td><td><code>git reset HEAD &lt;file&gt;</code></td><td>移出暂存区</td></tr>
+                            <tr><td>已经 commit，还没 push</td><td><code>git reset --soft HEAD~1</code></td><td>撤销提交，保留修改</td></tr>
+                            <tr><td>已经 push</td><td><code>git revert &lt;commit&gt;</code></td><td>创建反向提交</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tip tip-warn">
+                    <div class="tip-title">⚠️ 注意</div>
+                    <p><code style="background:var(--bg);padding:2px 6px;border-radius:4px;">git reset --hard</code> 会永久删除未提交的修改，慎用！</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 10. 速查卡 -->
+        <div class="section" :id="'sec-9'">
+            <div class="section-title"><span class="num">10</span> 一张图速查</div>
+            <div class="card">
+                <div class="code-block">
+                    <div class="code-content"><pre><span class="comment">┌─────────────────────────────────────────────┐</span>
+<span class="comment">│           Git 日常操作速查卡                  │</span>
+<span class="comment">├─────────────────────────────────────────────┤</span>
+<span class="comment">│</span>
+<span class="comment">│  📦 开始项目</span>
+<span class="comment">│     git init          # 新建仓库</span>
+<span class="comment">│     git clone &lt;url&gt;    # 克隆远程仓库</span>
+<span class="comment">│</span>
+<span class="comment">│  📝 日常操作（每天重复）</span>
+<span class="comment">│     git status         # 看状态</span>
+<span class="comment">│     git add .          # 加暂存区</span>
+<span class="comment">│     git commit -m "说明" # 提交</span>
+<span class="comment">│     git push           # 推送</span>
+<span class="comment">│     git pull           # 拉取</span>
+<span class="comment">│</span>
+<span class="comment">│  🌿 分支操作</span>
+<span class="comment">│     git branch         # 查看分支</span>
+<span class="comment">│     git checkout -b dev # 创建+切换</span>
+<span class="comment">│     git merge dev      # 合并分支</span>
+<span class="comment">│</span>
+<span class="comment">│  🔍 查看信息</span>
+<span class="comment">│     git log --oneline  # 简洁日志</span>
+<span class="comment">│     git diff           # 看改动</span>
+<span class="comment">│</span>
+<span class="comment">│  ↩️ 撤销操作</span>
+<span class="comment">│     git checkout -- &lt;file&gt;  # 撤销工作区修改</span>
+<span class="comment">│     git reset HEAD &lt;file&gt;   # 撤销 add</span>
+<span class="comment">│     git reset --soft HEAD~1 # 撤销 commit</span>
+<span class="comment">│</span>
+<span class="comment">└─────────────────────────────────────────────┘</span></pre></div>
+                </div>
+            </div>
+            <div class="card" style="text-align:center;">
+                <p style="font-size:16px;color:var(--primary);font-weight:600;">🎉 恭喜！你已掌握 Git 基础！</p>
+                <p>多练习，善用 <code style="background:var(--bg);padding:2px 6px;border-radius:4px;">git status</code>，遇到问题不要慌。</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+const { createApp } = Vue;
+
+createApp({
+    data() {
+        return {
+            isDark: false,
+            sidebarOpen: false,
+            activeSection: 0,
+            copiedIdx: null,
+            faqOpen: 0,
+            codeSnippets: {
+                'config': 'git config --global user.name "你的名字"\ngit config --global user.email "你的邮箱@example.com"',
+                'init': 'mkdir my-project\ncd my-project\ngit init',
+                'clone': 'git clone https://github.com/用户名/仓库名.git',
+                'workflow': 'git status\ngit add .\ngit commit -m "提交说明"\ngit push',
+                'branch-flow': 'git checkout -b my-feature\n# ...开发修改...\ngit add .\ngit commit -m "完成功能开发"\ngit checkout main\ngit pull\ngit merge my-feature\ngit push\ngit branch -d my-feature'
+            },
+            nav: [
+                { icon: '📦', title: '什么是 Git' },
+                { icon: '⬇️', title: '安装与配置' },
+                { icon: '🧠', title: '核心概念' },
+                { icon: '🚀', title: '基本操作' },
+                { icon: '📋', title: '命令速查' },
+                { icon: '🌿', title: '分支管理' },
+                { icon: '🌐', title: '远程仓库' },
+                { icon: '❓', title: '常见场景' },
+                { icon: '↩️', title: '撤销操作' },
+                { icon: '🎴', title: '速查卡' },
+            ],
+            faq: [
+                {
+                    q: '🔐 场景1：提交信息写错了怎么办？',
+                    a: '如果还没推送到远程，可以直接修改最近一次提交的信息：',
+                    code: '<span class="cmd">git</span> commit <span class="flag">--amend</span> <span class="flag">-m</span> <span class="str">"新的提交信息"</span>'
+                },
+                {
+                    q: '📂 场景2：不小心 add 了不该提交的文件？',
+                    a: '将文件从暂存区移除（文件本身不会被删除）：',
+                    code: '<span class="cmd">git</span> reset HEAD &lt;文件名&gt;\n<span class="comment"># 或移除所有暂存文件</span>\n<span class="cmd">git</span> reset HEAD .'
+                },
+                {
+                    q: '🔄 场景3：拉取代码时有冲突怎么办？',
+                    a: '冲突会在文件中标记出来（用 <<<< 和 >>>>> 标记），手动编辑选择保留的内容后：',
+                    code: '<span class="comment"># 编辑文件解决冲突后</span>\n<span class="cmd">git</span> add &lt;冲突文件&gt;\n<span class="cmd">git</span> commit <span class="flag">-m</span> <span class="str">"解决冲突"</span>\n<span class="cmd">git</span> push'
+                },
+                {
+                    q: '🤔 场景4：想查看某个文件的修改历史？',
+                    a: '使用 git log 查看指定文件的提交记录：',
+                    code: '<span class="cmd">git</span> log <span class="flag">--oneline</span> <span class="flag">--</span> &lt;文件名&gt;\n<span class="comment"># 查看某次提交的具体改动</span>\n<span class="cmd">git</span> show &lt;commit-hash&gt;'
+                },
+                {
+                    q: '📁 场景5：想忽略某些文件不提交？',
+                    a: '在项目根目录创建 .gitignore 文件，写入要忽略的规则：',
+                    code: '<span class="comment"># .gitignore 文件内容示例</span>\nnode_modules/\n*.log\n.env\n*.tmp\n<span class="comment"># 忽略已跟踪文件需要先移除缓存</span>\n<span class="cmd">git</span> rm <span class="flag">--cached</span> &lt;文件名&gt;'
+                },
+                {
+                    q: '⏪ 场景6：想回退到之前的某个版本？',
+                    a: '查看提交历史找到目标版本号，然后回退：',
+                    code: '<span class="comment"># 查看历史</span>\n<span class="cmd">git</span> log <span class="flag">--oneline</span>\n<span class="comment"># 回退到指定版本（保留修改在工作区）</span>\n<span class="cmd">git</span> reset <span class="flag">--soft</span> &lt;commit-hash&gt;\n<span class="comment"># 回退到指定版本（彻底丢弃之后的修改）</span>\n<span class="cmd">git</span> reset <span class="flag">--hard</span> &lt;commit-hash&gt;'
+                },
+                {
+                    q: '🔀 场景7：远程删了文件、本地加了文件，版本不一致怎么办？',
+                    a: '这是因为远程和本地产生了"分叉"。推荐用拉取合并的方式同步：先 pull 合并远程的删除操作，再 push 本地的新增文件。如果 pull 时有冲突，解决后即可。',
+                    code: '<span class="comment"># 1. 先查看远程和本地的差异</span>\n<span class="cmd">git</span> fetch origin\n<span class="cmd">git</span> status\n\n<span class="comment"># 2. 拉取远程变更并合并（远程删除的文件会在本地同步删除）</span>\n<span class="cmd">git</span> pull origin main\n\n<span class="comment"># 3. 如果 pull 提示冲突，手动解决后：</span>\n<span class="cmd">git</span> add .\n<span class="cmd">git</span> commit <span class="flag">-m</span> <span class="str">"合并远程变更"</span>\n\n<span class="comment"># 4. 推送本地新增的文件到远程</span>\n<span class="cmd">git</span> push origin main'
+                },
+                {
+                    q: '🔀 场景7补充：想强制用本地覆盖远程怎么办？',
+                    a: '如果你确定本地是正确的，想用本地完全覆盖远程（远程删除的文件就不再恢复）：',
+                    code: '<span class="comment"># 警告：这会强制覆盖远程，远程独有的文件会丢失！</span>\n<span class="cmd">git</span> add .\n<span class="cmd">git</span> commit <span class="flag">-m</span> <span class="str">"本地最新版本"</span>\n<span class="cmd">git</span> push <span class="flag">--force</span> origin main\n<span class="comment"># 或更安全的 force-with-lease（仅当远程没有他人新提交时才覆盖）</span>\n<span class="cmd">git</span> push <span class="flag">--force-with-lease</span> origin main'
+                },
+                {
+                    q: '🗑️ 场景8：本地删除了文件，如何提交删除操作？',
+                    a: '本地删除文件后，Git 会检测到文件丢失。需要用 git rm 或 git add -A 将删除操作记录到暂存区，再提交推送。注意：直接在工作区删除文件后，必须 commit 才能让远程也同步删除。',
+                    code: '<span class="comment"># 方式一：用 git rm 删除文件（同时删除工作区文件+暂存删除操作）</span>\n<span class="cmd">git</span> rm &lt;文件名&gt;\n<span class="comment"># 删除整个目录</span>\n<span class="cmd">git</span> rm <span class="flag">-r</span> &lt;目录名&gt;\n\n<span class="comment"># 方式二：手动删除文件后，用 add -A 记录删除操作</span>\n<span class="comment"># （在文件管理器里删除文件后执行）</span>\n<span class="cmd">git</span> add <span class="flag">-A</span>\n<span class="comment"># 或</span>\n<span class="cmd">git</span> add .\n\n<span class="comment"># 然后提交并推送，远程仓库也会同步删除</span>\n<span class="cmd">git</span> commit <span class="flag">-m</span> <span class="str">"删除不需要的文件"</span>\n<span class="cmd">git</span> push'
+                },
+                {
+                    q: '🗑️ 场景8补充：只想从 Git 中移除，但保留本地文件？',
+                    a: '用 --cached 参数，文件会从版本库中移除但不会从磁盘删除（适合误提交了配置文件等情况）：',
+                    code: '<span class="comment"># 从 Git 移除但保留本地文件</span>\n<span class="cmd">git</span> rm <span class="flag">--cached</span> &lt;文件名&gt;\n<span class="comment"># 提交移除操作</span>\n<span class="cmd">git</span> commit <span class="flag">-m</span> <span class="str">"从版本库移除文件"</span>\n<span class="cmd">git</span> push\n\n<span class="comment"># 建议同时加入 .gitignore 避免再次被跟踪</span>\necho "&lt;文件名&gt;" &gt;&gt; .gitignore'
+                },
+            ]
+        };
+    },
+    mounted() {
+        window.addEventListener('scroll', this.updateActive);
+        // 读取主题偏好
+        if (localStorage.getItem('git-theme') === 'dark') {
+            this.isDark = true;
+            document.body.classList.add('dark');
+        }
+    },
+    beforeUnmount() {
+        window.removeEventListener('scroll', this.updateActive);
+    },
+    methods: {
+        toggleTheme() {
+            this.isDark = !this.isDark;
+            document.body.classList.toggle('dark', this.isDark);
+            localStorage.setItem('git-theme', this.isDark ? 'dark' : 'light');
+        },
+        scrollTo(i) {
+            this.activeSection = i;
+            this.sidebarOpen = false;
+            const el = document.getElementById('sec-' + i);
+            if (el) {
+                const top = el.offsetTop - 80;
+                window.scrollTo({ top, behavior: 'smooth' });
+            }
+        },
+        updateActive() {
+            for (let i = this.nav.length - 1; i >= 0; i--) {
+                const el = document.getElementById('sec-' + i);
+                if (el && el.offsetTop - 120 <= window.scrollY) {
+                    this.activeSection = i;
+                    break;
+                }
+            }
+        },
+        copyCode(idx) {
+            var text = this.codeSnippets[idx] || '';
+            navigator.clipboard.writeText(text).then(() => {
+                this.copiedIdx = idx;
+                setTimeout(() => { this.copiedIdx = null; }, 2000);
+            });
+        },
+        toggleFaq(i) {
+            this.faqOpen = this.faqOpen === i ? -1 : i;
+        }
+    }
+}).mount('#app');
+</script>
+</body>
+</html>
