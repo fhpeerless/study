@@ -16,7 +16,7 @@ const subjectCategories = {
         "javascript": 15,
         "python": 7,
         "go_program": 2,
-        "408概念": 4
+        "408概念": 16
     },
 
     "研考类": {
