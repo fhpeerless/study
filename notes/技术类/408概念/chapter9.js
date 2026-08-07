@@ -219,15 +219,15 @@ export const note1 = {
 
 **Test-and-Set（TS 指令）：**
 - 硬件提供的原子指令，测试并设置一个布尔变量。
-- 实现原理：`boolean TestAndSet(boolean *lock) { boolean old = *lock; *lock = true; return old; }`（原子执行）。
-- 互斥锁：`while(TestAndSet(&lock)) ;` // 忙等（自旋锁）
-  - 临界区执行结束后：`lock = false;`
+- 实现原理：boolean TestAndSet(boolean *lock) { boolean old = *lock; *lock = true; return old; }（原子执行）。
+- 互斥锁：while(TestAndSet(&lock)) ; // 忙等（自旋锁）
+  - 临界区执行结束后：lock = false;
 - **自旋锁（Spin Lock）**：进程在获取锁之前"空转"，不阻塞不被调度，适用于**临界区极短、多核系统**。
 
 **Swap / Exchange 指令：**
-- 原子交换两个字的内容：`void Swap(boolean *a, boolean *b) { boolean t = *a; *a = *b; *b = t; }`
-- 互斥锁实现：`key = true; do { Swap(&lock, &key); } while(key);`
-- 出临界区：`lock = false;`
+- 原子交换两个字的内容：void Swap(boolean *a, boolean *b) { boolean t = *a; *a = *b; *b = t; }
+- 互斥锁实现：key = true; do { Swap(&lock, &key); } while(key);
+- 出临界区：lock = false;
 
 **Test-and-Set / Swap 特点：**
 - 实现简单，适用于多核。

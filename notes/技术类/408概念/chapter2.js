@@ -288,48 +288,40 @@ n 个结点的二叉链表有 n+1 个空指针域。利用这些空指针域指�
 ### 3. 基本操作实现
 
 **Find(x) — 查找根结点**（找到 x 所属集合的代表元）：
-```
-int Find(int x) {
-    while (parent[x] >= 0) x = parent[x];
-    return x;
-}
-```
+    int Find(int x) {
+        while (parent[x] >= 0) x = parent[x];
+        return x;
+    }
 时间 O(d)，d 为树的深度。
 
 **Union(x, y) — 合并集合**（将 y 的根连到 x 的根下）：
-```
-void Union(int x, int y) {
-    int rx = Find(x), ry = Find(y);
-    if (rx != ry) parent[ry] = rx;
-}
-```
+    void Union(int x, int y) {
+        int rx = Find(x), ry = Find(y);
+        if (rx != ry) parent[ry] = rx;
+    }
 
 ### 4. 优化（重点）
 
 **按秩合并（Union by Rank）**：始终将较小树合并到较大树下，用 parent 数组的绝对值存储树的高度（秩）。
-```
-void Union(int x, int y) {
-    int rx = Find(x), ry = Find(y);
-    if (rx == ry) return;
-    if (parent[rx] < parent[ry])  // 负数比较：rx 的秩更大
-        parent[ry] = rx;          // ry 连到 rx 下
-    else if (parent[rx] > parent[ry])
-        parent[rx] = ry;
-    else {
-        parent[ry] = rx;          // 高度相等时，选 rx 为根，高度+1
-        parent[rx]--;
+    void Union(int x, int y) {
+        int rx = Find(x), ry = Find(y);
+        if (rx == ry) return;
+        if (parent[rx] < parent[ry])  // 负数比较：rx 的秩更大
+            parent[ry] = rx;          // ry 连到 rx 下
+        else if (parent[rx] > parent[ry])
+            parent[rx] = ry;
+        else {
+            parent[ry] = rx;          // 高度相等时，选 rx 为根，高度+1
+            parent[rx]--;
+        }
     }
-}
-```
 按秩合并保证树深不超过 O(log n)。
 
 **路径压缩（Path Compression）**：Find 操作时，将查找路径上所有结点直接挂在根下。
-```
-int Find(int x) {
-    if (parent[x] < 0) return x;
-    return parent[x] = Find(parent[x]);  // 递归 + 压缩路径
-}
-```
+    int Find(int x) {
+        if (parent[x] < 0) return x;
+        return parent[x] = Find(parent[x]);  // 递归 + 压缩路径
+    }
 
 **同时使用按秩合并 + 路径压缩**：每次操作均摊时间复杂度接近 **O(α(n))**，其中 α 是阿克曼函数的反函数（增长极慢，实际可视为常数 O(1)）。
 
