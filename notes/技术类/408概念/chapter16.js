@@ -388,7 +388,7 @@ export const note1 = {
 
 **Socket（套接字）**：应用层与传输层之间的**编程接口**，应用程序通过 Socket 使用传输层协议（TCP/UDP）发送和接收数据。
 
-一个 Socket 由 **IP 地址 + 端口号** 唯一标识：`(IP, Port)`。一个 TCP 连接由一对 Socket 唯一标识：`(源IP, 源端口, 目的IP, 目的端口)`。
+一个 Socket 由 **IP 地址 + 端口号** 唯一标识：(IP, Port)。一个 TCP 连接由一对 Socket 唯一标识：(源IP, 源端口, 目的IP, 目的端口)。
 
 **Socket 类型：**
 - **流式 Socket（SOCK_STREAM）**：基于 TCP，面向连接、可靠、字节流。
@@ -398,18 +398,18 @@ export const note1 = {
 ### 2. TCP Socket 编程（C/S 模型）
 
 **服务器端步骤：**
-1. `socket()` — 创建套接字，返回文件描述符。
-2. `bind()` — 绑定本地 IP 和端口。
-3. `listen()` — 进入监听状态，设置最大连接队列。
-4. `accept()` — 阻塞等待客户端连接，返回已连接套接字。
-5. `recv()/send()` — 收发数据。
-6. `close()` — 关闭连接。
+1. socket() — 创建套接字，返回文件描述符。
+2. bind() — 绑定本地 IP 和端口。
+3. listen() — 进入监听状态，设置最大连接队列。
+4. accept() — 阻塞等待客户端连接，返回已连接套接字。
+5. recv()/send() — 收发数据。
+6. close() — 关闭连接。
 
 **客户端步骤：**
-1. `socket()` — 创建套接字。
-2. `connect()` — 发起连接请求（三次握手）。
-3. `send()/recv()` — 收发数据。
-4. `close()` — 关闭连接。
+1. socket() — 创建套接字。
+2. connect() — 发起连接请求（三次握手）。
+3. send()/recv() — 收发数据。
+4. close() — 关闭连接。
 
 **TCP 连接状态变迁（常见）：**
 - CLOSED → LISTEN（服务端 listen）
@@ -419,15 +419,15 @@ export const note1 = {
 
 ### 3. UDP Socket 编程
 
-- 无连接，无需 `listen()` 和 `accept()`。
-- 服务端 `bind()` 后直接用 `recvfrom()` 等数据。
-- 客户端可用 `sendto()` 直接发送（先 bind 或自动绑定随机端口）。
-- 每次 `sendto/recvfrom` 需指定对方地址，是**独立报文**。
+- 无连接，无需 listen() 和 accept()。
+- 服务端 bind() 后直接用 recvfrom() 等数据。
+- 客户端可用 sendto() 直接发送（先 bind 或自动绑定随机端口）。
+- 每次 sendto/recvfrom 需指定对方地址，是**独立报文**。
 
 ### 4. Socket 常考点
 - TCP Socket 是字节流，无消息边界，需应用层自行分包/粘包处理。
-- `listen` 的第二个参数是已完成连接队列（SYN_RCVD→ESTABLISHED）的最大长度，不是并发连接数。
-- `accept` 返回新的已连接套接字文件描述符，原监听套接字保持监听状态。
+- listen 的第二个参数是已完成连接队列（SYN_RCVD→ESTABLISHED）的最大长度，不是并发连接数。
+- accept 返回新的已连接套接字文件描述符，原监听套接字保持监听状态。
 
 ---
 
