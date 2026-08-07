@@ -283,6 +283,31 @@
             margin-bottom: 16px;
             color: #4a4a6a;
         }
+        .purchase-image-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 9999;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none;
+        }
+        .purchase-image-overlay.active {
+            display: flex;
+        }
+        .purchase-image-overlay img {
+            max-width: 80vw;
+            max-height: 80vh;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            pointer-events: auto;
+            cursor: pointer;
+            background: #fff;
+            padding: 8px;
+        }
         @media (max-width: 768px) {
             .download-item-header {
                 flex-direction: column;
@@ -396,7 +421,7 @@
                         </div>
                         <div class="download-item-actions">
                             <button class="download-btn" data-url="enc:MAADESBOWksTR1FcXjIKBwcKWjQVGRs8ARdKGl1dHV8pCTYmUUQuTRZWMA=="><i class="fa fa-download"></i> 立即下载</button>
-                            <a href="https://mall.bilibili.com/neul-next/detailuniversal/detail.html?page=detailuniversal_detail&itemsId=40642800&loadingShow=1&noTitleBar=1#noReffer=true&msource=merchant_share" class="download-btn purchase"><i class="fa fa-shopping-cart"></i> 打赏作者</a>
+                            <button class="download-btn purchase" data-image-url="https://note.youdao.com/yws/api/personal/file/WEBc04156b98123705f15984d662198183a?method=download&inline=true&shareKey=7905066642b3b1bf7725bd510958a2b9"><i class="fa fa-shopping-cart"></i> 打赏作者</button>
                         </div>
                     </div>
 
@@ -422,7 +447,7 @@
                         </div>
                         <div class="download-item-actions">
                             <button class="download-btn" data-url="enc:MAADESBOWksTR1FcXjIKBwcKWjQVGRs8ARdKGl1dHVRjVAEYCQ45RRY="><i class="fa fa-download"></i> 立即下载 密码2jzw</button>
-                            <a href="https://mall.bilibili.com/neul-next/detailuniversal/detail.html?page=detailuniversal_detail&itemsId=40642800&loadingShow=1&noTitleBar=1#noReffer=true&msource=merchant_share" class="download-btn purchase"><i class="fa fa-shopping-cart"></i> 打赏作者</a>
+                            <button class="download-btn purchase" data-image-url="https://mall.bilibili.com/neul-next/detailuniversal/detail.html?page=detailuniversal_detail&itemsId=40642800&loadingShow=1&noTitleBar=1#noReffer=true&msource=merchant_share"><i class="fa fa-shopping-cart"></i> 打赏作者</button>
                         </div>
                     </div>
 
@@ -528,7 +553,7 @@
                         </div>
                         <div class="download-item-actions">
                             <button class="download-btn" data-url="#"><i class="fa fa-download"></i> 立即下载</button>
-                            <a href="#" class="download-btn purchase"><i class="fa fa-shopping-cart"></i> 暂未开通</a>
+                            <button class="download-btn purchase" data-image-url="#"><i class="fa fa-shopping-cart"></i> 暂未开通</button>
                         </div>
                     </div>
 
@@ -574,7 +599,7 @@
                         </div>
                         <div class="download-item-actions">
                             <button class="download-btn" data-url="#"><i class="fa fa-download"></i> 立即下载</button>
-                            <a href="#" class="download-btn purchase"><i class="fa fa-shopping-cart"></i> 暂未开通</a>
+                            <button class="download-btn purchase" data-image-url="#"><i class="fa fa-shopping-cart"></i> 暂未开通</button>
                         </div>
                     </div>
 
@@ -630,7 +655,7 @@
                         </div>
                         <div class="download-item-actions">
                             <button class="download-btn" data-url="#"><i class="fa fa-download"></i> 立即下载</button>
-                            <a href="#" class="download-btn purchase"><i class="fa fa-shopping-cart"></i> 暂未开通</a>
+                            <button class="download-btn purchase" data-image-url="#"><i class="fa fa-shopping-cart"></i> 暂未开通</button>
                         </div>
                     </div>
 
@@ -812,7 +837,24 @@
                 }
             });
         });
+
+        const purchaseOverlay = document.getElementById('purchaseOverlay');
+        const purchaseOverlayImg = document.getElementById('purchaseOverlayImg');
+
+        document.querySelectorAll('.download-btn.purchase[data-image-url]').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const imageUrl = this.dataset.imageUrl;
+                if (purchaseOverlay.classList.contains('active')) {
+                    purchaseOverlay.classList.remove('active');
+                } else {
+                    purchaseOverlayImg.src = imageUrl;
+                    purchaseOverlay.classList.add('active');
+                }
+            });
+        });
     </script>
     <script src="../../js/countdown.js"></script>
+    <div class="purchase-image-overlay" id="purchaseOverlay"><img id="purchaseOverlayImg" src="" alt="打赏" /></div>
 </body>
 </html>

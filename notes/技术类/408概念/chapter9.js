@@ -260,6 +260,55 @@ export const note1 = {
 | 封装性 | 无封装，散落代码各处 | 封装良好 |
 | 特点 | 底层、灵活 | 高级、结构化 |
 
+### 10. Linux 进程管理案例（第4版新增）
+
+Linux 内核中，进程和线程统一用 task_struct 结构体描述，task_struct 相当于 Linux 的 PCB。
+
+**task_struct 主要字段：**
+- pid（进程ID）、ppid（父进程ID）
+- state：进程状态（TASK_RUNNING 运行/就绪、TASK_INTERRUPTIBLE 可中断睡眠、TASK_UNINTERRUPTIBLE 不可中断睡眠、TASK_STOPPED 暂停、TASK_ZOMBIE 僵死）
+- mm_struct *mm：进程内存描述符（地址空间指针）
+- fs_struct *fs：文件系统信息（当前目录等）
+- files_struct *files：打开的文件描述符表
+- thread_struct thread：CPU 寄存器上下文信息
+- 调度相关信息：优先级（static_prio、rt_priority）、时间片（time_slice）、调度策略等
+
+**Linux 进程创建 —— fork() 系列：**
+
+fork() 系统调用创建新进程，子进程完全复制父进程的地址空间。现代 Linux 采用**写时拷贝（Copy-On-Write，COW）**技术优化 fork()：
+- fork() 后父子进程共享同一物理页，页表项标记为只读。
+- 任一方尝试写入共享页时，触发缺页保护异常，内核为该页建立独立副本。
+- COW 避免了 fork 时立即复制全部地址空间的开销。
+
+exec() 系列函数：通常在 fork() 后由子进程调用，加载新程序替换子进程的地址空间。
+
+**vfork() vs fork()：**
+- vfork() 不复制地址空间，父进程阻塞直到子进程调用 exec() 或 exit()。
+- 适用于"立刻执行 exec"的场景，比 fork 更轻量。
+
+**Linux 线程实现：**
+
+Linux 不严格区分进程和线程，两者统一用 task_struct 描述。区别在于创建时的标志：
+- 创建进程：fork() → 子进程获得**独立**的地址空间（新 mm_struct）。
+- 创建线程：clone(CLONE_VM | ...) → 线程**共享**父进程的地址空间（复用同一 mm_struct）。
+
+Linux 线程库演进：
+| 实现 | 时期 | 特点 |
+|------|------|------|
+| LinuxThreads | 早期 | 每个线程对应一个独立进程，不完全符合 POSIX 标准 |
+| NPTL（Native POSIX Thread Library） | 当前标准 | 一对一模型，用户线程与内核线程一一对应，完全符合 POSIX |
+
+**NPTL 核心特征：**
+- 每个用户线程对应一个内核可调度实体，线程切换由内核调度器完成。
+- 线程的创建、同步、销毁等通过系统调用在内核态完成。
+- clone() 时设置 CLONE_VM（共享地址空间）、CLONE_FILES（共享文件表）、CLONE_SIGHAND（共享信号处理）等标志。
+- 线程间通信极为方便，直接通过共享变量，无需 IPC。
+- 可利用多核/多处理器真正并行执行。
+
+**Linux 运行队列与等待队列：**
+- **运行队列（runqueue）**：每个 CPU 一个，存放所有 TASK_RUNNING 状态的进程/线程，等待被调度。
+- **等待队列（wait queue）**：阻塞状态的进程/线程挂在对应事件的等待队列上，事件发生后被唤醒移入运行队列。
+
 ---
 
 ## 三、CPU 模式与系统调用（补充）
@@ -293,7 +342,9 @@ export const note1 = {
 - 时间片用完导致的运行→就绪是**被动**的；请求 I/O 导致的运行→阻塞是**主动**的。
 - **TS/Swap 指令**属于自旋锁，违反"让权等待"，适用于临界区极短和多核场景。
 - **管程**封装共享变量与操作，条件变量 wait/signal 替代 P/V；由编译器保证互斥，更安全。
-`,
+- Linux 用 task_struct 统一表示进程和线程；fork() 采用**写时拷贝 COW** 优化。
+- Linux 线程实现 NPTL 采用**一对一模型**，clone(CLONE_VM) 创建线程共享地址空间。
+- Linux 每个 CPU 一个 runqueue，阻塞进程挂在 wait queue 上。`,
     timestamp: "2026-08-06 22:10",
     embed: ``
 };

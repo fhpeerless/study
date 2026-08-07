@@ -302,6 +302,31 @@ def generate_css(style):
             margin-bottom: 16px;
             color: #4a4a6a;
         }}
+        .purchase-image-overlay {{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 9999;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none;
+        }}
+        .purchase-image-overlay.active {{
+            display: flex;
+        }}
+        .purchase-image-overlay img {{
+            max-width: 80vw;
+            max-height: 80vh;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            pointer-events: auto;
+            cursor: pointer;
+            background: #fff;
+            padding: 8px;
+        }}
         @media (max-width: 768px) {{
             .download-item-header {{
                 flex-direction: column;
@@ -376,7 +401,7 @@ def generate_file_item(file_info):
     if file_info.get('purchase_url'):
         purchase_text = file_info.get('purchase_text', '购买')
         purchase_btn = f'''
-                            <a href="{file_info['purchase_url']}" class="download-btn purchase"><i class="fa fa-shopping-cart"></i> {purchase_text}</a>'''
+                            <button class="download-btn purchase" data-image-url="{file_info['purchase_url']}"><i class="fa fa-shopping-cart"></i> {purchase_text}</button>'''
     
     download_text = file_info.get('download_text', '立即下载')
     encoded_url = encode_url(file_info['download_url'])
@@ -641,8 +666,25 @@ def generate_html(config):
                 }}
             }});
         }});
+
+        const purchaseOverlay = document.getElementById('purchaseOverlay');
+        const purchaseOverlayImg = document.getElementById('purchaseOverlayImg');
+
+        document.querySelectorAll('.download-btn.purchase[data-image-url]').forEach(btn => {{
+            btn.addEventListener('click', function(e) {{
+                e.preventDefault();
+                const imageUrl = this.dataset.imageUrl;
+                if (purchaseOverlay.classList.contains('active')) {{
+                    purchaseOverlay.classList.remove('active');
+                }} else {{
+                    purchaseOverlayImg.src = imageUrl;
+                    purchaseOverlay.classList.add('active');
+                }}
+            }});
+        }});
     </script>
     <script src="../../js/countdown.js"></script>
+    <div class="purchase-image-overlay" id="purchaseOverlay"><img id="purchaseOverlayImg" src="" alt="打赏" /></div>
 </body>
 </html>
 '''

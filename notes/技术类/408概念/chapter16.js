@@ -299,11 +299,74 @@ export const note1 = {
   - 4xx：客户端错误（**404 Not Found**、403 禁止）
   - 5xx：服务器错误（**500 Internal Server Error**、503 服务不可用）
 
-**HTTP 1.0 / 1.1 / 2.0 区别：**
-- HTTP 1.0：每次请求建立新 TCP 连接（短连接）。
-- HTTP 1.1：默认**持久连接**（keep-alive），支持**流水线**，可以复用 TCP 连接。
-- HTTP 2.0：多路复用、二进制分帧、头部压缩。
-- HTTPS = HTTP + SSL/TLS，端口 443，提供加密和身份认证。
+**HTTP 版本演进：**
+
+| 版本 | 年份 | 关键特性 | 传输层 |
+|------|------|---------|-------|
+| HTTP/1.0 | 1996 | 短连接（每次请求新建 TCP），无 Host 头 | TCP |
+| HTTP/1.1 | 1997 | 持久连接、流水线、Host 头（虚拟主机）、分块传输、缓存增强 | TCP |
+| HTTP/2 | 2015 | 二进制分帧、多路复用、头部压缩 HPACK、服务器推送 | TCP（单连接） |
+| HTTP/3 | 2022 | 基于 QUIC（UDP）、0-RTT 建连、无队头阻塞、连接迁移 | UDP（QUIC） |
+
+**HTTP/1.0 与 HTTP/1.1：**
+- HTTP/1.0：每次请求建立新 TCP 连接（短连接），开销大。
+- HTTP/1.1：默认持久连接（Connection: keep-alive），可复用 TCP 连接。
+- HTTP/1.1 支持流水线（Pipelining）：一个连接上可连续发送多个请求而不等响应，但响应必须按序返回，队头阻塞（HOL Blocking）问题严重。
+- HTTP/1.1 引入 Host 头，允许多个域名共享同一 IP（虚拟主机）。
+- HTTP/1.1 支持分块传输编码（Chunked Transfer Encoding），动态内容无需预先知道 Content-Length。
+
+**HTTP/2 核心特性：**
+- **二进制分帧**：不再使用文本协议，所有数据以二进制帧传输。一个 TCP 连接上可交错发送多个请求/响应的帧。
+- **多路复用**：同一 TCP 连接上并发多个请求/响应流（Stream），帧可按 Stream ID 交错发送，接收方根据 Stream ID 重组。解决 HTTP/1.1 串行队头阻塞。
+- **头部压缩 HPACK**：请求/响应头部用 HPACK 算法压缩（静态表 + 动态表 + Huffman 编码），大幅减少冗余传输。
+- **服务器推送（Server Push）**：服务器可主动向客户端推送资源（如 CSS/JS），无需客户端逐个请求。但实际部署中较少使用。
+- **流优先级**：客户端可指定每个 Stream 的优先级和依赖关系，让服务器优先发送关键资源。
+- **注意**：HTTP/2 仍基于 TCP，TCP 层的丢包导致整个连接队头阻塞（TCP 队头阻塞），这是 HTTP/3 要解决的核心问题。
+
+**HTTP/3（基于 QUIC）核心特性：**
+- **QUIC（Quick UDP Internet Connections）**：Google 提出，IETF 标准化为 HTTP/3。基于 UDP，在用户态实现可靠传输、拥塞控制、加密等功能，替代 TCP + TLS 的组合。
+- **0-RTT 建连**：首次连接 1-RTT（客户端获取服务器配置）；再次连接可 0-RTT（使用缓存的配置直接发送数据），大幅降低延迟。
+- **无 TCP 队头阻塞**：QUIC 在单个 UDP 连接上维护多个独立流，某流丢包仅阻塞该流，不影响其他流（与 TCP 全连接阻塞不同）。
+- **连接迁移**：连接 ID 标识而非四元组（源IP+端口+目的IP+端口）。切换网络（如 Wi-Fi → 4G）时连接不中断，无需重新握手。
+- **前向纠错 FEC**：可选，通过冗余编码降低重传需求。
+- **内建加密**：QUIC 协议本身内建 TLS 1.3 加密，无明文传输，安全性更强。
+
+### 1b. HTTPS 与 SSL/TLS 详解
+
+**HTTPS = HTTP over TLS**，端口 443，在 HTTP 之下、TCP 之上插入 TLS 层提供安全通信。
+
+**TLS 提供的安全服务：**
+- **机密性**：对称加密保护数据内容，防止窃听。
+- **完整性**：MAC（消息认证码）防止数据被篡改。
+- **身份认证**：数字证书 + 公钥体系验证服务器身份（可选客户端认证）。
+
+**TLS 握手全过程（TLS 1.2，简化）：**
+1. **Client Hello**：客户端发送支持的 TLS 版本、密码套件列表（如 TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256）、随机数 Random_C。
+2. **Server Hello**：服务器选择密码套件、返回随机数 Random_S，发送数字证书（含服务器公钥）。
+3. **客户端验证证书**：用 CA 公钥验证证书签名，提取服务器公钥。
+4. **密钥交换**：
+   - RSA 方式：客户端生成 Pre-Master Secret，用服务器公钥加密发送，双方各计算 Master Secret → 会话密钥。
+   - ECDHE 方式（前向安全）：双方通过椭圆曲线 Diffie-Hellman 协商共享密钥，即使服务器私钥泄露也无法解密历史会话。
+5. **加密通信**：双方使用协商的会话密钥进行对称加密通信。
+6. **Finished 消息**：双方用协商密钥加密发送 Finished 消息，验证握手完整性。
+
+**TLS 1.3 改进（2018）：**
+- 减为 1-RTT 握手（首次），支持 0-RTT（PSK 恢复会话）。
+- 移除不安全算法（RSA 密钥交换、RC4、MD5、SHA-1、CBC 模式），仅保留前向安全的 ECDHE。
+- 握手加密：从 Server Hello 之后的消息均加密，减少明文泄露。
+- 密码套件简化：只需 AEAD 算法 + 哈希（如 TLS_AES_128_GCM_SHA256）。
+
+**证书与 PKI 公钥基础设施：**
+- **X.509 证书结构**：版本、序列号、签发者 DN、有效期、主体 DN（域名）、主体公钥、签发者数字签名。
+- **证书链验证**：终端实体证书 → 中间 CA 证书 → 根 CA 证书（预装在操作系统/浏览器中）。
+- **SAN（Subject Alternative Name）**：证书可包含多个域名（如 example.com 和 *.example.com）。
+
+**HTTPS 常考点：**
+- HTTPS = HTTP + TLS，端口 443，提供机密性、完整性、认证。
+- TLS 握手：Client Hello → Server Hello + 证书 → 密钥交换 → 加密通信。
+- 对称加密（数据加密）+ 非对称加密（密钥协商）+ 哈希（完整性验证）= 混合加密体系。
+- TLS 1.3 移除了 RSA 密钥交换，强制前向安全（ECDHE）。
+- HTTP/2 和 HTTP/3（QUIC）均强制使用 TLS 加密。
 
 ### 2. DNS 域名系统
 
@@ -506,7 +569,8 @@ export const note1 = {
 - **超时 vs 3 冗余 ACK**：超时 cwnd=1 进慢开始；3 冗余 ACK cwnd 减半进快恢复。
 - **三次握手**：SYN_SENT→SYN_RCVD→ESTABLISHED；**四次挥手**：FIN_WAIT_1→FIN_WAIT_2→TIME_WAIT(2MSL)→CLOSED。
 - **TIME_WAIT 2MSL**：保证最后 ACK 到达 + 让旧报文消失。
-- **HTTP**：无状态、Cookie 维持、1.0 短连接、1.1 持久连接+流水线。
+- **HTTP**：无状态、Cookie 维持。HTTP/1.0 短连接；HTTP/1.1 持久连接 + 流水线（队头阻塞）；HTTP/2 二进制分帧 + 多路复用 + HPACK 头部压缩；HTTP/3 基于 QUIC（UDP），0-RTT 建连、无 TCP 队头阻塞、连接迁移。
+- **HTTPS/TLS**：HTTP + TLS，端口 443。TLS 1.2 握手 2-RTT（Client Hello → Server Hello+证书 → 密钥交换 → Finished）。TLS 1.3 减为 1-RTT，仅保留 ECDHE 前向安全，握手加密。
 - **DNS**：UDP 53，递归查询（客户端到本地）+ 迭代查询（本地到根/TLD/权威）。
 - **邮件协议**：SMTP 推送（端口 25）、POP3 拉取（端口 110）、IMAP 在线管理（端口 143）。
 - **FTP**：双连接，控制 21 + 数据 20，主动 PORT / 被动 PASV。
