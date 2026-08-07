@@ -192,8 +192,6 @@ def generate_css(style):
             gap: 20px;
         }}
         .download-item {{
-            position: relative;
-            overflow: hidden;
             background-color: {style['card_bg']};
             border-radius: {style['card_radius']};
             padding: 24px;
@@ -305,30 +303,29 @@ def generate_css(style):
             color: #4a4a6a;
         }}
         .purchase-image-overlay {{
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 10;
+            width: 100vw;
+            height: 100vh;
+            z-index: 9999;
             display: none;
             justify-content: center;
             align-items: center;
             pointer-events: none;
-            background: rgba(0, 0, 0, 0.45);
-            border-radius: {style['card_radius']};
         }}
         .purchase-image-overlay.active {{
             display: flex;
         }}
         .purchase-image-overlay img {{
-            max-width: 90%;
-            max-height: 90%;
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-            pointer-events: none;
+            max-width: 80vw;
+            max-height: 80vh;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            pointer-events: auto;
+            cursor: pointer;
             background: #fff;
-            padding: 6px;
+            padding: 8px;
         }}
         @media (max-width: 768px) {{
             .download-item-header {{
@@ -401,13 +398,10 @@ def generate_subcategory_nav(top_categories):
 
 def generate_file_item(file_info):
     purchase_btn = ''
-    purchase_overlay = ''
     if file_info.get('purchase_url'):
         purchase_text = file_info.get('purchase_text', '购买')
         purchase_btn = f'''
                             <button class="download-btn purchase" data-image-url="{file_info['purchase_url']}"><i class="fa fa-shopping-cart"></i> {purchase_text}</button>'''
-        purchase_overlay = '''
-                        <div class="purchase-image-overlay"><img src="" alt="打赏" /></div>'''
     
     download_text = file_info.get('download_text', '立即下载')
     encoded_url = encode_url(file_info['download_url'])
@@ -430,7 +424,6 @@ def generate_file_item(file_info):
                         <div class="download-item-actions">
                             <button class="download-btn" data-url="{encoded_url}"><i class="fa fa-download"></i> {download_text}</button>{purchase_btn}
                         </div>
-                        {purchase_overlay}
                     </div>
 '''
 
@@ -674,25 +667,32 @@ def generate_html(config):
             }});
         }});
 
+        const purchaseOverlay = document.getElementById('purchaseOverlay');
+        const purchaseOverlayImg = document.getElementById('purchaseOverlayImg');
+
         document.querySelectorAll('.download-btn.purchase[data-image-url]').forEach(btn => {{
             btn.addEventListener('click', function(e) {{
                 e.preventDefault();
+                e.stopPropagation();
                 const imageUrl = this.dataset.imageUrl;
-                const card = this.closest('.download-item');
-                const overlay = card.querySelector('.purchase-image-overlay');
-                const img = overlay.querySelector('img');
-                if (overlay.classList.contains('active')) {{
-                    overlay.classList.remove('active');
+                if (purchaseOverlay.classList.contains('active')) {{
+                    purchaseOverlay.classList.remove('active');
                 }} else {{
-                    img.src = imageUrl;
-                    overlay.classList.add('active');
+                    purchaseOverlayImg.src = imageUrl;
+                    purchaseOverlay.classList.add('active');
                 }}
             }});
         }});
+
+        document.addEventListener('click', function() {{
+            purchaseOverlay.classList.remove('active');
+        }});
     </script>
     <script src="../../js/countdown.js"></script>
+    <div class="purchase-image-overlay" id="purchaseOverlay"><img id="purchaseOverlayImg" src="" alt="打赏" /></div>
 </body>
-</html>'''
+</html>
+'''
 
 def main():
     script_dir = os.path.dirname(os.path.abspath(__file__))
