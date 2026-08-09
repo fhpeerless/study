@@ -3,7 +3,7 @@
 
 const subjectCategories = {
     "公考类": {
-
+         "常识dada": 10,
         "xingce": 6,
         "shenlun": 5,
         "police考试": 12,
