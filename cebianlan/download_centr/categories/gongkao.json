@@ -1,0 +1,136 @@
+{
+    "id": "gongkao",
+    "name": "公考",
+    "icon": "fa-graduation-cap",
+    "categories": [
+        {
+            "id": "xingce",
+            "name": "--行测--",
+            "title": "行测资料",
+            "icon": "fa-file-text",
+            "files": {
+                "xingce_ziliao": [
+                    {
+                        "title": "资料分析基础笔记",
+                        "subcategory_name": "资料分析",
+                        "version": "v1.1",
+                        "update_time": "2026-03-25",
+                        "size": "9.8 MB",
+                        "description": "资料分析基础，包含增长率、比重、平均数等解释，抖音示例讲解，购买密钥。",
+                        "download_url": "https://juanhaoduo.lanzoub.com/izlUT40v9a7c",
+                        "purchase_url": "https://note.youdao.com/yws/api/personal/file/WEBc04156b98123705f15984d662198183a?method=download&inline=true&shareKey=7905066642b3b1bf7725bd510958a2b9",
+                        "purchase_text": "打赏作者",
+                        "download_text": "立即下载"
+                    }
+                ],
+                "xingce_changshi": [
+                    {
+                        "title": "言语理解-成语解释",
+                        "subcategory_name": "成语填空",
+                        "version": "v1.0",
+                        "update_time": "2025-03-25",
+                        "size": "12.8 MB",
+                        "description": "行测成语填空，真题高频成语解释pdf打印版和不带解释的pdf默写版。",
+                        "download_url": "https://juanhaoduo.lanzoub.com/b01bjlza1a",
+                        "purchase_url": "https://note.youdao.com/yws/api/personal/file/WEBc04156b98123705f15984d662198183a?method=download&inline=true&shareKey=7905066642b3b1bf7725bd510958a2b9",
+                        "purchase_text": "打赏作者",
+                        "download_text": "立即下载 密码2jzw"
+                    }
+                ],
+                "xingce_yuyan": [
+                    {
+                        "title": "言语理解技巧手册",
+                        "subcategory_name": "言语理解",
+                        "version": "v2.0",
+                        "update_time": "2025-03-11",
+                        "size": "8.5 MB",
+                        "description": "言语理解解题技巧，包含选词填空、片段阅读、语句表达等题型。",
+                        "download_url": "#",
+                        "purchase_url": null
+                    }
+                ],
+                "xingce_shuli": [
+                    {
+                        "title": "数量关系解题技巧",
+                        "subcategory_name": "数量关系",
+                        "version": "v2.1",
+                        "update_time": "2025-03-08",
+                        "size": "5.6 MB",
+                        "description": "数量关系解题技巧与练习题，包含数学运算、数字推理等题型。",
+                        "download_url": "#",
+                        "purchase_url": null
+                    }
+                ],
+                "xingce_panduan": [
+                    {
+                        "title": "判断推理专项训练",
+                        "subcategory_name": "判断推理",
+                        "version": "v1.8",
+                        "update_time": "2025-03-05",
+                        "size": "15.2 MB",
+                        "description": "判断推理专项训练，包含图形推理、定义判断、类比推理、逻辑判断。",
+                        "download_url": "#",
+                        "purchase_url": null
+                    }
+                ]
+            }
+        },
+        {
+            "id": "shenlun",
+            "name": "--申论--",
+            "title": "申论资料",
+            "icon": "fa-edit",
+            "files": {
+                "shenlun_basic": [
+                    {
+                        "title": "申论基础教程",
+                        "subcategory_name": "基础教程",
+                        "version": "v2.1.0",
+                        "update_time": "2025-03-15",
+                        "size": "45.2 MB",
+                        "description": "申论基础教程，包含申论写作技巧、材料分析方法、答题规范等内容。",
+                        "download_url": "#",
+                        "purchase_url": "#",
+                        "purchase_text": "暂未开通",
+                        "download_text": "立即下载"
+                    },
+                    {
+                        "title": "申论写作规范",
+                        "subcategory_name": "基础教程",
+                        "version": "v1.2.0",
+                        "update_time": "2025-03-10",
+                        "size": "12.5 MB",
+                        "description": "申论写作规范指南，包含格式要求、字数控制、段落结构等。",
+                        "download_url": "#",
+                        "purchase_url": null
+                    }
+                ],
+                "shenlun_examples": [
+                    {
+                        "title": "申论范文精选100篇",
+                        "subcategory_name": "范文精选",
+                        "version": "v1.5.2",
+                        "update_time": "2025-03-10",
+                        "size": "28.5 MB",
+                        "description": "精选100篇申论范文，涵盖社会、经济、文化等多个领域，附带点评分析。",
+                        "download_url": "#",
+                        "purchase_url": "#",
+                        "purchase_text": "暂未开通"
+                    }
+                ],
+                "shenlun_exam": [
+                    {
+                        "title": "历年真题解析",
+                        "subcategory_name": "真题解析",
+                        "version": "v3.0",
+                        "update_time": "2025-03-08",
+                        "size": "68.3 MB",
+                        "description": "近5年申论真题及详细解析，包含答题思路和评分标准。",
+                        "download_url": "#",
+                        "purchase_url": null
+                    }
+                ]
+            }
+        }
+    ]
+}

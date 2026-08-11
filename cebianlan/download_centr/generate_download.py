@@ -6,8 +6,27 @@ from datetime import datetime
 SECRET_KEY = "XtwaStudy2026Secret"
 
 def load_config(config_path):
+    """加载主配置（page/style/category_files），并按清单依次加载各大分类独立JSON文件，
+    组装为 top_categories 列表。新增大分类时只需新建一个JSON并在 category_files 中登记。"""
     with open(config_path, 'r', encoding='utf-8') as f:
-        return json.load(f)
+        config = json.load(f)
+
+    script_dir = os.path.dirname(os.path.abspath(config_path))
+    category_files = config.pop('category_files', [])
+
+    top_categories = []
+    for rel_path in category_files:
+        cat_file_path = os.path.join(script_dir, rel_path)
+        if not os.path.exists(cat_file_path):
+            print(f"  [warn] 分类文件不存在，已跳过: {cat_file_path}")
+            continue
+        with open(cat_file_path, 'r', encoding='utf-8') as f:
+            top_cat = json.load(f)
+        top_categories.append(top_cat)
+        print(f"  [load] 已加载分类: {top_cat.get('id')} ({top_cat.get('name')}) <- {rel_path}")
+
+    config['top_categories'] = top_categories
+    return config
 
 def xor_encrypt(data, key):
     """XOR加密/解密"""

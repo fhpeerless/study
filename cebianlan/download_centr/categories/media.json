@@ -1,0 +1,40 @@
+{
+    "id": "media",
+    "name": "多媒体资源",
+    "icon": "fa-video-camera",
+    "categories": [
+        {
+            "id": "media",
+            "name": "多媒体资源",
+            "title": "多媒体资源",
+            "icon": "fa-video-camera",
+            "files": {
+                "media_video": [
+                    {
+                        "title": "申论系统视频课程",
+                        "subcategory_name": "视频课程",
+                        "version": "v1.0",
+                        "update_time": "2025-03-05",
+                        "size": "2.3 GB",
+                        "description": "申论系统视频课程，共30课时，每课时约45分钟，适合初学者。",
+                        "download_url": "#",
+                        "purchase_url": "#",
+                        "purchase_text": "暂未开通"
+                    }
+                ],
+                "media_audio": [
+                    {
+                        "title": "行测刷题音频",
+                        "subcategory_name": "音频资料",
+                        "version": "v1.2",
+                        "update_time": "2025-02-28",
+                        "size": "156 MB",
+                        "description": "行测刷题音频讲解，利用碎片时间学习，提升答题效率。",
+                        "download_url": "#",
+                        "purchase_url": null
+                    }
+                ]
+            }
+        }
+    ]
+}
