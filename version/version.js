@@ -14,6 +14,12 @@ export const versions = [
         updateTime: "2026-08-12 11:10",
         description: "初始版本：Flutter安卓App，支持学科分类浏览、笔记Markdown渲染、版本更新检查",
         updateUrl: "https://note.youdao.com/yws/api/personal/file/WEB26868ea90275a2902d65c8da5808b2e0?method=download&inline=true&shareKey=8cee4e9562cfefce3db70560eded9a5f"
+    },
+    {
+        version: "v1.0.0.1",
+        updateTime: "2026-08-12 00:05",
+        description: "新增笔记本地缓存和本地笔记页面",
+        updateUrl: "http://note.youdao.com/yws/api/personal/file/WEB9e857a2e0d5ff7620612af83c80b44c1?method=download&inline=true&shareKey=8758ab34fdba0f64e9d84e3294793643"
     }
 ];
 
