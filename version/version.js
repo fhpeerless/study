@@ -13,7 +13,7 @@ export const versions = [
         version: "v1.0.0.0",
         updateTime: "2026-08-12 11:10",
         description: "初始版本：Flutter安卓App，支持学科分类浏览、笔记Markdown渲染、版本更新检查",
-        updateUrl: "https://juanhaoduo.lanzoub.com/iJIwC41rur0f"
+        updateUrl: "http://note.youdao.com/yws/api/personal/file/WEB26868ea90275a2902d65c8da5808b2e0?method=download&inline=true&shareKey=8cee4e9562cfefce3db70560eded9a5f"
     }
 ];
 
