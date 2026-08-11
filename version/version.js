@@ -7,13 +7,13 @@ export const versions = [
         version: "v1.0.0.0",
         updateTime: "2026-08-11 11:10",
         description: "初始版本：Flutter安卓App，支持学科分类浏览、笔记Markdown渲染、版本更新检查",
-        updateUrl: "https://juanhaoduo.lanzoub.com/ij3Lg41rr2if"
+        updateUrl: "https://juanhaoduo.lanzoub.com/iJIwC41rur0f"
     },
     {
         version: "v1.0.0.0",
         updateTime: "2026-08-12 11:10",
         description: "初始版本：Flutter安卓App，支持学科分类浏览、笔记Markdown渲染、版本更新检查",
-        updateUrl: "https://juanhaoduo.lanzoub.com/ij3Lg41rr2if"
+        updateUrl: "https://juanhaoduo.lanzoub.com/iJIwC41rur0f"
     }
 ];
 
