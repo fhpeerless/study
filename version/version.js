@@ -10,7 +10,7 @@ export const versions = [
         updateUrl: "https://juanhaoduo.lanzoub.com/ij3Lg41rr2if"
     },
     {
-        version: "v1.0.0.1",
+        version: "v1.0.0.0",
         updateTime: "2026-08-12 11:10",
         description: "初始版本：Flutter安卓App，支持学科分类浏览、笔记Markdown渲染、版本更新检查",
         updateUrl: "https://juanhaoduo.lanzoub.com/ij3Lg41rr2if"
