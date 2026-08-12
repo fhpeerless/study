@@ -12,19 +12,19 @@
 
 export const bookSources = [
     // ===== 公考类 =====
-    { category: "公考类", subcategory: "常识大纲", path: "公考类/常识大纲/books.js" },
-    { category: "公考类", subcategory: "xingce", path: "公考类/xingce/books.js" },
-    { category: "公考类", subcategory: "shenlun", path: "公考类/shenlun/books.js" },
+    // { category: "公考类", subcategory: "常识大纲", path: "公考类/常识大纲/books.js" },
+    // { category: "公考类", subcategory: "xingce", path: "公考类/xingce/books.js" },
+    // { category: "公考类", subcategory: "shenlun", path: "公考类/shenlun/books.js" },
 
     // ===== 技术类 =====
-    { category: "技术类", subcategory: "python", path: "技术类/python/books.js" },
-    { category: "技术类", subcategory: "javascript", path: "技术类/javascript/books.js" },
-    { category: "技术类", subcategory: "css", path: "技术类/css/books.js" },
-    { category: "技术类", subcategory: "html", path: "技术类/html/books.js" },
-    { category: "技术类", subcategory: "go_program", path: "技术类/go_program/books.js" },
+    // { category: "技术类", subcategory: "python", path: "技术类/python/books.js" },
+    // { category: "技术类", subcategory: "javascript", path: "技术类/javascript/books.js" },
+    // { category: "技术类", subcategory: "css", path: "技术类/css/books.js" },
+    // { category: "技术类", subcategory: "html", path: "技术类/html/books.js" },
+    // { category: "技术类", subcategory: "go_program", path: "技术类/go_program/books.js" },
     { category: "技术类", subcategory: "408概念", path: "技术类/408概念/books.js" },
 
     // ===== 研考类 =====
-    { category: "研考类", subcategory: "politics101", path: "研考类/politics101/books.js" },
-    { category: "研考类", subcategory: "english", path: "研考类/english/books.js" }
+    // { category: "研考类", subcategory: "politics101", path: "研考类/politics101/books.js" },
+    // { category: "研考类", subcategory: "english", path: "研考类/english/books.js" }
 ];
