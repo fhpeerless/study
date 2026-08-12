@@ -27,7 +27,7 @@ export const versions = [
     {
         version: "v1.0.0.5",
         updateTime: "2026-08-12 00:05",
-        description: "新增文字转语音，新增书架",
+        description: "新增文字转语音，新增书架,新增tts功能",
         updateUrl: "https://note.youdao.com/yws/api/personal/file/WEB8c3944019c4b4d5866cc0f133f710369?method=download&inline=true&shareKey=a4bdda357fa79cd28891df2f29cadc43",
         forceUpdate: false
     }
