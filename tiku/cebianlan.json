@@ -1,0 +1,9 @@
+{
+  "purchase_url": "https://example.com/tiku-key",
+  "purchase_text": "购买题库密钥",
+  "announcement_title": "公告",
+  "announcement_lines": [
+    "这里是公告占位内容，请替换为实际公告。",
+    "可在此发布题库更新说明、密钥获取方式等。"
+  ]
+}
