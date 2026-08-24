@@ -30,6 +30,20 @@ export const versions = [
         description: "新增文字转语音，新增书架,新增tts功能",
         updateUrl: "https://note.youdao.com/yws/api/personal/file/WEB8c3944019c4b4d5866cc0f133f710369?method=download&inline=true&shareKey=a4bdda357fa79cd28891df2f29cadc43",
         forceUpdate: false
+    },
+    {
+        version: "v1.0.0.6",
+        updateTime: "2026-08-23 00:05",
+        description: "新增题库功能",
+        updateUrl: "https://pan.ddda.cc/f/WJfY/study_1.0.0.6.apk",
+        forceUpdate: false
+    },
+    {
+        version: "v1.0.0.9",
+        updateTime: "2026-08-24 15:30",
+        description: "题库：登录激活、按省市浏览真题、下载/答题/删除/PDF，界面美化；新增本地PDF扫描",
+        updateUrl: "https://pan.ddda.cc/f/ZNuP/study_1.0.0.9.apk",
+        forceUpdate: false
     }
 ];
 
