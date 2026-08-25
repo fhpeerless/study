@@ -40,7 +40,7 @@ export const versions = [
     },
     {
         version: "v1.0.0.9",
-        updateTime: "2026-08-24 15:30",
+        updateTime: "2026-08-25 08:16",
         description: "题库：登录激活、按省市浏览真题、下载/答题/删除/PDF，界面美化；新增本地PDF扫描",
         updateUrl: "https://pan.ddda.cc/f/ZNuP/study_1.0.0.9.apk",
         forceUpdate: false

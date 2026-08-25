@@ -13,154 +13,154 @@ export const regionPapers = {
             "id": "2015xingce",
             "name": "2015年行测",
             "count": 130,
-            "json": "hlj_json/2015年行测.json",
+            "json": "2015年行测.json",
             "pdf": "https://raw.githubusercontent.com/fhpeerless/study/refs/heads/main/tiku/公考类/行测/真题/黑龙江/pdf/2015年行测.pdf"
         },
         {
             "id": "2015xingce_gongjianfa",
             "name": "2015年行测公检法卷",
             "count": 130,
-            "json": "hlj_json/2015年行测公检法卷.json",
+            "json": "2015年行测公检法卷.json",
             "pdf": "https://raw.githubusercontent.com/fhpeerless/study/refs/heads/main/tiku/公考类/行测/真题/黑龙江/pdf/2015年行测公检法卷.pdf"
         },
         {
             "id": "2015xingce_bianyuan",
             "name": "2015年行测边远卷",
             "count": 120,
-            "json": "hlj_json/2015年行测边远卷.json",
+            "json": "2015年行测边远卷.json",
             "pdf": "https://raw.githubusercontent.com/fhpeerless/study/refs/heads/main/tiku/公考类/行测/真题/黑龙江/pdf/2015年行测边远卷.pdf"
         },
         {
             "id": "2016xingce_gongjianfa",
             "name": "2016年行测公检法卷",
             "count": 120,
-            "json": "hlj_json/2016年行测公检法卷.json",
+            "json": "2016年行测公检法卷.json",
             "pdf": "https://raw.githubusercontent.com/fhpeerless/study/refs/heads/main/tiku/公考类/行测/真题/黑龙江/pdf/2016年行测公检法卷.pdf"
         },
         {
             "id": "2016xingce",
             "name": "2016年行测",
             "count": 119,
-            "json": "hlj_json/2016年行测.json",
+            "json": "2016年行测.json",
             "pdf": "https://raw.githubusercontent.com/fhpeerless/study/refs/heads/main/tiku/公考类/行测/真题/黑龙江/pdf/2016年行测.pdf"
         },
         {
             "id": "2016xingce_xianxiang",
             "name": "2016年行测县乡卷",
             "count": 120,
-            "json": "hlj_json/2016年行测县乡卷.json",
+            "json": "2016年行测县乡卷.json",
             "pdf": "https://raw.githubusercontent.com/fhpeerless/study/refs/heads/main/tiku/公考类/行测/真题/黑龙江/pdf/2016年行测县乡卷.pdf"
         },
         {
             "id": "2017xingce",
             "name": "2017年行测",
             "count": 129,
-            "json": "hlj_json/2017年行测.json",
+            "json": "2017年行测.json",
             "pdf": "https://raw.githubusercontent.com/fhpeerless/study/refs/heads/main/tiku/公考类/行测/真题/黑龙江/pdf/2017年行测.pdf"
         },
         {
             "id": "2017xingce_gongjianfa",
             "name": "2017年行测公检法卷",
             "count": 120,
-            "json": "hlj_json/2017年行测公检法卷.json",
+            "json": "2017年行测公检法卷.json",
             "pdf": "https://raw.githubusercontent.com/fhpeerless/study/refs/heads/main/tiku/公考类/行测/真题/黑龙江/pdf/2017年行测公检法卷.pdf"
         },
         {
             "id": "2018xingce_xiangzhen",
             "name": "2018年行测乡镇卷",
             "count": 110,
-            "json": "hlj_json/2018年行测乡镇卷.json",
+            "json": "2018年行测乡镇卷.json",
             "pdf": "https://raw.githubusercontent.com/fhpeerless/study/refs/heads/main/tiku/公考类/行测/真题/黑龙江/pdf/2018年行测乡镇卷.pdf"
         },
         {
             "id": "2018xingce_gongjianfa",
             "name": "2018年行测公检法卷",
             "count": 118,
-            "json": "hlj_json/2018年行测公检法卷.json",
+            "json": "2018年行测公检法卷.json",
             "pdf": "https://raw.githubusercontent.com/fhpeerless/study/refs/heads/main/tiku/公考类/行测/真题/黑龙江/pdf/2018年行测公检法卷.pdf"
         },
         {
             "id": "2018xingce_shengzhi",
             "name": "2018年行测省直卷",
             "count": 130,
-            "json": "hlj_json/2018年行测省直卷.json",
+            "json": "2018年行测省直卷.json",
             "pdf": "https://raw.githubusercontent.com/fhpeerless/study/refs/heads/main/tiku/公考类/行测/真题/黑龙江/pdf/2018年行测省直卷.pdf"
         },
         {
             "id": "2019xingce_gongjianfa",
             "name": "2019年行测公检法卷",
             "count": 125,
-            "json": "hlj_json/2019年行测公检法卷.json",
+            "json": "2019年行测公检法卷.json",
             "pdf": "https://raw.githubusercontent.com/fhpeerless/study/refs/heads/main/tiku/公考类/行测/真题/黑龙江/pdf/2019年行测公检法卷.pdf"
         },
         {
             "id": "2019xingce_xianxiang",
             "name": "2019年行测县乡卷",
             "count": 120,
-            "json": "hlj_json/2019年行测县乡卷.json",
+            "json": "2019年行测县乡卷.json",
             "pdf": "https://raw.githubusercontent.com/fhpeerless/study/refs/heads/main/tiku/公考类/行测/真题/黑龙江/pdf/2019年行测县乡卷.pdf"
         },
         {
             "id": "2019xingce_shengzhi",
             "name": "2019年行测省直卷",
             "count": 130,
-            "json": "hlj_json/2019年行测省直卷.json",
+            "json": "2019年行测省直卷.json",
             "pdf": "https://raw.githubusercontent.com/fhpeerless/study/refs/heads/main/tiku/公考类/行测/真题/黑龙江/pdf/2019年行测省直卷.pdf"
         },
         {
             "id": "2019xingce_bianjing",
             "name": "2019年行测边境卷",
             "count": 120,
-            "json": "hlj_json/2019年行测边境卷.json",
+            "json": "2019年行测边境卷.json",
             "pdf": "https://raw.githubusercontent.com/fhpeerless/study/refs/heads/main/tiku/公考类/行测/真题/黑龙江/pdf/2019年行测边境卷.pdf"
         },
         {
             "id": "2020xingce",
             "name": "2020年行测",
             "count": 125,
-            "json": "hlj_json/2020年行测.json",
+            "json": "2020年行测.json",
             "pdf": "https://raw.githubusercontent.com/fhpeerless/study/refs/heads/main/tiku/公考类/行测/真题/黑龙江/pdf/2020年行测.pdf"
         },
         {
             "id": "2021xingce",
             "name": "2021年行测",
             "count": 120,
-            "json": "hlj_json/2021年行测.json",
+            "json": "2021年行测.json",
             "pdf": "https://raw.githubusercontent.com/fhpeerless/study/refs/heads/main/tiku/公考类/行测/真题/黑龙江/pdf/2021年行测.pdf"
         },
         {
             "id": "2021xingce_gongjianfa_bianjing",
             "name": "2021年行测公检法边境卷",
             "count": 120,
-            "json": "hlj_json/2021年行测公检法边境卷.json",
+            "json": "2021年行测公检法边境卷.json",
             "pdf": "https://raw.githubusercontent.com/fhpeerless/study/refs/heads/main/tiku/公考类/行测/真题/黑龙江/pdf/2021年行测公检法边境卷.pdf"
         },
         {
             "id": "2022xingce",
             "name": "2022年行测",
             "count": 114,
-            "json": "hlj_json/2022年行测.json",
+            "json": "2022年行测.json",
             "pdf": "https://raw.githubusercontent.com/fhpeerless/study/refs/heads/main/tiku/公考类/行测/真题/黑龙江/pdf/2022年行测.pdf"
         },
         {
             "id": "2023xingce",
             "name": "2023年行测",
             "count": 120,
-            "json": "hlj_json/2023年行测.json",
+            "json": "2023年行测.json",
             "pdf": "https://raw.githubusercontent.com/fhpeerless/study/refs/heads/main/tiku/公考类/行测/真题/黑龙江/pdf/2023年行测.pdf"
         },
         {
             "id": "2024xingce",
             "name": "2024年行测",
             "count": 120,
-            "json": "hlj_json/2024年行测.json",
+            "json": "2024年行测.json",
             "pdf": "https://raw.githubusercontent.com/fhpeerless/study/refs/heads/main/tiku/公考类/行测/真题/黑龙江/pdf/2024年行测.pdf"
         },
         {
             "id": "2025xingce",
             "name": "2025年行测",
             "count": 120,
-            "json": "hlj_json/2025年行测.json",
+            "json": "2025年行测.json",
             "pdf": "https://raw.githubusercontent.com/fhpeerless/study/refs/heads/main/tiku/公考类/行测/真题/黑龙江/pdf/2025年行测.pdf"
         }
     ]
