@@ -311,47 +311,14 @@
             margin-bottom: 16px;
         }
         .reward-qr {
-            width: 200px;
-            height: 200px;
+            display: block;
+            margin: 0 auto;
+            max-width: 240px;
+            width: 100%;
+            height: auto;              /* 等比缩小，不强制方形 */
             border-radius: 12px;
             background: #fff;
             padding: 8px;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        .reward-qr:hover { transform: scale(1.05); }
-
-        /* ---- 打赏二维码弹窗：等比缩小展示，不放大到全屏 ---- */
-        .reward-modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.78);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-        }
-        .reward-modal.show { display: flex; }
-        .reward-modal img {
-            width: auto;
-            height: auto;
-            max-width: 300px;      /* 等比缩小，不铺满全屏 */
-            max-height: 70vh;
-            background: #fff;
-            padding: 10px;
-            border-radius: 12px;
-        }
-        .reward-modal .close {
-            position: fixed;
-            top: 14px;
-            right: 18px;
-            color: #fff;
-            font-size: 36px;
-            line-height: 1;
-            cursor: pointer;
-            z-index: 1001;
-            background: none;
-            border: none;
         }
 
         /* ---- 底部 ---- */
@@ -374,7 +341,7 @@
             .download-btn { width: 100%; justify-content: center; }
             .features-grid { grid-template-columns: 1fr; }
             .history-item { flex-direction: column; gap: 6px; }
-            .reward-qr { width: 160px; height: 160px; }
+            .reward-qr { max-width: 180px; }
         }
     </style>
 </head>
@@ -456,18 +423,12 @@
         <div class="reward-card">
             <h3><i class="fa fa-heart"></i> 打赏作者</h3>
             <p class="reward-desc">创作不易，如果觉得 App 对你有帮助，欢迎打赏支持！</p>
-            <img class="reward-qr" src="../download_centr/wx_shoukuan.png" alt="微信收款码" title="点击查看大图" onclick="openReward()">
-        </div>
-
-        <!-- 打赏二维码弹窗 -->
-        <div class="reward-modal" id="rewardModal" onclick="closeReward(event)">
-            <button class="close" onclick="closeReward(event)" aria-label="关闭">&times;</button>
-            <img src="../download_centr/wx_shoukuan.png" alt="微信收款码">
+            <img class="reward-qr" src="../download_centr/wx_shoukuan.png" alt="微信收款码">
         </div>
 
         <!-- 底部 -->
         <div class="footer">
-            <p>智能笔记 &copy; 2026 | 自主研发 Flutter App</p>
+            <p>智能笔记 &copy; 2026 | xtwa(小跳蛙-笔记)</p>
         </div>
     </div>
 
@@ -551,21 +512,8 @@
                 : '<i class="fa fa-chevron-up"></i> 收起旧版本';
         }
 
-        // 打赏二维码：点击缩略图打开弹窗，全尺寸展示
-        function openReward() {
-            document.getElementById('rewardModal').classList.add('show');
-        }
-        function closeReward(e) {
-            var modal = document.getElementById('rewardModal');
-            if (e.target === modal || e.target.classList.contains('close')) {
-                modal.classList.remove('show');
-            }
-        }
-
         // 内联 onclick 需要在全局作用域解析，挂到 window 供页面调用
         window.toggleHistory = toggleHistory;
-        window.openReward = openReward;
-        window.closeReward = closeReward;
 
         function loadVersions() {
             fetch(VERSION_URL)
