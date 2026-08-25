@@ -423,7 +423,7 @@
         <div class="reward-card">
             <h3><i class="fa fa-heart"></i> 打赏作者</h3>
             <p class="reward-desc">创作不易，如果觉得 App 对你有帮助，欢迎打赏支持！</p>
-            <img class="reward-qr" src="../download_centr/wx_shoukuan.png" alt="微信收款码">
+            <img class="reward-qr" src="https://speedgh.xtwa.org/https://raw.githubusercontent.com/fhpeerless/study/refs/heads/main/cebianlan/download_centr/wx_shoukuan.png" alt="微信收款码">
         </div>
 
         <!-- 底部 -->
@@ -435,8 +435,8 @@
     <!-- 加载版本信息 -->
     <script>
     (function() {
-        // 相对路径加载本地 version.js
-        var VERSION_URL = '../../version/version.js';
+        // 通过 speedgh 加速代理加载远程 version.js（避免国内访问 GitHub raw 慢）
+        var VERSION_URL = 'https://speedgh.xtwa.org/https://raw.githubusercontent.com/fhpeerless/study/refs/heads/main/version/version.js';
 
         function parseVersionJs(text) {
             // 提取 versions 数组中的 JSON 数据
